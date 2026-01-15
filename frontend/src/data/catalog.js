@@ -433,7 +433,7 @@ export const catalogData = {
       descripcion_corta: "Equipo completo con panorámico, cefalometría y CBCT FOV 16x10.",
       descripcion_larga: "La solución más completa de Meyer con FOV 16x10 y cefalometría incluida. Máxima cobertura anatómica para diagnóstico integral.",
       aplicaciones: ["Diagnóstico completo", "Ortodoncia", "Cirugía ortognática", "Implantología"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/qro2m0ln_Gemini_Generated_Image_yuv6fgyuv6fgyuv6.jpg",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5wbrc3gk_meyer%2016x10.png",
       estado: "activo",
       destacado: true,
       badge: "Completo"
