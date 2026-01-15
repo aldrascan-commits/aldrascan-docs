@@ -97,7 +97,7 @@ export const catalogData = {
       descripcion_corta: "Escáner premium de Shining 3D con tecnología de última generación.",
       descripcion_larga: "El Shining Elite ofrece la máxima calidad de escaneo con velocidad excepcional. Diseñado para profesionales que exigen lo mejor en sus flujos de trabajo digitales.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Prótesis"],
-      imagen: "/images/shining-elite.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/mxhmbjbn_shining%2013.webp",
       estado: "activo",
       destacado: false
     },
