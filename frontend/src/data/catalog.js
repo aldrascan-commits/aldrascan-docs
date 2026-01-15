@@ -37,7 +37,7 @@ export const catalogData = {
       descripcion_corta: "Escáner intraoral de alta precisión para clínicas dentales.",
       descripcion_larga: "El Medit i700 ofrece escaneo rápido y preciso con tecnología avanzada de captura 3D. Ideal para flujos de trabajo de ortodoncia, implantes y restauraciones.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Prótesis"],
-      imagen: "/images/medit-i700.png",
+      imagen: "https://images.unsplash.com/photo-1598531136726-4157529f8cbb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxkZW50YWwlMjBzY2FubmVyfGVufDB8fHx8MTc2ODQ1MTcwMnww&ixlib=rb-4.1.0&q=85",
       estado: "activo",
       destacado: false
     },
