@@ -181,7 +181,7 @@ export const catalogData = {
       descripcion_corta: "Pack completo con escáner Shining Elite premium.",
       descripcion_larga: "Pack profesional con el escáner Shining Elite, incluyendo instalación completa, formación avanzada y soporte técnico dedicado.",
       aplicaciones: ["Clínicas premium", "Alto volumen"],
-      imagen: "/images/pack-shining.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/8qedgp7k_mueble%20shining%202.jpg",
       estado: "activo",
       destacado: false,
       esPack: true,
