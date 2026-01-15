@@ -188,7 +188,7 @@ export const catalogData = {
       descripcion_corta: "Solución móvil completa con MacBook/iPad Pro M5.",
       descripcion_larga: "Pack premium que incluye el i900 Mobility con MacBook o iPad Pro M5. La solución más portátil para movilidad total.",
       aplicaciones: ["Clínicas móviles", "Múltiples ubicaciones", "Domicilios"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/agpttyff_Gemini_Generated_Image_1zjikm1zjikm1zji.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5czktxsr_Gemini_Generated_Image_m170pbm170pbm170.png",
       estado: "activo",
       destacado: true,
       badge: "Premium",
@@ -563,7 +563,7 @@ export const catalogData = {
       descripcion_corta: "Sensor intraoral digital de alta resolución 1.92MP con FOP.",
       descripcion_larga: "Sensor intraoral Handy HDR-500 tamaño 1.3 (39x27.5mm) con resolución 1.92MP (1600x1200). Placa de Fibra Óptica para imágenes HD. Amplio rango dinámico para dosis bajas y altas.",
       aplicaciones: ["Radiografías periapicales", "Bite-wings", "Detección dientes agrietados"],
-      imagen: "https://images.unsplash.com/photo-1626878880028-0438b1403b3f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxkZW50YWwlMjBzY2FubmVyfGVufDB8fHx8MTc2ODQ1MTcwMnww&ixlib=rb-4.1.0&q=85",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/b8lrn2sa_Captura%20de%20pantalla%202026-01-16%20a%20las%200.33.14.png",
       estado: "activo",
       destacado: false,
       caracteristicas: [
