@@ -374,7 +374,7 @@ export const catalogData = {
       descripcion_corta: "Equipo combinado panorámico y CBCT con FOV 12x10.",
       descripcion_larga: "Sistema de radiología digital Meyer que combina panorámico y CBCT en un solo equipo. Ideal para diagnóstico completo con campo de visión de 12x10 cm.",
       aplicaciones: ["Diagnóstico", "Planificación implantes", "Ortodoncia", "Endodoncia"],
-      imagen: "/images/meyer-cbct.png",
+      imagen: "https://images.unsplash.com/photo-1612887760794-5ed4511aa409?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc2Nhbm5lcnxlbnwwfHx8fDE3Njg0NTE3MjN8MA&ixlib=rb-4.1.0&q=85",
       estado: "activo",
       destacado: true
     },
