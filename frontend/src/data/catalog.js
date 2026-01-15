@@ -209,6 +209,29 @@ export const catalogData = {
       esPack: true,
       productosIncluidos: ["panda-smart", "instalacion-online", "formacion-start"]
     },
+    {
+      id: "pack-aldrascan-pro",
+      producto: "Pack AldraScan Pro",
+      categoria: "packs",
+      marca: "AldraScan",
+      modelo: "Chairside Completo",
+      pvp: 39900,
+      distribuidor: 35755,
+      gold: null,
+      precioCliente: 39900,
+      incluye: ["Medit i900 Classic + Portátil", "Medit ClinicCAD (Software CAD con IA)", "Fresadora Livilis Mill", "Pack bloques COLTENE", "12 ScanBody de regalo"],
+      compatibilidad: ["Windows", "Mac"],
+      descripcion_corta: "Flujo digital chairside completo: escanea, diseña y fresa en tu clínica.",
+      descripcion_larga: "El ecosistema chairside más completo y abierto del mercado. Incluye escáner Medit i900, software ClinicCAD con IA y fresadora Livilis de alta precisión. 3 marcas líderes, 1 flujo perfecto, 0 dependencias. Exportación STL incluida.",
+      aplicaciones: ["Chairside", "Restauraciones en el día", "Flujo digital completo"],
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/995nadbd_BANNER-PARA-CELULAR-2.jpg",
+      estado: "activo",
+      destacado: true,
+      badge: "Lanzamiento",
+      esPack: true,
+      productosIncluidos: ["medit-i900-classic", "fresadora-livilis-mill"],
+      regalos: ["Pack bloques CAD/CAM COLTENE", "12 ScanBody"]
+    },
     // CAD/CAM
     {
       id: "fresadora-craft-5x",
