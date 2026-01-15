@@ -231,7 +231,7 @@ export const catalogData = {
       descripcion_corta: "Pack económico ideal para comenzar en odontología digital.",
       descripcion_larga: "El pack más accesible para entrar en el mundo del escaneo intraoral. Incluye escáner Panda Smart con ordenador HP Victus, instalación online y formación inicial.",
       aplicaciones: ["Clínicas nuevas", "Presupuesto ajustado"],
-      imagen: "/images/pack-panda.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/b0eyc634_Pack%20Panda%20%2B%20Hp.jpeg",
       estado: "activo",
       destacado: false,
       badge: "Mejor Precio",
