@@ -8,16 +8,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center mb-6">
               <img 
                 src="https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ikishppi_image.png" 
                 alt="AldraScan Logo" 
                 className="h-12 w-auto"
               />
-              <div>
-                <h3 className="text-2xl font-semibold">AldraScan</h3>
-                <p className="text-neutral-400 text-sm">Soluciones de Odontología Digital</p>
-              </div>
             </div>
             <p className="text-neutral-400 max-w-md leading-relaxed">
               Más que un escáner. Ofrecemos tranquilidad, soporte técnico continuo y experiencia especializada 
