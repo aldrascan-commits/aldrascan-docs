@@ -56,7 +56,7 @@ export const catalogData = {
       descripcion_corta: "La nueva generación de escáneres Medit con garantía extendida de 3 años.",
       descripcion_larga: "El Medit i900 Classic representa la evolución del escaneo intraoral con mayor velocidad, precisión y ergonomía. Incluye garantía de 3 años para máxima tranquilidad.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Prótesis", "Análisis facial"],
-      imagen: "/images/medit-i900.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/qkmjji0v_Medit-i900-classic-03%20copia.png",
       estado: "activo",
       destacado: true,
       badge: "3 Años Garantía"
@@ -76,7 +76,7 @@ export const catalogData = {
       descripcion_corta: "Solución móvil completa con iPad Pro 13\" o MacBook incluido.",
       descripcion_larga: "El Medit i900 Mobility es la solución perfecta para clínicas que buscan movilidad total. Incluye dispositivo Apple (iPad Pro 13\" o MacBook) para escanear en cualquier lugar.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Domicilios", "Múltiples consultas"],
-      imagen: "/images/medit-i900-mobility.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/k45693xb_Captura%20de%20pantalla%202026-01-13%20a%20las%2022.08.52.png",
       estado: "activo",
       destacado: true,
       badge: "Incluye iPad/Mac"
