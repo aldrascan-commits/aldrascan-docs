@@ -239,6 +239,34 @@ export const catalogData = {
       ]
     },
     {
+      id: "fresadora-livilis-mill",
+      producto: "Fresadora Livilis Mill",
+      categoria: "cadcam",
+      marca: "Livilis",
+      modelo: "Mill",
+      pvp: 29295,
+      distribuidor: 24955,
+      gold: null,
+      precioCliente: 27830,
+      incluye: ["Fresadora de alta precisión", "DualCraft (2 restauraciones en 1 bloque)", "SecondCut (fresado sin residuos)", "Sin compresor", "Sin licencias anuales", "Diseño compacto"],
+      compatibilidad: ["Windows", "Mac"],
+      descripcion_corta: "Fresadora chairside de alta precisión sin compresor ni licencias anuales.",
+      descripcion_larga: "La fresadora Livilis Mill ofrece productividad y versatilidad en un diseño compacto. Fabricación clínica ultraprecisa de restauraciones directamente en clínica. Tecnología DualCraft para dos restauraciones en un bloque y SecondCut para fresado sin residuos. Bajo mantenimiento, máximo ahorro.",
+      aplicaciones: ["Coronas", "Carillas", "Inlays/Onlays", "Chairside", "Restauraciones en el día"],
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/7345xazu_ChatGPT%20Image%2015%20ene%202026%2C%2000_44_35.png",
+      estado: "activo",
+      destacado: true,
+      badge: "Sin Suscripción",
+      caracteristicas: [
+        "Alta precisión",
+        "DualCraft: 2 restauraciones en 1 bloque",
+        "SecondCut: fresado sin residuos",
+        "Sin compresor externo",
+        "Sin licencias anuales",
+        "Diseño compacto"
+      ]
+    },
+    {
       id: "millbox-eco",
       producto: "Software MillBox ECO",
       categoria: "cadcam",
