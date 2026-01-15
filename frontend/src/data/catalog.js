@@ -253,7 +253,7 @@ export const catalogData = {
       descripcion_corta: "Flujo digital chairside completo: escanea, diseña y fresa en tu clínica.",
       descripcion_larga: "El ecosistema chairside más completo y abierto del mercado. Incluye escáner Medit i900, software ClinicCAD con IA y fresadora Livilis de alta precisión. 3 marcas líderes, 1 flujo perfecto, 0 dependencias. Exportación STL incluida.",
       aplicaciones: ["Chairside", "Restauraciones en el día", "Flujo digital completo"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/995nadbd_BANNER-PARA-CELULAR-2.jpg",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/40nmadka_ChatGPT%20Image%2015%20ene%202026%2C%2002_03_46.png",
       estado: "activo",
       destacado: true,
       badge: "Lanzamiento",
