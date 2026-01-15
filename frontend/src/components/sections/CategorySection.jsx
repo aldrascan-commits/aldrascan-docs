@@ -4,17 +4,17 @@ import { getProductsByCategory, getCategoryById } from '../../data/catalog';
 import { ScanLine, Package, Cog, RadioTower, Wrench } from 'lucide-react';
 
 const iconMap = {
-  Scan: Scan,
+  Scan: ScanLine,
   Package: Package,
   Cog: Cog,
-  Radio: Radio,
+  Radio: RadioTower,
   Wrench: Wrench,
 };
 
 const CategorySection = ({ categoryId, onRequestQuote }) => {
   const category = getCategoryById(categoryId);
   const products = getProductsByCategory(categoryId);
-  const IconComponent = iconMap[category?.icono] || Scan;
+  const IconComponent = iconMap[category?.icono] || ScanLine;
 
   if (!category || products.length === 0) return null;
 
