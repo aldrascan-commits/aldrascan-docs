@@ -29,16 +29,12 @@ const Header = ({ onRequestQuote, activeCategory, onCategoryChange, categories }
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <img 
               src="https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ikishppi_image.png" 
               alt="AldraScan Logo" 
               className="h-10 w-auto"
             />
-            <div>
-              <h1 className="text-xl font-semibold text-neutral-900 dark:text-white tracking-tight">AldraScan</h1>
-              <p className="text-[10px] text-neutral-500 dark:text-neutral-400 -mt-0.5">Odontología Digital</p>
-            </div>
           </div>
 
           {/* Desktop Navigation */}
