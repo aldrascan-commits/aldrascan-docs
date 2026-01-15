@@ -413,7 +413,7 @@ export const catalogData = {
       descripcion_corta: "Equipo panorámico y CBCT con FOV ampliado 16x10.",
       descripcion_larga: "Sistema de radiología digital Meyer con campo de visión ampliado de 16x10 cm. Ideal para casos complejos que requieren mayor cobertura anatómica.",
       aplicaciones: ["Diagnóstico", "Implantología avanzada", "Cirugía", "ATM"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/qro2m0ln_Gemini_Generated_Image_yuv6fgyuv6fgyuv6.jpg",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5wbrc3gk_meyer%2016x10.png",
       estado: "activo",
       destacado: false,
       badge: "FOV Ampliado"
