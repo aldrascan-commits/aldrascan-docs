@@ -15,18 +15,27 @@ const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
       {/* Image Section */}
       {!isService && (
         <div className="relative aspect-[4/3] bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 overflow-hidden">
-          {/* Placeholder for product image */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-32 h-32 bg-neutral-200 dark:bg-neutral-700 rounded-2xl flex items-center justify-center">
-              <span className="text-4xl text-neutral-400 dark:text-neutral-500">
-                {product.marca?.[0] || 'A'}
-              </span>
+          {/* Product Image */}
+          {product.imagen && product.imagen.startsWith('http') ? (
+            <img 
+              src={product.imagen} 
+              alt={product.producto}
+              className="absolute inset-0 w-full h-full object-contain p-4"
+              loading="lazy"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-32 h-32 bg-neutral-200 dark:bg-neutral-700 rounded-2xl flex items-center justify-center">
+                <span className="text-4xl text-neutral-400 dark:text-neutral-500">
+                  {product.marca?.[0] || 'A'}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
           
           {/* Badge */}
           {product.badge && (
-            <div className="absolute top-4 left-4">
+            <div className="absolute top-4 left-4 z-10">
               <Badge className="bg-sky-500 text-white border-0 shadow-lg">
                 {product.badge}
               </Badge>
@@ -35,7 +44,7 @@ const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
 
           {/* Brand Tag */}
           {product.marca && (
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-4 right-4 z-10">
               <span className="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm text-neutral-600 dark:text-neutral-400 text-xs font-medium px-3 py-1 rounded-full">
                 {product.marca}
               </span>
