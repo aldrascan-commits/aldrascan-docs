@@ -137,7 +137,7 @@ export const catalogData = {
       descripcion_corta: "Pack completo con escáner i900 Classic, instalación y formación incluida.",
       descripcion_larga: "El Pack i900 Classic Pro incluye todo lo necesario para comenzar a trabajar desde el primer día: escáner, instalación presencial, formación personalizada y soporte técnico durante 1 año.",
       aplicaciones: ["Clínicas nuevas", "Actualización de equipo"],
-      imagen: "/images/pack-classic.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5alq6sj4_MacMini%20%2B%20Mueble.png",
       estado: "activo",
       destacado: true,
       badge: "Más Popular",
