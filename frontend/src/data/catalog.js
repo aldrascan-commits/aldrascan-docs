@@ -56,7 +56,7 @@ export const catalogData = {
       descripcion_corta: "La nueva generación de escáneres Medit con garantía extendida de 3 años.",
       descripcion_larga: "El Medit i900 Classic representa la evolución del escaneo intraoral con mayor velocidad, precisión y ergonomía. Incluye garantía de 3 años para máxima tranquilidad.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Prótesis", "Análisis facial"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/aab5mnvl_medit-i900-family%20copia.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ci1lozda_i900%20dos.png",
       estado: "activo",
       destacado: true,
       badge: "3 Años Garantía"
