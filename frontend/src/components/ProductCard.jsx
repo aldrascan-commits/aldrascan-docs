@@ -1,7 +1,7 @@
 import React from 'react';
-import { formatPrice } from '../../data/catalog';
-import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
+import { formatPrice } from '../data/catalog';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 import { Check, ChevronRight } from 'lucide-react';
 
 const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {

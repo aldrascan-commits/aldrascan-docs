@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCard from '../ProductCard';
 import { getProductsByCategory, getCategoryById } from '../../data/catalog';
-import { Scan, Package, Cog, Radio, Wrench } from 'lucide-react';
+import { ScanLine, Package, Cog, RadioTower, Wrench } from 'lucide-react';
 
 const iconMap = {
   Scan: Scan,
