@@ -393,7 +393,7 @@ export const catalogData = {
       descripcion_corta: "Equipo completo con panorámico, telerradiografía y CBCT.",
       descripcion_larga: "La solución más completa en radiología dental Meyer. Incluye panorámico, telerradiografía lateral y CBCT con FOV 12x10. Todo lo necesario para diagnóstico integral.",
       aplicaciones: ["Diagnóstico completo", "Ortodoncia", "Cirugía", "Implantología"],
-      imagen: "/images/meyer-tele.png",
+      imagen: "https://images.unsplash.com/photo-1612886649704-ed025de0e32a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxtZWRpY2FsJTIwc2Nhbm5lcnxlbnwwfHx8fDE3Njg0NTE3MjN8MA&ixlib=rb-4.1.0&q=85",
       estado: "activo",
       destacado: true,
       badge: "Completo"
