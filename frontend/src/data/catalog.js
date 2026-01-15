@@ -413,7 +413,7 @@ export const catalogData = {
       descripcion_corta: "Sensor intraoral digital de alta resolución.",
       descripcion_larga: "Sensor intraoral Handy HDR-500 con tamaño 1.3 para radiografías periapicales y bite-wing de alta calidad diagnóstica.",
       aplicaciones: ["Radiografías periapicales", "Bite-wings"],
-      imagen: "/images/handy-sensor.png",
+      imagen: "https://images.unsplash.com/photo-1626878880028-0438b1403b3f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxkZW50YWwlMjBzY2FubmVyfGVufDB8fHx8MTc2ODQ1MTcwMnww&ixlib=rb-4.1.0&q=85",
       estado: "activo",
       destacado: false
     },
