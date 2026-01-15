@@ -101,6 +101,35 @@ export const catalogData = {
       estado: "activo",
       destacado: false
     },
+    // ESCÁNERES - SHINING ELF
+    {
+      id: "shining-elf",
+      producto: "Shining Elf",
+      categoria: "escaneres",
+      marca: "Shining 3D",
+      modelo: "Aoralscan Elf",
+      pvp: 9990,
+      distribuidor: 8500,
+      gold: null,
+      precioCliente: 9990,
+      incluye: ["Escáner intraoral Elf", "3 puntas intercambiables (Grande, Estándar, Mini)", "Software Aoralscan", "IntelliBite", "Cable Tipo C plug-and-play"],
+      compatibilidad: ["Windows"],
+      descripcion_corta: "El escáner más ligero del mercado: solo 106g con IntelliBite para oclusión inteligente.",
+      descripcion_larga: "El Shining Elf es el escáner intraoral más ligero con tan solo 106g. Diseño ergonómico tipo bolígrafo con IntelliBite para registro de mordida preciso. Incluye Suite de gestión de placa dental, análisis con IA y exportación STL/OBJ/PLY.",
+      aplicaciones: ["Ortodoncia", "Restauraciones", "Implantes", "Pediatría", "Análisis de placa"],
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/gl9fk79n_Gemini_Generated_Image_jg7f7tjg7f7tjg7f.png",
+      estado: "activo",
+      destacado: true,
+      badge: "Solo 106g",
+      caracteristicas: [
+        "Peso: 106g",
+        "IntelliBite: oclusión inteligente",
+        "3 puntas intercambiables",
+        "Suite análisis de placa",
+        "Diseño IA en 60 seg",
+        "Exportación STL/OBJ/PLY"
+      ]
+    },
     // ESCÁNERES - PANDA
     {
       id: "panda-smart",
