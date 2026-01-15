@@ -188,7 +188,7 @@ export const catalogData = {
       descripcion_corta: "Solución móvil completa con iPad/MacBook, instalación y formación.",
       descripcion_larga: "Pack premium que incluye el i900 Mobility con dispositivo Apple, instalación completa, formación y soporte. La solución más completa para movilidad total.",
       aplicaciones: ["Clínicas móviles", "Múltiples ubicaciones", "Domicilios"],
-      imagen: "/images/pack-mobility.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/k4jlykdm_Medit%20i900%20M%2BMacBook%20M4%20copia.png",
       estado: "activo",
       destacado: true,
       badge: "Premium",
