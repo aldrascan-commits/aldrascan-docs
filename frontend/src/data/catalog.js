@@ -508,7 +508,7 @@ export const catalogData = {
       descripcion_corta: "Sistema CBCT con FOV 16x10cm y cefalometría incluida.",
       descripcion_larga: "El RAYSCAN Alpha+ 160 5D incluye cefalometría de serie. FOV de 16x10cm, resolución 70µm para endodoncia, reconstrucción rápida y escaneo de impresiones para STL.",
       aplicaciones: ["Implantología", "All-on-X", "Ortodoncia", "ATM dual", "Cirugía ortognática"],
-      imagen: "https://images.unsplash.com/photo-1612886649704-ed025de0e32a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxtZWRpY2FsJTIwc2Nhbm5lcnxlbnwwfHx8fDE3Njg0NTE3MjN8MA&ixlib=rb-4.1.0&q=85",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/2s0j9dha_PHOTO-2024-05-07-13-00-29.jpg",
       estado: "activo",
       destacado: false,
       badge: "+ Ceph",
@@ -589,7 +589,7 @@ export const catalogData = {
       descripcion_corta: "Scanner de placas de fósforo ultra rápido (6 seg) con cámara de regalo.",
       descripcion_larga: "El Handy HDS-500 es un scanner compacto (220.9x96.7x84.3mm, 1.5kg) con escaneo en 6 segundos. Punto láser 35μm, láser 660nm, ADC 14 bits. Incluye cámara intraoral SUPERCAM HDI-200A de regalo.",
       aplicaciones: ["Digitalización radiografías", "Documentación clínica"],
-      imagen: "https://images.unsplash.com/photo-1591283261401-c76eba2d369a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxkZW50YWwlMjBlcXVpcG1lbnR8ZW58MHx8fHwxNzY4NDUxNzE2fDA&ixlib=rb-4.1.0&q=85",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/exl755iu_Catalogo%20P%20Ortho_Extracted.png",
       estado: "activo",
       destacado: false,
       badge: "+ Cámara Regalo"
