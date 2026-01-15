@@ -432,7 +432,7 @@ export const catalogData = {
       descripcion_corta: "Scanner de placas de fósforo con cámara intraoral de regalo.",
       descripcion_larga: "El Handy HDS-500 permite digitalizar radiografías con placas de fósforo reutilizables. Incluye cámara intraoral HDI 200A de regalo para documentación clínica.",
       aplicaciones: ["Digitalización radiografías", "Documentación"],
-      imagen: "/images/handy-psp.png",
+      imagen: "https://images.unsplash.com/photo-1591283261401-c76eba2d369a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxkZW50YWwlMjBlcXVpcG1lbnR8ZW58MHx8fHwxNzY4NDUxNzE2fDA&ixlib=rb-4.1.0&q=85",
       estado: "activo",
       destacado: false,
       badge: "+ Cámara Regalo"
