@@ -9,9 +9,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A</span>
-              </div>
+              <img 
+                src="https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ikishppi_image.png" 
+                alt="AldraScan Logo" 
+                className="h-12 w-auto"
+              />
               <div>
                 <h3 className="text-2xl font-semibold">AldraScan</h3>
                 <p className="text-neutral-400 text-sm">Soluciones de Odontología Digital</p>
