@@ -76,7 +76,7 @@ export const catalogData = {
       descripcion_corta: "Solución móvil completa con iPad Pro 13\" o MacBook incluido.",
       descripcion_larga: "El Medit i900 Mobility es la solución perfecta para clínicas que buscan movilidad total. Incluye dispositivo Apple (iPad Pro 13\" o MacBook) para escanear en cualquier lugar.",
       aplicaciones: ["Ortodoncia", "Implantes", "Restauraciones", "Domicilios", "Múltiples consultas"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/nrrrvdsd_Packs%20Aldrascan.jpeg",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/9se17fdy_Gemini_Generated_Image_m170pbm170pbm170.png",
       estado: "activo",
       destacado: true,
       badge: "Incluye iPad/Mac"
