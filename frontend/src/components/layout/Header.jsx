@@ -30,9 +30,11 @@ const Header = ({ onRequestQuote, activeCategory, onCategoryChange, categories }
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-sky-600 rounded-xl flex items-center justify-center shadow-lg shadow-sky-500/25">
-              <span className="text-white font-bold text-lg">A</span>
-            </div>
+            <img 
+              src="https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ikishppi_image.png" 
+              alt="AldraScan Logo" 
+              className="h-10 w-auto"
+            />
             <div>
               <h1 className="text-xl font-semibold text-neutral-900 dark:text-white tracking-tight">AldraScan</h1>
               <p className="text-[10px] text-neutral-500 dark:text-neutral-400 -mt-0.5">Odontología Digital</p>
