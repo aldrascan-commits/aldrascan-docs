@@ -333,7 +333,7 @@ export const catalogData = {
       descripcion_corta: "Software CAM profesional para fresadoras dentales.",
       descripcion_larga: "MillBox ECO es el software CAM ideal para el control de fresadoras dentales. Interfaz intuitiva, gestión de materiales y optimización de fresado para máxima eficiencia.",
       aplicaciones: ["CAM dental", "Fresado automatizado"],
-      imagen: "/images/millbox.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/47iiimxw_Articon-MILLBOX-SUM-3D.jpg",
       estado: "activo",
       destacado: false,
       precioAnterior: 6000
@@ -353,7 +353,7 @@ export const catalogData = {
       descripcion_corta: "Soporte técnico anual para fresadora y software (a partir del 2º año).",
       descripcion_larga: "Contrato de mantenimiento anual que incluye soporte técnico online para software y fresadora, además de diagnóstico de averías. El primer año está incluido con la compra.",
       aplicaciones: ["Soporte continuo"],
-      imagen: "/images/soporte.png",
+      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/uynja0sf_mant%20CAD%20CAM.jpg",
       estado: "activo",
       destacado: false,
       nota: "1er año incluido con la compra"
