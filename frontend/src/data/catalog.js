@@ -609,7 +609,7 @@ export const catalogData = {
       descripcion_corta: "Servicio de instalación para equipos Meyer.",
       descripcion_larga: "Servicio profesional de instalación de equipos de radiología Meyer. Incluye ordenador, formación de uso y portes.",
       aplicaciones: ["Instalación equipos"],
-      imagen: "/images/instalacion.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/05nimj1y_Gemini_Generated_Image_pyp2ffpyp2ffpyp2.png",
       estado: "activo",
       destacado: false
     },
@@ -629,7 +629,7 @@ export const catalogData = {
       descripcion_corta: "Instalación presencial en tu clínica (máx. 200km).",
       descripcion_larga: "Servicio de instalación presencial para escáneres intraorales. Incluye configuración completa, integración con tu flujo de trabajo y una segunda sesión de formación válida durante 1 año.",
       aplicaciones: ["Escáneres intraorales"],
-      imagen: "/images/instalacion-presencial.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/05nimj1y_Gemini_Generated_Image_pyp2ffpyp2ffpyp2.png",
       estado: "activo",
       destacado: false,
       nota: "Máximo 200km desde nuestra ubicación"
@@ -649,7 +649,7 @@ export const catalogData = {
       descripcion_corta: "Instalación y configuración remota sin coste adicional.",
       descripcion_larga: "Servicio de instalación online para escáneres. Te guiamos paso a paso por videollamada para configurar tu equipo correctamente.",
       aplicaciones: ["Escáneres intraorales"],
-      imagen: "/images/instalacion-online.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/05nimj1y_Gemini_Generated_Image_pyp2ffpyp2ffpyp2.png",
       estado: "activo",
       destacado: false,
       badge: "Sin Coste"
