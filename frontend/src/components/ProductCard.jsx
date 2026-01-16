@@ -21,7 +21,7 @@ const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
       >
         {/* Image wrapper - centered flex container */}
         <div className="absolute inset-0 flex items-center justify-center p-5">
-          {!isService && product.imagen && product.imagen.startsWith('http') ? (
+          {!isService && product.imagen && (product.imagen.startsWith('http') || product.imagen.startsWith('/')) ? (
             <img 
               src={product.imagen} 
               alt={product.producto}
