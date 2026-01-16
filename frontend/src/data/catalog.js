@@ -374,7 +374,7 @@ export const catalogData = {
       descripcion_corta: "Equipo combinado panorámico y CBCT con FOV 13x10.",
       descripcion_larga: "Sistema de radiología digital Meyer que combina panorámico y CBCT en un solo equipo. Campo de visión de 13x10 cm para diagnóstico completo.",
       aplicaciones: ["Diagnóstico", "Planificación implantes", "Ortodoncia", "Endodoncia"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/ffp0s6c2_Meyer%2013x10.png",
+      imagen: "/images/products/meyer_13x10.png",
       estado: "activo",
       destacado: true
     },
@@ -393,7 +393,7 @@ export const catalogData = {
       descripcion_corta: "Equipo completo con panorámico, cefalometría y CBCT FOV 13x10.",
       descripcion_larga: "Solución completa en radiología dental Meyer con panorámico, cefalometría lateral y CBCT con FOV 13x10. Todo lo necesario para diagnóstico integral.",
       aplicaciones: ["Diagnóstico completo", "Ortodoncia", "Cirugía", "Implantología"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/2mg4upb0_image.png",
+      imagen: "/images/products/meyer_ceph_13x10.png",
       estado: "activo",
       destacado: true,
       badge: "+ Ceph"
@@ -413,7 +413,7 @@ export const catalogData = {
       descripcion_corta: "Equipo panorámico y CBCT con FOV ampliado 16x10.",
       descripcion_larga: "Sistema de radiología digital Meyer con campo de visión ampliado de 16x10 cm. Ideal para casos complejos que requieren mayor cobertura anatómica.",
       aplicaciones: ["Diagnóstico", "Implantología avanzada", "Cirugía", "ATM"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5wbrc3gk_meyer%2016x10.png",
+      imagen: "/images/products/meyer_16x10.png",
       estado: "activo",
       destacado: false,
       badge: "FOV Ampliado"
@@ -433,7 +433,7 @@ export const catalogData = {
       descripcion_corta: "Equipo completo con panorámico, cefalometría y CBCT FOV 16x10.",
       descripcion_larga: "La solución más completa de Meyer con FOV 16x10 y cefalometría incluida. Máxima cobertura anatómica para diagnóstico integral.",
       aplicaciones: ["Diagnóstico completo", "Ortodoncia", "Cirugía ortognática", "Implantología"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/5wbrc3gk_meyer%2016x10.png",
+      imagen: "/images/products/meyer_16x10.png",
       estado: "activo",
       destacado: true,
       badge: "Completo"
@@ -589,7 +589,7 @@ export const catalogData = {
       descripcion_corta: "Scanner de placas de fósforo ultra rápido (6 seg) con cámara de regalo.",
       descripcion_larga: "El Handy HDS-500 es un scanner compacto (220.9x96.7x84.3mm, 1.5kg) con escaneo en 6 segundos. Punto láser 35μm, láser 660nm, ADC 14 bits. Incluye cámara intraoral SUPERCAM HDI-200A de regalo.",
       aplicaciones: ["Digitalización radiografías", "Documentación clínica"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/exl755iu_Catalogo%20P%20Ortho_Extracted.png",
+      imagen: "/images/products/ortho_photo.png",
       estado: "activo",
       destacado: false,
       badge: "+ Cámara Regalo"
