@@ -112,36 +112,17 @@ const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
             )}
           </div>
 
-          {/* Price Tiers - Distribuidor & Gold */}
+          {/* Price Tiers - Hidden, request access */}
           {!isService && (
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {/* Distribuidor - Always shown */}
-              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-2 border border-slate-100 dark:border-slate-700/50">
-                <p className="text-[9px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-medium">Distribuidor</p>
-                <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  {formatPrice(product.distribuidor)}
-                </p>
+            <button
+              onClick={() => onRequestQuote(product, true)}
+              className="w-full mb-4 py-2 px-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group/prices"
+            >
+              <div className="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400 group-hover/prices:text-blue-500 dark:group-hover/prices:text-blue-400">
+                <Lock size={12} />
+                <span>Ver precios Distribuidor y Gold</span>
               </div>
-              {/* Gold - Conditional but same space */}
-              <div className={`rounded-lg p-2 border ${
-                hasGold 
-                  ? 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-100 dark:border-amber-900/30' 
-                  : 'bg-slate-50/50 dark:bg-slate-800/30 border-slate-100/50 dark:border-slate-700/30'
-              }`}>
-                <p className={`text-[9px] uppercase tracking-wider font-medium ${
-                  hasGold 
-                    ? 'text-amber-600 dark:text-amber-500' 
-                    : 'text-slate-300 dark:text-slate-600'
-                }`}>Gold</p>
-                <p className={`text-sm font-semibold ${
-                  hasGold 
-                    ? 'text-amber-700 dark:text-amber-400' 
-                    : 'text-slate-300 dark:text-slate-600'
-                }`}>
-                  {hasGold ? formatPrice(product.gold) : '—'}
-                </p>
-              </div>
-            </div>
+            </button>
           )}
 
           {/* Services - Single price display */}
