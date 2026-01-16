@@ -669,7 +669,7 @@ export const catalogData = {
       descripcion_corta: "Formación inicial incluida con la compra del escáner.",
       descripcion_larga: "Formación básica para comenzar a utilizar tu escáner desde el primer día. Aprende las funciones esenciales y realiza tus primeros escaneos con confianza.",
       aplicaciones: ["Nuevos usuarios"],
-      imagen: "/images/formacion-start.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/bru1svbp_Formaciones%20Aldrascan%200.png",
       estado: "activo",
       destacado: false,
       badge: "Incluida"
@@ -689,7 +689,7 @@ export const catalogData = {
       descripcion_corta: "Formación avanzada para optimizar tu flujo de trabajo clínico.",
       descripcion_larga: "Formación intermedia orientada a casos clínicos reales. Aprende técnicas avanzadas de escaneo, gestión de casos y optimización de tu flujo de trabajo digital.",
       aplicaciones: ["Usuarios con experiencia"],
-      imagen: "/images/formacion-clinica.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/bru1svbp_Formaciones%20Aldrascan%200.png",
       estado: "activo",
       destacado: false
     },
@@ -708,7 +708,7 @@ export const catalogData = {
       descripcion_corta: "Formación experta en diseño, impresión 3D y casos complejos.",
       descripcion_larga: "Formación avanzada para profesionales que quieren dominar todas las posibilidades del escaneo digital: diseño CAD, impresión 3D, implantes y casos complejos.",
       aplicaciones: ["Profesionales avanzados"],
-      imagen: "/images/formacion-avanzada.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/bru1svbp_Formaciones%20Aldrascan%200.png",
       estado: "activo",
       destacado: false
     },
@@ -727,7 +727,7 @@ export const catalogData = {
       descripcion_corta: "Formación disponible aunque no hayas comprado tu escáner con nosotros.",
       descripcion_larga: "Servicio de formación para usuarios que adquirieron su escáner en otro lugar. Te ayudamos a sacar el máximo partido a tu equipo con formación personalizada.",
       aplicaciones: ["Usuarios externos"],
-      imagen: "/images/formacion-externa.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/bru1svbp_Formaciones%20Aldrascan%200.png",
       estado: "activo",
       destacado: false
     },
