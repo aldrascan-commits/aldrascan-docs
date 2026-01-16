@@ -277,7 +277,7 @@ export const catalogData = {
       descripcion_corta: "Fresadora ALL IN ONE: compresor, refrigeración y aspirador integrados.",
       descripcion_larga: "La DOF Craft 5X es una fresadora todo en uno con fresado en 5 ejes, a 90 grados, seco y húmedo. Robusta, estable, con calibración automática, controlador con pantalla, spindle de alta calidad y hasta 21 herramientas intercambiables con cambiador automático.",
       aplicaciones: ["Coronas", "Puentes", "Carillas", "Inlays/Onlays", "Estructuras sobre implantes"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/qax6uslk_BANNER-PARA-CELULAR-2.jpg",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/42nxdoz3_Gemini_Generated_Image_4sl3on4sl3on4sl3.png",
       estado: "activo",
       destacado: true,
       badge: "All-in-One",
