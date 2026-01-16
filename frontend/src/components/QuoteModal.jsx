@@ -48,25 +48,25 @@ const QuoteModal = ({ isOpen, onClose, preselectedProduct }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+      <DialogContent className="sm:max-w-md bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-neutral-900 dark:text-white">
+          <DialogTitle className="text-xl font-semibold text-slate-900 dark:text-white">
             Solicitar Oferta
           </DialogTitle>
-          <DialogDescription className="text-neutral-600 dark:text-neutral-400">
+          <DialogDescription className="text-slate-600 dark:text-slate-400 text-sm">
             Rellena el formulario y te contactaremos con la mejor oferta personalizada.
           </DialogDescription>
         </DialogHeader>
 
         {isSubmitted ? (
           <div className="py-12 text-center">
-            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="text-emerald-500" size={32} />
+            <div className="w-14 h-14 bg-emerald-50 dark:bg-emerald-950/50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="text-emerald-500" size={28} />
             </div>
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
               ¡Solicitud enviada!
             </h3>
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+            <p className="text-slate-600 dark:text-slate-400 text-sm">
               Te contactaremos lo antes posible.
             </p>
           </div>
@@ -74,7 +74,7 @@ const QuoteModal = ({ isOpen, onClose, preselectedProduct }) => {
           <form onSubmit={handleSubmit} className="space-y-5 mt-4">
             {/* Nombre */}
             <div className="space-y-2">
-              <Label htmlFor="nombre" className="text-neutral-700 dark:text-neutral-300">
+              <Label htmlFor="nombre" className="text-slate-700 dark:text-slate-300 text-sm font-medium">
                 Nombre completo
               </Label>
               <Input
@@ -84,13 +84,13 @@ const QuoteModal = ({ isOpen, onClose, preselectedProduct }) => {
                 value={formData.nombre}
                 onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                 placeholder="Tu nombre"
-                className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-sky-500"
+                className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-blue-500 rounded-xl h-11"
               />
             </div>
 
             {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-neutral-700 dark:text-neutral-300">
+              <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 text-sm font-medium">
                 Email
               </Label>
               <Input
@@ -100,23 +100,23 @@ const QuoteModal = ({ isOpen, onClose, preselectedProduct }) => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="tu@email.com"
-                className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-sky-500"
+                className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 focus:ring-blue-500 rounded-xl h-11"
               />
             </div>
 
             {/* Producto */}
             <div className="space-y-2">
-              <Label htmlFor="producto" className="text-neutral-700 dark:text-neutral-300">
+              <Label htmlFor="producto" className="text-slate-700 dark:text-slate-300 text-sm font-medium">
                 Producto de interés
               </Label>
               <Select
                 value={formData.producto}
                 onValueChange={(value) => setFormData({ ...formData, producto: value })}
               >
-                <SelectTrigger className="bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700">
+                <SelectTrigger className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl h-11">
                   <SelectValue placeholder="Selecciona un producto" />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+                <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl">
                   {availableProducts.map((product) => (
                     <SelectItem key={product.id} value={product.id}>
                       {product.producto}
@@ -130,7 +130,7 @@ const QuoteModal = ({ isOpen, onClose, preselectedProduct }) => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-sky-500 hover:bg-sky-600 text-white shadow-lg shadow-sky-500/25 disabled:opacity-50 transition-all"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 transition-all rounded-xl h-11 font-medium"
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
