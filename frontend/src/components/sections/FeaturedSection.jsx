@@ -9,18 +9,18 @@ const FeaturedSection = ({ onRequestQuote }) => {
   if (featured.length === 0) return null;
 
   return (
-    <section id="catalogo" className="py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-900/50">
+    <section id="catalogo" className="py-16 lg:py-24 bg-slate-50/50 dark:bg-slate-900/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Section Header - Clean */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-4">
-            <Sparkles size={16} />
+          <div className="inline-flex items-center gap-2 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 px-4 py-2 rounded-full text-sm font-medium mb-4 border border-amber-100 dark:border-amber-900/30">
+            <Sparkles size={14} />
             Productos Destacados
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
             Lo más popular
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Nuestros productos más vendidos y recomendados para clínicas dentales que buscan lo mejor en odontología digital.
           </p>
         </div>
