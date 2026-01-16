@@ -117,7 +117,7 @@ export const catalogData = {
       descripcion_corta: "El escáner más ligero del mercado: solo 106g con IntelliBite para oclusión inteligente.",
       descripcion_larga: "El Shining Elf es el escáner intraoral más ligero con tan solo 106g. Diseño ergonómico tipo bolígrafo con IntelliBite para registro de mordida preciso. Incluye Suite de gestión de placa dental, análisis con IA y exportación STL/OBJ/PLY.",
       aplicaciones: ["Ortodoncia", "Restauraciones", "Implantes", "Pediatría", "Análisis de placa"],
-      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/9bjdk1qz_Gemini_Generated_Image_dlh2a8dlh2a8dlh2.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/gftuwik9_Sbhining%2016%2C9.png",
       estado: "activo",
       destacado: true,
       badge: "Solo 106g",
