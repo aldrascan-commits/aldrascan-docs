@@ -15,23 +15,24 @@ const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
       {/* Image Section */}
       {!isService && (
         <div className="relative aspect-[4/3] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 overflow-hidden">
-          {/* Product Image */}
-          {product.imagen && product.imagen.startsWith('http') ? (
-            <img 
-              src={product.imagen} 
-              alt={product.producto}
-              className="absolute inset-0 w-full h-full object-contain p-6"
-              loading="lazy"
-            />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
+          {/* Product Image Container - Fixed ratio with centered contain */}
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            {product.imagen && product.imagen.startsWith('http') ? (
+              <img 
+                src={product.imagen} 
+                alt={product.producto}
+                className="max-w-full max-h-full w-auto h-auto object-contain object-center"
+                loading="lazy"
+                style={{ aspectRatio: 'auto' }}
+              />
+            ) : (
               <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center">
                 <span className="text-3xl font-light text-slate-300 dark:text-slate-600">
                   {product.marca?.[0] || 'A'}
                 </span>
               </div>
-            </div>
-          )}
+            )}
+          </div>
           
           {/* Badge - Pill style */}
           {product.badge && (
