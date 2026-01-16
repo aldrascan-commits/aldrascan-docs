@@ -746,7 +746,7 @@ export const catalogData = {
       descripcion_corta: "Soporte técnico mensual para no clientes.",
       descripcion_larga: "Servicio de soporte técnico mensual para usuarios que no compraron su escáner con AldraScan. Asistencia telefónica y online para resolver cualquier incidencia.",
       aplicaciones: ["Usuarios externos"],
-      imagen: "/images/soporte-externo.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/hbe5j7mv_Asistencia.jpeg",
       estado: "activo",
       destacado: false,
       precioMensual: true
