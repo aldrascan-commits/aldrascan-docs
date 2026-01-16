@@ -11,10 +11,12 @@ import { catalogData } from '../data/catalog';
 const CatalogPage = () => {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [requestType, setRequestType] = useState('quote');
   const [activeCategory, setActiveCategory] = useState(null);
 
-  const handleRequestQuote = (product = null) => {
+  const handleRequestQuote = (product = null, isPriceRequest = false) => {
     setSelectedProduct(product);
+    setRequestType(isPriceRequest ? 'prices' : 'quote');
     setQuoteModalOpen(true);
   };
 
@@ -81,6 +83,7 @@ const CatalogPage = () => {
         isOpen={quoteModalOpen}
         onClose={() => setQuoteModalOpen(false)}
         preselectedProduct={selectedProduct}
+        requestType={requestType}
       />
     </div>
   );
