@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatPrice } from '../data/catalog';
 import { Button } from './ui/button';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check, ChevronRight, Lock } from 'lucide-react';
 
 const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
   const isService = product.categoria === 'servicios';
