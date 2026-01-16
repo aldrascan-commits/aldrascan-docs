@@ -146,7 +146,7 @@ export const catalogData = {
       descripcion_corta: "Escáner económico ideal para iniciar en odontología digital.",
       descripcion_larga: "El Panda Smart es la opción perfecta para clínicas que quieren iniciarse en el escaneo intraoral con una inversión moderada sin sacrificar calidad.",
       aplicaciones: ["Ortodoncia", "Restauraciones básicas"],
-      imagen: "https://customer-assets.emergentagent.com/job_dental-showcase-3/artifacts/1rnll291_image.png",
+      imagen: "https://customer-assets.emergentagent.com/job_premium-scan/artifacts/nliwi4og_Gemini_Generated_Image_45f3m845f3m845f3.png",
       estado: "activo",
       destacado: false
     },
