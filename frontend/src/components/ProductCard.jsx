@@ -5,7 +5,6 @@ import { Check, ChevronRight, Lock } from 'lucide-react';
 
 const ProductCard = ({ product, onRequestQuote, variant = 'default' }) => {
   const isService = product.categoria === 'servicios';
-  const hasGold = product.gold !== null && product.gold !== undefined;
 
   return (
     <div 
