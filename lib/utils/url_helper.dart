@@ -1,43 +1,28 @@
-import 'package:flutter/foundation.dart';
-import 'package:url_launcher/url_launcher.dart';
+// url_helper.dart — Import condicional web/nativo
+// En web usa dart:html directamente (window.location.href / window.open)
+// En nativo usa url_launcher con LaunchMode.externalApplication
+//
+// POR QUÉ ESTE ENFOQUE:
+// - iOS Safari PWA bloquea launchUrl() de Flutter si no viene de
+//   un gesto directo del navegador
+// - dart:html window.location.href = url  funciona 100% en iOS Safari
+//   porque se ejecuta síncronamente en el event handler del tap
+// - Mac/Chrome/Android también funcionan con sus respectivas rutas
 
-/// Abre cualquier URL de forma compatible con:
-/// - iOS Safari / PWA iPhone / PWA iPad
-/// - Mac Safari
-/// - Android nativo
-/// - Navegadores de escritorio (Chrome, Firefox, Edge)
-///
-/// En web siempre usamos [launchUrl] con [LaunchMode.externalApplication]
-/// y SIN llamar canLaunchUrl primero (en iOS canLaunchUrl devuelve false
-/// incluso para URLs válidas por restricciones de seguridad de Safari).
+// ignore: uri_does_not_exist
+import 'url_launcher_stub.dart'
+    if (dart.library.html) 'url_launcher_web.dart'
+    if (dart.library.io) 'url_launcher_native.dart';
+
+export 'url_launcher_stub.dart'
+    if (dart.library.html) 'url_launcher_web.dart'
+    if (dart.library.io) 'url_launcher_native.dart'
+    show openUrlPlatform;
+
+/// Abre una URL de forma compatible con iOS Safari, PWA iPhone/iPad,
+/// Mac Safari, Android y navegadores de escritorio.
 Future<void> openUrl(String rawUrl) async {
-  final uri = Uri.parse(rawUrl);
-
-  if (kIsWeb) {
-    // En web (PWA iPhone/iPad, Safari, Chrome...) usamos externalApplication
-    // Esto abre WhatsApp, Safari, FaceTime, etc. desde la PWA
-    try {
-      await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-        webOnlyWindowName: '_blank',
-      );
-    } catch (_) {
-      // Si falla (muy raro), intentar con platformDefault
-      try {
-        await launchUrl(uri, mode: LaunchMode.platformDefault);
-      } catch (_) {}
-    }
-  } else {
-    // Android / iOS nativo
-    try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } catch (_) {
-      try {
-        await launchUrl(uri, mode: LaunchMode.platformDefault);
-      } catch (_) {}
-    }
-  }
+  openUrlPlatform(rawUrl);
 }
 
 /// Genera URL de WhatsApp con texto preformateado

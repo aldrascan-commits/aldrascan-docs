@@ -52,54 +52,76 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
+    // SafeArea bottom es crítico en iOS PWA — la barra de gestos
+    // (home indicator) se superpone al BottomNavigationBar sin esto
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: SafeArea(
+        bottom: false, // el bottom lo maneja el BottomNavigationBar con padding
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _screens,
+        ),
       ),
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          border: Border(
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          border: const Border(
             top: BorderSide(color: AppTheme.divider, width: 1),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.06),
+              blurRadius: 8,
+              offset: const Offset(0, -2),
+            ),
+          ],
         ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (i) => setState(() => _currentIndex = i),
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: AppTheme.surface,
-          selectedItemColor: AppTheme.primary,
-          unselectedItemColor: AppTheme.textHint,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w400,
-          ),
-          elevation: 0,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: 'Inicio',
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (i) => setState(() => _currentIndex = i),
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: AppTheme.surface,
+              selectedItemColor: AppTheme.primary,
+              unselectedItemColor: AppTheme.textHint,
+              selectedLabelStyle: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w400,
+              ),
+              elevation: 0,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
+                  label: 'Inicio',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.grid_view_outlined),
+                  activeIcon: Icon(Icons.grid_view),
+                  label: 'Catálogo',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.local_offer_outlined),
+                  activeIcon: Icon(Icons.local_offer),
+                  label: 'Ofertas',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.support_agent_outlined),
+                  activeIcon: Icon(Icons.support_agent),
+                  label: 'Contacto',
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view),
-              label: 'Catálogo',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer_outlined),
-              activeIcon: Icon(Icons.local_offer),
-              label: 'Ofertas',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.support_agent_outlined),
-              activeIcon: Icon(Icons.support_agent),
-              label: 'Contacto',
-            ),
+            // Padding para la barra de gestos de iOS (home indicator)
+            SizedBox(height: bottomPadding > 0 ? bottomPadding : 0),
           ],
         ),
       ),

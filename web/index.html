@@ -5,7 +5,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="description" content="AldraScan Catalog – Catálogo de tecnología dental profesional. Escáneres intraorales, CBCT, fresadoras y más para Expodental 2026.">
 
   <!-- ✅ PWA: iPhone / iPad / Mac (Safari) -->
@@ -89,6 +89,8 @@
     html, body {
       margin: 0; padding: 0;
       height: 100%; width: 100%;
+      /* Evita el scroll-bounce en iOS que puede causar problemas */
+      overscroll-behavior: none;
     }
     body {
       background-color: #1565C0;
@@ -96,6 +98,9 @@
       align-items: center;
       justify-content: center;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      /* Padding para iOS safe areas (notch + home indicator) */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
     #splash {
       display: flex;
@@ -141,7 +146,9 @@
       bottom: 0; left: 0; right: 0;
       background: rgba(20, 20, 30, 0.97);
       color: white;
-      padding: 16px 20px 28px;
+      padding: 16px 20px;
+      /* Respeta el home indicator de iOS */
+      padding-bottom: calc(16px + env(safe-area-inset-bottom));
       z-index: 9999;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
