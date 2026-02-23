@@ -449,7 +449,7 @@ class ProductData {
         'Financiación 60 meses disponible',
       ],
       imageAsset:
-          'assets/products/meyer_cbct.png',
+          'assets/products/rayscan_alpha.png',
       badge: 'Oferta Premium',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Rayscan Alpha 3D (29.900€). ¿Podéis darme más información?',
