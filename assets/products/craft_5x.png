@@ -1,0 +1,246 @@
+<!DOCTYPE html><!-- Last Published: Tue Jan 27 2026 12:43:30 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.dof.com" data-wf-page="62cc0cab6163bb733aefca11" data-wf-site="62985d0dc77f0d11f641b830" lang="en"><head><meta charset="utf-8"/><title>Not Found</title><meta content="Not Found" property="og:title"/><meta content="Not Found" property="twitter:title"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="ekoqtFkKGH-ncTbr1X8YFpyBpiWd2u69gJ7rbCkhV54" name="google-site-verification"/><link href="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/css/dof-group.webflow.shared.6a93c43d4.min.css" rel="stylesheet" type="text/css" integrity="sha384-apPEPUmyTPvDtP6swW9KdcdHudx1NhcXSwbC2Ow5Din1YpecAG/bkCA9rDFxEctV" crossorigin="anonymous"/><link href="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/css/dof-group.webflow.62cc0cab6163bb733aefca11-51f323283.min.css" rel="stylesheet" type="text/css" integrity="sha384-nQpXkMFuF0puTXorTSl4D9WKykDtq5IJf3+7wRrHjTyttUGQcmyPiDHN6iVuKLPX" crossorigin="anonymous"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["Poppins:300,300italic,regular,italic,500,500italic,600,600italic"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298620538300c494bd797de_favicon.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298620bcb60e751e0f3002d_webclip.png" rel="apple-touch-icon"/><link href="https://www.dof.com/404" rel="canonical"/><script type="text/javascript">!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.agent='plwebflow';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '257081046710096');fbq('track', 'PageView');</script><!-- PRECONNECT HINTS - MUST BE ABSOLUTELY FIRST -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin>
+<link rel="preconnect" href="https://d3e54v103j8qbb.cloudfront.net" crossorigin>
+
+<!-- <script defer src="https://app.cure.no/api/cookies/script.js?domain=dof.com"></script> -->
+
+<!-- Then everything else... -->
+<script>
+(function() {
+  var loaded = false;
+  
+  function loadDelayedScripts() {
+    if (loaded) return;
+    loaded = true;
+    
+    // Google Tag Manager
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHNM9QN');
+    
+    // Clarity
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "qc8thur6zc");
+  }
+  
+  ['scroll', 'click', 'touchstart', 'mousemove', 'keydown'].forEach(function(event) {
+    window.addEventListener(event, loadDelayedScripts, { once: true, passive: true });
+  });
+  
+  setTimeout(loadDelayedScripts, 3000);
+})();
+</script>
+
+<!-- Finsweet -->
+<script defer src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-scrolldisable@1/scrolldisable.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-linkblockedit@1/linkblockedit.js"></script>
+
+<style>
+  @media only screen and (max-width: 767px) {    
+    .footer-gradient-bg {
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      -webkit-filter: blur(85px);
+    }
+    .deactivated {
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+      width: 0px;
+    }
+  }
+
+  .tag-block div { user-select: none; }
+  .disclaimer { margin-top: 25px; font-size: 12px; }
+  .gpu_disable { display: none !important; }
+  #searchField.clicked { width: 300px !important; }
+  .button-wrapper_icon, .image-overlay, .layout-card_icon { pointer-events: none; user-select: none; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  ::selection { background: #f83a0d; color: #ffffff; }
+  .visible { width: 42px; }
+  .fixed { position: fixed; }
+  
+  .ellipsis-80px-2 {
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+    max-height: 80px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .ellipsis-120px-3 {
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+    max-height: 120px; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  }
+  .ellipsis-220px-4 {
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+    max-height: 220px; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+  }
+
+  .menu-button-anim, .search-icon, .search-icon-wrapper, .bg-circle { pointer-events: none; user-select: none; }
+  .fp-slider { pointer-events: none; }
+  .radio-is-active { color: #1748C9; border-color: #1657F5; }
+
+  @media only screen and (max-width: 767px) {
+    .image-button { width: auto; left: 5% !important; right: 5% !important; }
+    textarea, input[type="text"], input[type="button"], input[type="submit"], input[type="tel"], input[type="email"] {
+      -webkit-appearance: none; border-radius: 0;
+    }
+  }
+
+  .image-button { position: absolute; bottom: 40px; left: 40px; min-width: 200px; cursor: pointer; }
+  .icon-button.image-button:hover svg { transform: translateX(10px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+  .icon-button.image-button svg { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+  .w-form-formradioinput--inputType-custom.w--redirected-focus { box-shadow: 0px 0px 1px 1px #1748C9; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DOF Group",
+  "alternateName": ["DOF", "DOFG", "DOF Group ASA"],
+  "url": "https://www.dof.com/"
+}
+</script>
+
+<meta name="google-site-verification" content="ekoqtFkKGH-ncTbr1X8YFpyBpiWd2u69gJ7rbCkhV54" /><style>
+
+.error-section {
+	min-height: calc(100vh - 104px);
+}
+
+</style></head><body><div class="nav"><section class="navbar"><div id="navContainer" class="container nav-container"><a href="/" class="dof-logo-wrapper w-inline-block"><div class="dof-logo w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="59.666" height="29.938" viewBox="0 0 59.666 29.938">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="59.666" height="29.938" fill="CurrentColor"/>
+    </clipPath>
+  </defs>
+  <g id="Group_1" data-name="Group 1" clip-path="url(#clip-path)">
+    <path id="Path_1" data-name="Path 1" d="M59.666,6.348V0H56.925V.011A16.561,16.561,0,0,0,45.873,4.548c-.276.273-.544.551-.8.84a12.887,12.887,0,0,0-3.311,8.547c0,.149,0,.441,0,.441V29.268h7.209v-.023h.1V21.373h10.57V15.1H48.9a9.611,9.611,0,0,1,.626-2.99,8.818,8.818,0,0,1,8.048-5.775v.009ZM33.772,23.026a7.967,7.967,0,0,1-7.315-4.8,15.309,15.309,0,0,1-3.674,6.866,14.885,14.885,0,0,0,18.27,2.941V18.3a7.967,7.967,0,0,1-7.281,4.731m0-22.843A14.831,14.831,0,0,0,23.152,4.64c-.185.189-.367.384-.541.582a14.818,14.818,0,0,0-3.659,8.5c.023.263.034.528.034.8a9.938,9.938,0,0,1-.078,1.237,9.216,9.216,0,0,1-.792,2.772A6.332,6.332,0,0,1,12.558,22.5H7.407V6.537h5.152c2.5,0,4.865,2.171,5.926,4.759A16.915,16.915,0,0,1,22.1,4.575,15.3,15.3,0,0,0,11.611.167H0V29.155H11.611a14.442,14.442,0,0,0,9.833-3.846q.425-.393.818-.819a14.414,14.414,0,0,0,3.7-7.815,7.97,7.97,0,0,1,15.207-4.567,13.938,13.938,0,0,1,3.39-7.286A14.829,14.829,0,0,0,33.772.183" transform="translate(0 0)" fill="CurrentColor"/>
+  </g>
+</svg></div></a><a data-w-id="6f39beac-145a-97c1-5cef-34e498408897" href="/contact" class="button nav-button w-inline-block"><div class="nav-button-bg1"></div><div class="nav-button-bg2"></div><div class="relative">Contact</div></a><form action="/search" class="nav-search-wrapper w-form"><input class="nav-search w-input" maxlength="256" name="query" placeholder="Search" type="search" id="searchField" required=""/><input type="submit" class="nav-search-button w-button" value=""/><div class="search-icon-wrapper"><div class="search-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="17.956" height="18.099" viewBox="0 0 17.956 18.099"><g transform="translate(-0.144 0)"><path d="M8,2.25A5.75,5.75,0,1,0,13.75,8,5.757,5.757,0,0,0,8,2.25M8,0A8,8,0,1,1,0,8,8,8,0,0,1,8,0Z" transform="translate(0.144 0)" fill="CurrentColor"/><path d="M3.295,4.885-.8.8.8-.8l4.09,4.09Z" transform="translate(13.214 13.213)" fill="CurrentColor"/></g></svg></div></div></form></div></section><div fs-scrolldisable-element="when-visible" class="main-menu"><div class="main-menu-bg"><div class="menu-gradient-1a"></div><div class="menu-gradient-2a disable-gpu"></div><div class="menu-gradient-3b disable-gpu"></div><div class="main-menu-mouse disable-gpu"><div class="main-menu-mouse-cursor"></div></div></div><div fs-scrolldisable-element="preserve" class="container _4-grid"><div id="w-node-_6f39beac-145a-97c1-5cef-34e4984088a9-3aefca11"><div class="menu-title">What we do</div><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088ac" href="/what-we-do/vessel-equipment-services" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Fleet &amp; Equipment Services</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088b2" href="/what-we-do/integrated-subsea-services" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Subsea Services</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088b8" href="/what-we-do/marine-management" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Marine Management</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088be" href="/fleet" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Fleet list</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a></div><div id="w-node-_6f39beac-145a-97c1-5cef-34e4984088c4-3aefca11"><div class="menu-title">Who we are</div><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088c7" href="/who-we-are/vision-values-and-history" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Vision, Values and History</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088cd" href="/who-we-are/board-and-management" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Board &amp; Management</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088d3" href="/who-we-are/hseq" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">HSEQ</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088d9" href="/news" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">News</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a></div><div id="w-node-_6f39beac-145a-97c1-5cef-34e4984088df-3aefca11"><div class="menu-title">People</div><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088e2" href="/people" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Our People</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088e8" href="/people#graduate" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Careers</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088ee" href="/vacancies" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Vacancies</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a></div><div id="w-node-_6f39beac-145a-97c1-5cef-34e4984088f4-3aefca11"><div class="menu-title">Investor reltions</div><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088f7" href="/investor-relations" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Key Numbers</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e4984088fd" href="/investor-relations#news" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Financial News</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e498408903" href="/investor-relations#information" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Shareholder Information</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a><a data-w-id="6f39beac-145a-97c1-5cef-34e498408909" href="/investor-relations#calendar" class="nav-link w-inline-block"><div class="nav-link-text nav-link-header">Financial Calendar</div><div class="nav-link-text">Lorem ipsum dolor sit amet consectetur elit.</div><img src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/6298c3c017488234b6061933_arrow_right_blue.svg" loading="lazy" alt="" class="nav-link-icon"/></a></div></div></div></div><div class="section error-section"><div class="container flex-row margin-bottom-20px"><a href="/" class="paragraph blue-link margin-right-15px">Return to homepage</a><h1 class="paragraph margin-0">Error 404</h1></div><div class="container"><div class="_2-grid tablet-responsive"><h1 class="h2 margin-top--10">Sorry, there&#x27;s nothing to see here.<br/></h1><div id="w-node-_19f6e48c-f017-9056-ae44-6e4037fa92b7-3aefca11" class="flex-row-end"></div><p class="color-gray max-width-66">We have recently launched our new website (i.e. June 2023) and we cannot guarantee that externally-linked pages and content link correctly. We recommend using the search function to find the page or content you are looking for.<br/><br/>Here are some helpful shortcuts:<br/><a href="/vacancies">&gt; Vacancies</a><br/><a href="/fleet">&gt; The fleet</a><br/><a href="/investor-relations">&gt; Investor relations</a><br/><br/>Thank you for your understanding and we hope you like our new website!<br/></p></div></div></div><div class="cookie-consent"></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=62985d0dc77f0d11f641b830" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/62985d0dc77f0d11f641b830/js/webflow.f8e49d79.9e705e20443de3dd.js" type="text/javascript" integrity="sha384-f76L+NnExj4i+3yDm8GuYgtgqeZLvo7+BEMwKkQIqlY1gK3hhU6wJPd1g3MqiQgy" crossorigin="anonymous"></script><script>
+(function() {
+  'use strict';
+  
+  // Utility functions
+  function $(selector) { return document.querySelector(selector); }
+  function $$(selector) { return document.querySelectorAll(selector); }
+  
+  function addEventToAll(selector, event, handler) {
+    $$(selector).forEach(function(el) {
+      el.addEventListener(event, handler);
+    });
+  }
+  
+  // GPU Detection
+  function initGPU() {
+    var canvas = document.createElement('canvas');
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;
+    
+    var dbgRenderInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (!dbgRenderInfo) return;
+    
+    var renderer = gl.getParameter(dbgRenderInfo.UNMASKED_RENDERER_WEBGL);
+    if (!renderer.includes('SwiftShader')) {
+      $$('.gpu_disable').forEach(function(el) {
+        el.classList.remove('gpu_disable');
+      });
+    }
+  }
+  
+  // Navigation & Search
+  function initNavigation() {
+    var searchField = $('#searchField');
+    var navSearchButton = $('.nav-search-button');
+    var contactButton = $('#contactButton');
+    var navbar = $('.navbar');
+    
+    // Mobile search
+    addEventToAll('.search-button-mobile', 'click', function() {
+      var mobileSearch = $('.nav-search-mobile');
+      if (mobileSearch) mobileSearch.focus();
+    });
+    
+    // Desktop search field
+    if (searchField) {
+      searchField.addEventListener('focus', function() {
+        if (navSearchButton) navSearchButton.classList.add('visible');
+        if (contactButton) contactButton.classList.add('deactivated');
+      });
+      
+      searchField.addEventListener('blur', function() {
+        if (navSearchButton) navSearchButton.classList.remove('visible');
+        if (contactButton) contactButton.classList.remove('deactivated');
+      });
+    }
+    
+    // Menu toggle
+    addEventToAll('.menu-open', 'click', function() {
+      setTimeout(function() {
+        if (navbar) navbar.classList.add('fixed');
+      }, 100);
+    });
+    
+    addEventToAll('.menu-close', 'click', function() {
+      if (navbar) navbar.classList.remove('fixed');
+    });
+  }
+  
+  // Menu Button Edge
+  function updateMenuButtonEdge() {
+    var navContainer = $('#navContainer');
+    var menuButton = $('#menuButton');
+    if (!navContainer || !menuButton) return;
+    
+    var marginEdge = window.getComputedStyle(navContainer).marginRight;
+    menuButton.style.marginRight = 'calc(' + marginEdge + ' + 5%)';
+  }
+  
+  // Document Move
+  function moveDocuElement() {
+    var source = $('#docuMove');
+    var target = $('#docuTarget');
+    if (source && target) target.appendChild(source);
+  }
+  
+  // Blackout Mode
+  function checkBlackoutMode() {
+    var blackout = $('#blackout');
+    if (blackout && !blackout.classList.contains('w-condition-invisible')) {
+      $$('.nav, .section, .cookie-consent, .gpu').forEach(function(el) {
+        el.classList.add('hide');
+      });
+      blackout.classList.remove('hide');
+    }
+  }
+  
+  // Initialize
+  function init() {
+    initGPU();
+    initNavigation();
+    updateMenuButtonEdge();
+    moveDocuElement();
+    checkBlackoutMode();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+  // Resize handler
+  var resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateMenuButtonEdge, 150);
+  });
+  
+})();
+</script></body></html>

@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
             pinned: false,
             backgroundColor: AppTheme.surface,
             elevation: 0,
+            centerTitle: true,
             title: Image.asset(
               'assets/icons/logo_aldrascan.png',
               height: 36,

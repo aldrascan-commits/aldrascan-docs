@@ -7,7 +7,8 @@ class Product {
   final String? financing;
   final String description;
   final List<String> features;
-  final String imageUrl;
+  /// Ruta de asset local: 'assets/products/xxx.png'
+  final String imageAsset;
   final String? badge;
   final bool isFeatured;
   final String whatsappNumber;
@@ -22,7 +23,7 @@ class Product {
     this.financing,
     required this.description,
     required this.features,
-    required this.imageUrl,
+    required this.imageAsset,
     this.badge,
     this.isFeatured = false,
     this.whatsappNumber = '34662078540',

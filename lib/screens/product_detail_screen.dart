@@ -1,35 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/product.dart';
 import '../theme/app_theme.dart';
 
-/// Widget imagen que soporta assets locales y URLs http
-Widget _buildProductImage(String imageUrl, {BoxFit fit = BoxFit.cover}) {
-  if (imageUrl.startsWith('http')) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      fit: fit,
-      placeholder: (_, __) => Container(
-        color: AppTheme.background,
-        child: const Center(
-          child: CircularProgressIndicator(color: AppTheme.primary, strokeWidth: 2),
-        ),
-      ),
-      errorWidget: (_, __, ___) => Container(
-        color: AppTheme.background,
-        child: const Icon(Icons.image_outlined, size: 60, color: AppTheme.textHint),
-      ),
-    );
-  }
-  // Imagen local en assets/images/
+/// Widget imagen desde asset local
+Widget _buildProductImage(String imageAsset, {BoxFit fit = BoxFit.cover}) {
   return Image.asset(
-    'assets/images/$imageUrl',
+    imageAsset,
     fit: fit,
     errorBuilder: (_, __, ___) => Container(
       color: AppTheme.background,
-      child: const Icon(Icons.image_outlined,
-          size: 60, color: AppTheme.textHint),
+      child: const Icon(Icons.image_outlined, size: 60, color: AppTheme.textHint),
     ),
   );
 }
@@ -80,7 +61,7 @@ class ProductDetailScreen extends StatelessWidget {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  _buildProductImage(product.imageUrl, fit: BoxFit.cover),
+                  _buildProductImage(product.imageAsset, fit: BoxFit.cover),
                   // Gradient bottom
                   Positioned(
                     bottom: 0,

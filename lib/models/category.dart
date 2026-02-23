@@ -15,8 +15,9 @@ class ProductCategory {
   static const milling = ProductCategory(id: 'fresadora', name: 'Fresadoras', icon: '⚙️');
   static const printers = ProductCategory(id: 'impresora', name: 'Impresoras 3D', icon: '🖨️');
   static const cbct = ProductCategory(id: 'cbct', name: 'CBCT 3D', icon: '🔬');
+  static const sillones = ProductCategory(id: 'sillon', name: 'Sillones', icon: '🦷');
 
   static List<ProductCategory> get categories => [
-    all, scanners, packs, milling, printers, cbct,
+    all, scanners, packs, milling, printers, cbct, sillones,
   ];
 }

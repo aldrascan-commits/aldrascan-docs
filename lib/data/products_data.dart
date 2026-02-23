@@ -21,8 +21,8 @@ class ProductData {
         'Envío en 24h',
         'Formación clínica incluida',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=bo36gaEjiZN5xJTck3%2FeUTqFi0pYcb3xd3GjcLAgjFN71SPOi9fMmqqQ9%2Bpton0GtYSFFe9T4B369FzG&u2=1K9H6WljXiJHzMlS&width=1024',
+      imageAsset:
+          'assets/products/medit_i600.png',
       badge: 'Oferta Estrella',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Medit i600 (5.900€). ¿Podéis darme más información?',
@@ -45,8 +45,8 @@ class ProductData {
         'PC de alto rendimiento incluido',
         'Botón Motion integrado',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=N3dxNbjpvTTUEADbu2Zvbl1yPYCDZCmxcPUtWeRGJr%2FmHZvDU%2BKTF2cdJlpVWu52hvfNRZKTEe0Lbaqt&u2=WkdoI6WYTpxfI2yf&width=1024',
+      imageAsset:
+          'assets/products/panda_smart.png',
       badge: 'Ultraligero',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Panda Smart (6.900€ + PC incluido). ¿Podéis darme más información?',
@@ -69,8 +69,8 @@ class ProductData {
         'Garantía oficial 3 años',
         'Formación incluida',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=bo36gaEjiZN5xJTck3%2FeUTqFi0pYcb3xd3GjcLAgjFN71SPOi9fMmqqQ9%2Bpton0GtYSFFe9T4B369FzG&u2=1K9H6WljXiJHzMlS&width=1024',
+      imageAsset:
+          'assets/products/medit_i700_real.png',
       badge: 'Oferta Core',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Medit i700/i700w (8.500€). ¿Podéis darme más información?',
@@ -93,8 +93,8 @@ class ProductData {
         'Software gratuito incluido',
         'Envío inmediato',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=atWTVv1fC2Uc7EHqCfMPBCTvoAksmgPuxi9VS3b8lis1UXv5dCtcfKOaJbqjqYVz4oqXCvM5QvPMt%2FKk&u2=MnZg2yZDsju66zeT&width=1024',
+      imageAsset:
+          'assets/products/aoralscan_elf.png',
       badge: 'Novedad',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Aoralscan Elf de Shining 3D (9.900€). ¿Podéis darme más información?',
@@ -118,8 +118,8 @@ class ProductData {
         '12 ScanBodys de regalo',
         'Garantía oficial 3 años',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=RlXs3fQe7SWgFgE%2F25kwKWHd3MmzR9vHgIhGkFBEtNj8seFWubO0vZfgxGHT60W%2FZEcpdJVihTno6JCi&u2=Ai1FIiSC3%2FB8eiN0&width=1024',
+      imageAsset:
+          'assets/products/medit_i900_classic_real.png',
       badge: 'Portátil Incluido',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Medit i900 Classic+ con MacBook Air M4 (12.900€). ¿Podéis darme más información?',
@@ -144,8 +144,8 @@ class ProductData {
         'Configuración Apple incluida',
         'Soporte clínico especializado',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=RlXs3fQe7SWgFgE%2F25kwKWHd3MmzR9vHgIhGkFBEtNj8seFWubO0vZfgxGHT60W%2FZEcpdJVihTno6JCi&u2=Ai1FIiSC3%2FB8eiN0&width=1024',
+      imageAsset:
+          'assets/products/medit_i900_mobility_real.png',
       badge: 'iPad Pro Regalo',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Medit i900 Mobility con iPad Pro (13.900€). ¿Podéis darme más información?',
@@ -169,8 +169,8 @@ class ProductData {
         'Autoclave 100 ciclos',
         'Amortización 8-12 meses',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=atWTVv1fC2Uc7EHqCfMPBCTvoAksmgPuxi9VS3b8lis1UXv5dCtcfKOaJbqjqYVz4oqXCvM5QvPMt%2FKk&u2=MnZg2yZDsju66zeT&width=1024',
+      imageAsset:
+          'assets/products/aoralscan_elite_scanbody.png',
       badge: 'Kit ScanBody Regalo',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Aoralscan Elite + Kit ScanBody (13.900€). ¿Podéis darme más información?',
@@ -196,8 +196,8 @@ class ProductData {
         'Formación clínica completa',
         'Envío inmediato',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=mvxJRtDLNaWkJT2yXq%2Bu87nBFu9biMYEuYjnbCQzuNywV8nb%2FIS1ksSIGCuB3bnSlDAe22mi9OeVHz9o&u2=1xI6g6xzPaGxt%2FrK&width=1024',
+      imageAsset:
+          'assets/products/pack_medit_i900.png',
       badge: 'Oferta Estrella',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Pack Medit i900 Todo en Uno (13.900€). ¿Podéis darme más información?',
@@ -222,8 +222,8 @@ class ProductData {
         'Formación clínica completa',
         'Ahorra 10.100€ vs PVP 50.000€',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=laxNaWXPbxvT7TI4sbq7cRCZrqOQhKCcEb0O68vbGa3m%2FpJTCEE12Gm5ZTf5C9aVXPFiRJ6EzCPdu5EB&u2=FWAujCquBIDfWFcs&width=1024',
+      imageAsset:
+          'assets/products/pack_aldrascan_pro.png',
       badge: 'Top Ventas',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Pack AldraScan Pro (39.900€). ¿Podéis darme más información?',
@@ -247,8 +247,8 @@ class ProductData {
         'Ahorra +9.000€ vs compra separada',
         'Solo disponible en feria / fin de stock',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/pack_laboratorio_digital.png',
       badge: 'Oferta Expodental',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Pack Laboratorio Digital (29.900€). ¿Podéis darme más información?',
@@ -274,8 +274,8 @@ class ProductData {
         'Tamaño compacto 743x464x455mm / 61kg',
         'Unidades limitadas',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/lilivis_mill.png',
       badge: 'Unidades Limitadas',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la Lilivis Mill LM-100. ¿Podéis darme precio y más información?',
@@ -300,8 +300,8 @@ class ProductData {
         'Pantalla LCD 19,5" Windows 10',
         'Especializada en Cerámica Vítrea',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/deprag_w4.png',
       badge: 'Precio Feria',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la DEPRAG W4 (17.500€). ¿Podéis darme más información?',
@@ -322,8 +322,8 @@ class ProductData {
         'Nivel iniciación',
         'Precio feria especial',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/philden_s410.png',
       badge: 'Iniciación',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la Philden S410 (16.990€). ¿Podéis darme más información?',
@@ -344,8 +344,8 @@ class ProductData {
         '20-35 coronas/día',
         '-15% OFF precio feria',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/philden_s510.png',
       badge: '-15% OFF',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la Philden S510 (15.900€). ¿Podéis darme más información?',
@@ -368,8 +368,8 @@ class ProductData {
         'Ahorra 12.633€ vs PVP',
         '-28% descuento feria',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/philden_x500.png',
       badge: 'Mejor Oferta',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la Philden X500 Híbrida (31.900€). ¿Podéis darme más información?',
@@ -395,8 +395,8 @@ class ProductData {
         'Sistema abierto multi-materiales',
         'Software L-CAD integrado',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/lilivis_print.png',
       badge: 'Solicitar Oferta',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa la Lilivis Print LP-100. ¿Podéis darme precio y condiciones Expodental?',
@@ -421,8 +421,8 @@ class ProductData {
         'Ahorra 1.320€ vs PVP',
         'Kit materiales de regalo',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=GHBGvRVYgLuzF0N%2B%2F751bGeqh73oa9qmdvOoBfwh13AUcv7PLHZ3fTv%2F51RJMxQIMs2Mundo%2BDy2x4il&u2=TIFfEbjHMjZ9PuwK&width=1024',
+      imageAsset:
+          'assets/products/duotron_t3200.png',
       badge: 'Ahorra 1.320€',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Duotron T-3200 (4.300€). ¿Podéis darme más información?',
@@ -448,8 +448,8 @@ class ProductData {
         'Producción 35-60 estudios/mes',
         'Financiación 60 meses disponible',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=ZofC5PbJwaD%2BYR9ImO5Yw6%2FYT0A5%2FsCbgaMQplel6%2FO51%2F9K4sQ%2FeF4yvpGPJF%2FY2tZhPz3YyNbaU1So&u2=BCHp62YnA6YmHHOH&width=1024',
+      imageAsset:
+          'assets/products/meyer_cbct.png',
       badge: 'Oferta Premium',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Rayscan 3D (27.700€). ¿Podéis darme más información?',
@@ -474,11 +474,64 @@ class ProductData {
         'Producción 30-50 CBCT/mes',
         'Amortización 10-15 meses',
       ],
-      imageUrl:
-          'https://sspark.genspark.ai/cfimages?u1=omjwZr6HygFPxVXmFEoZdYLeaZf%2FIYUAiETqgB%2F3wZFVB84umL5fwgsr81Fq8xKWkPxwxO6mKjYIn7PX&u2=d%2FwFSlQ3iciL%2FsN%2B&width=1024',
+      imageAsset:
+          'assets/products/meyer_cbct.png',
       badge: 'Líder Calidad/Precio',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa el Meyer 3D 13x10 (29.900€). ¿Podéis darme más información?',
+    ),
+
+    // ─── SILLONES DENTALES ────────────────────────────────────────────────────
+    Product(
+      id: 'cingol_x1',
+      name: 'Sillón Cingol X1',
+      subtitle: 'Sillón Dental Ergonómico',
+      category: 'sillon',
+      price: null,
+      financing: 'Consultar precio Expodental',
+      description:
+          'Sillón dental profesional Cingol X1 de diseño ergonómico y acabados premium. Tapizado de alta resistencia, sistema hidráulico silencioso y brazo articulado para máxima comodidad del paciente y del clínico.',
+      features: [
+        'Diseño ergonómico premium',
+        'Sistema hidráulico silencioso',
+        'Tapizado antibacteriano de alta resistencia',
+        'Brazo articulado con escupidera',
+        'Panel de control digital integrado',
+        'Lámpara LED de diagnóstico incluida',
+        'Disponible en azul y naranja',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset:
+          'assets/products/sillon_x1_blue.png',
+      badge: 'Oferta Expodental',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Sillón Cingol X1. ¿Podéis darme precio y más información?',
+    ),
+
+    Product(
+      id: 'luvis_chair',
+      name: 'Luvis Chair',
+      subtitle: 'Unidad Dental Inteligente',
+      category: 'sillon',
+      price: null,
+      financing: 'Consultar precio Expodental',
+      description:
+          'Unidad dental Luvis Chair de Dentis. Diseño moderno con lámpara LED integrada de alta potencia, sistema táctil de control y tapizado ergonómico de lujo. Referencia en clínicas de alto nivel.',
+      features: [
+        'Lámpara LED Luvis integrada',
+        'Control táctil digital avanzado',
+        'Tapizado ergonómico premium',
+        'Sistema hidráulico ultra silencioso',
+        'Escupidera integrada con sensor',
+        'Bandeja instrumental articulada',
+        'Acabados de alta calidad',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset:
+          'assets/products/luvis_chair.png',
+      badge: 'Alta Gama',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Luvis Chair (unidad dental Dentis). ¿Podéis darme precio y más información?',
     ),
   ];
 
