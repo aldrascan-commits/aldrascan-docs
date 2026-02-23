@@ -4,40 +4,32 @@ import 'package:url_launcher/url_launcher.dart';
 import '../models/product.dart';
 import '../theme/app_theme.dart';
 
-/// Widget imagen que soporta paths locales web y URLs http
+/// Widget imagen que soporta assets locales y URLs http
 Widget _buildProductImage(String imageUrl, {BoxFit fit = BoxFit.cover}) {
-  if (!imageUrl.startsWith('http')) {
-    return Image.network(
-      imageUrl,
+  if (imageUrl.startsWith('http')) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
       fit: fit,
-      loadingBuilder: (_, child, progress) => progress == null
-          ? child
-          : Container(
-              color: AppTheme.background,
-              child: const Center(
-                child: CircularProgressIndicator(
-                    strokeWidth: 2, color: AppTheme.primary),
-              ),
-            ),
-      errorBuilder: (_, __, ___) => Container(
+      placeholder: (_, __) => Container(
         color: AppTheme.background,
-        child: const Icon(Icons.image_outlined,
-            size: 60, color: AppTheme.textHint),
+        child: const Center(
+          child: CircularProgressIndicator(color: AppTheme.primary, strokeWidth: 2),
+        ),
+      ),
+      errorWidget: (_, __, ___) => Container(
+        color: AppTheme.background,
+        child: const Icon(Icons.image_outlined, size: 60, color: AppTheme.textHint),
       ),
     );
   }
-  return CachedNetworkImage(
-    imageUrl: imageUrl,
+  // Imagen local en assets/images/
+  return Image.asset(
+    'assets/images/$imageUrl',
     fit: fit,
-    placeholder: (_, __) => Container(
+    errorBuilder: (_, __, ___) => Container(
       color: AppTheme.background,
-      child: const Center(
-        child: CircularProgressIndicator(color: AppTheme.primary, strokeWidth: 2),
-      ),
-    ),
-    errorWidget: (_, __, ___) => Container(
-      color: AppTheme.background,
-      child: const Icon(Icons.image_outlined, size: 60, color: AppTheme.textHint),
+      child: const Icon(Icons.image_outlined,
+          size: 60, color: AppTheme.textHint),
     ),
   );
 }

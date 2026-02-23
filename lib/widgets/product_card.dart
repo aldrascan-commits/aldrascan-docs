@@ -10,41 +10,33 @@ class _ProductImage extends StatelessWidget {
 
   const _ProductImage({required this.imageUrl, this.fit = BoxFit.cover});
 
-  bool get _isLocal => !imageUrl.startsWith('http');
+  bool get _isNetwork => imageUrl.startsWith('http');
 
   @override
   Widget build(BuildContext context) {
-    if (_isLocal) {
-      return Image.network(
-        imageUrl,
+    if (_isNetwork) {
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
         fit: fit,
-        loadingBuilder: (_, child, progress) => progress == null
-            ? child
-            : Container(
-                color: AppTheme.background,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                      strokeWidth: 2, color: AppTheme.primary),
-                ),
-              ),
-        errorBuilder: (_, __, ___) => Container(
+        placeholder: (_, __) => Container(
+          color: AppTheme.background,
+          child: const Center(
+            child: CircularProgressIndicator(
+                strokeWidth: 2, color: AppTheme.primary),
+          ),
+        ),
+        errorWidget: (_, __, ___) => Container(
           color: AppTheme.background,
           child: const Icon(Icons.image_outlined,
               size: 40, color: AppTheme.textHint),
         ),
       );
     }
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
+    // Imagen local en assets/images/
+    return Image.asset(
+      'assets/images/$imageUrl',
       fit: fit,
-      placeholder: (_, __) => Container(
-        color: AppTheme.background,
-        child: const Center(
-          child: CircularProgressIndicator(
-              strokeWidth: 2, color: AppTheme.primary),
-        ),
-      ),
-      errorWidget: (_, __, ___) => Container(
+      errorBuilder: (_, __, ___) => Container(
         color: AppTheme.background,
         child: const Icon(Icons.image_outlined,
             size: 40, color: AppTheme.textHint),
