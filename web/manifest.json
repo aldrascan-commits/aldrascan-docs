@@ -1,13 +1,15 @@
 {
-    "name": "dental_catalog",
-    "short_name": "dental_catalog",
-    "start_url": ".",
+    "name": "AldraScan Catalog",
+    "short_name": "AldraScan",
+    "description": "Catálogo de tecnología dental profesional – Expodental 2026",
+    "start_url": "./",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1565C0",
+    "theme_color": "#1565C0",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
+    "lang": "es",
+    "categories": ["medical", "business"],
     "icons": [
         {
             "src": "icons/Icon-192.png",
@@ -30,6 +32,30 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
+        },
+        {
+            "src": "icons/apple-touch-icon-180x180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/apple-touch-icon-1024x1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Ver Catálogo",
+            "short_name": "Catálogo",
+            "url": "./?tab=catalog",
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Contacto WhatsApp",
+            "short_name": "WhatsApp",
+            "url": "./?tab=contact",
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
         }
     ]
 }

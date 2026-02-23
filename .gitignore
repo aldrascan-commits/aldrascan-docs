@@ -36,7 +36,6 @@ ios/ServiceDefinitions.json
 ios/Runner/GeneratedPluginRegistrant.*
 
 # Web
-lib/generated_plugin_registrant.dart
 
 # macOS
 macos/Flutter/GeneratedPluginRegistrant.swift
