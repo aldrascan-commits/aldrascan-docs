@@ -1,36 +1,30 @@
 class Product {
   final String id;
   final String name;
+  final String? subtitle;
   final String category;
   final double? price;
   final String? financing;
-  final double? monthlyFee;
-  final String? roi;
-  final String? savings;
   final String description;
   final List<String> features;
   final String imageUrl;
   final String? badge;
   final bool isFeatured;
-  final bool isExpodental;
   final String whatsappNumber;
   final String whatsappMessage;
 
   const Product({
     required this.id,
     required this.name,
+    this.subtitle,
     required this.category,
     this.price,
     this.financing,
-    this.monthlyFee,
-    this.roi,
-    this.savings,
     required this.description,
     required this.features,
     required this.imageUrl,
     this.badge,
     this.isFeatured = false,
-    this.isExpodental = false,
     this.whatsappNumber = '34662078540',
     required this.whatsappMessage,
   });
@@ -43,11 +37,6 @@ class Product {
       (m) => '${m[1]}.',
     );
     return '$s €';
-  }
-
-  String get formattedMonthlyFee {
-    if (monthlyFee == null) return '';
-    return '${monthlyFee!.toInt()} €/mes';
   }
 
   String get whatsappUrl =>

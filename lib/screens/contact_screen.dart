@@ -128,12 +128,12 @@ class ContactScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppTheme.divider),
               ),
-              child: Column(
+              child: const Column(
                 children: [
                   _HourRow('Lunes – Viernes', '9:00 – 19:00'),
-                  const Divider(height: 20, color: AppTheme.divider),
+                  Divider(height: 20, color: AppTheme.divider),
                   _HourRow('Sábados', '9:00 – 14:00'),
-                  const Divider(height: 20, color: AppTheme.divider),
+                  Divider(height: 20, color: AppTheme.divider),
                   _HourRow('Domingos', 'Cerrado'),
                 ],
               ),

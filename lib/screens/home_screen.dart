@@ -55,13 +55,13 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Categorías rápidas
-                _SectionHeader(title: 'Categorías'),
+                const _SectionHeader(title: 'Categorías'),
                 const SizedBox(height: 12),
                 _CategoriesRow(),
                 const SizedBox(height: 24),
 
                 // Productos destacados
-                _SectionHeader(
+                const _SectionHeader(
                   title: 'Productos Destacados',
                   subtitle: 'Selección especial',
                 ),
@@ -125,20 +125,7 @@ class _HeroBanner extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Logo AldraScan oficial
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Image.asset(
-              'assets/icons/logo_aldrascan.png',
-              height: 28,
-              fit: BoxFit.contain,
-            ),
-          ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 4),
           Row(
             children: [
               Container(
@@ -276,10 +263,10 @@ class _SectionHeader extends StatelessWidget {
 class _CategoriesRow extends StatelessWidget {
   final List<Map<String, String>> _cats = const [
     {'icon': '📷', 'label': 'Escáneres', 'id': 'scanner'},
-    {'icon': '🔬', 'label': 'CBCT 3D', 'id': 'cbct'},
-    {'icon': '🦷', 'label': 'Sillones', 'id': 'sillon'},
-    {'icon': '⚙️', 'label': 'Fresadoras', 'id': 'fresadora'},
     {'icon': '📦', 'label': 'Packs', 'id': 'pack'},
+    {'icon': '⚙️', 'label': 'Fresadoras', 'id': 'fresadora'},
+    {'icon': '🖨️', 'label': 'Impres. 3D', 'id': 'impresora'},
+    {'icon': '🔬', 'label': 'CBCT 3D', 'id': 'cbct'},
   ];
 
   @override
