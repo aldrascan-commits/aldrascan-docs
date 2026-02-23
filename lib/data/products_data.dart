@@ -431,11 +431,11 @@ class ProductData {
     // ─── CBCT 3D ─────────────────────────────────────────────────────────────
     Product(
       id: 'rayscan_3d',
-      name: 'Rayscan 3D',
+      name: 'Rayscan Alpha 3D',
       subtitle: 'CBCT Premium con IA',
       category: 'cbct',
-      price: 27700,
-      financing: '60 meses · desde 462 €/mes',
+      price: 29900,
+      financing: '60 meses · desde 498 €/mes',
       description:
           'CBCT premium con tecnología inteligente y IA integrada. FOV variable ø50-ø170mm, Vóxel 70-400µm. Reconst. 8 seg, escaneo 1 seg. Pano + Ceph incluidos. Amortización 9-14 meses.',
       features: [
@@ -452,7 +452,7 @@ class ProductData {
           'assets/products/meyer_cbct.png',
       badge: 'Oferta Premium',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Rayscan 3D (27.700€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa el Rayscan Alpha 3D (29.900€). ¿Podéis darme más información?',
     ),
 
     Product(
