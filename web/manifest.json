@@ -1,25 +1,31 @@
 {
     "name": "AldraScan Catalog",
     "short_name": "AldraScan",
-    "description": "Catálogo de tecnología dental profesional – Expodental 2026",
+    "description": "Catálogo de tecnología dental profesional – Escáneres, CBCT, Fresadoras",
     "start_url": "./",
+    "scope": "./",
     "display": "standalone",
+    "display_override": ["standalone", "minimal-ui", "browser"],
     "background_color": "#1565C0",
     "theme_color": "#1565C0",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "lang": "es",
+    "dir": "ltr",
     "categories": ["medical", "business"],
+    "id": "aldrascan-catalog",
     "icons": [
         {
             "src": "icons/Icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-maskable-192.png",
@@ -36,26 +42,33 @@
         {
             "src": "icons/apple-touch-icon-180x180.png",
             "sizes": "180x180",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/apple-touch-icon-1024x1024.png",
             "sizes": "1024x1024",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
     "shortcuts": [
         {
             "name": "Ver Catálogo",
             "short_name": "Catálogo",
+            "description": "Explorar productos de AldraScan",
             "url": "./?tab=catalog",
-            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png" }]
         },
         {
             "name": "Contacto WhatsApp",
             "short_name": "WhatsApp",
+            "description": "Contactar con AldraScan por WhatsApp",
             "url": "./?tab=contact",
-            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png" }]
         }
-    ]
+    ],
+    "screenshots": [],
+    "related_applications": [],
+    "iarc_rating_id": ""
 }

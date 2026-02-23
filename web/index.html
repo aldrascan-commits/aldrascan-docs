@@ -8,11 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="AldraScan Catalog – Catálogo de tecnología dental profesional. Escáneres intraorales, CBCT, fresadoras y más para Expodental 2026.">
 
-  <!-- ✅ PWA: iPhone / iPad (Safari) -->
+  <!-- ✅ PWA: iPhone / iPad / Mac (Safari) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="AldraScan">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="AldraScan">
 
   <!-- ✅ Iconos Apple Touch (iPhone / iPad) -->
   <link rel="apple-touch-icon" href="icons/apple-touch-icon-180x180.png">
@@ -26,64 +27,103 @@
   <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="167x167" href="icons/apple-touch-icon-167x167.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="1024x1024" href="icons/apple-touch-icon-1024x1024.png">
 
-  <!-- ✅ Splash screens iOS (iPhone modelos principales) -->
-  <!-- iPhone 15 Pro Max / 14 Pro Max -->
+  <!-- ✅ Splash screens iOS -->
+  <!-- iPhone 15 Pro Max / 14 Pro Max (430x932 @3x) -->
   <link rel="apple-touch-startup-image"
-        media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)"
+        media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
         href="icons/apple-touch-icon-1024x1024.png">
-  <!-- iPhone 15 / 14 / 13 / 12 -->
+  <!-- iPhone 15 Pro / 15 / 14 / 13 / 12 (390x844 @3x) -->
   <link rel="apple-touch-startup-image"
-        media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+        media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
         href="icons/apple-touch-icon-1024x1024.png">
-  <!-- iPhone SE / 8 -->
+  <!-- iPhone 14 Plus / 13 Pro Max (428x926 @3x) -->
   <link rel="apple-touch-startup-image"
-        media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+        media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+        href="icons/apple-touch-icon-1024x1024.png">
+  <!-- iPhone SE 3rd gen / 8 / 7 (375x667 @2x) -->
+  <link rel="apple-touch-startup-image"
+        media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="icons/apple-touch-icon-1024x1024.png">
+  <!-- iPhone XR / 11 (414x896 @2x) -->
+  <link rel="apple-touch-startup-image"
+        media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="icons/apple-touch-icon-1024x1024.png">
+  <!-- iPad 10.9" (820x1180 @2x) -->
+  <link rel="apple-touch-startup-image"
+        media="screen and (device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+        href="icons/apple-touch-icon-1024x1024.png">
+  <!-- iPad Pro 12.9" (1024x1366 @2x) -->
+  <link rel="apple-touch-startup-image"
+        media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
         href="icons/apple-touch-icon-1024x1024.png">
 
-  <!-- ✅ Tema de color para iOS Safari -->
-  <meta name="theme-color" content="#1565C0">
+  <!-- ✅ Tema de color -->
+  <meta name="theme-color" content="#1565C0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0D47A1" media="(prefers-color-scheme: dark)">
 
-  <!-- ✅ Open Graph (para compartir por WhatsApp/Telegram) -->
+  <!-- ✅ Open Graph (para compartir por WhatsApp/Telegram/redes) -->
   <meta property="og:title" content="AldraScan Catalog – Expodental 2026">
   <meta property="og:description" content="Catálogo interactivo de tecnología dental: escáneres intraorales, CBCT, fresadoras y más.">
-  <meta property="og:image" content="icons/apple-touch-icon-180x180.png">
+  <meta property="og:image" content="icons/apple-touch-icon-1024x1024.png">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AldraScan Catalog">
+  <meta name="twitter:description" content="Catálogo dental profesional – Expodental 2026">
+  <meta name="twitter:image" content="icons/apple-touch-icon-180x180.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="shortcut icon" href="favicon.png">
 
   <title>AldraScan Catalog</title>
   <link rel="manifest" href="manifest.json">
 
   <!-- ✅ Estilo de splash mientras carga Flutter -->
   <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+    }
     body {
-      margin: 0;
       background-color: #1565C0;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
     }
     #splash {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      padding: 40px 20px;
+      text-align: center;
     }
-    #splash img {
-      width: 160px;
-      border-radius: 24px;
+    #splash-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 28px;
       background: white;
-      padding: 20px;
+      padding: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
-    #splash-text {
+    #splash-title {
       color: white;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 16px;
-      opacity: 0.8;
-      letter-spacing: 1px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    #splash-subtitle {
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      letter-spacing: 0.5px;
     }
     .spinner {
       width: 36px; height: 36px;
@@ -93,26 +133,157 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Banner de instalación iOS */
+    #ios-install-banner {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(20, 20, 30, 0.97);
+      color: white;
+      padding: 16px 20px 28px;
+      z-index: 9999;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    #ios-install-banner .banner-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    #ios-install-banner img {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+    }
+    #ios-install-banner .banner-text h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    #ios-install-banner .banner-text p {
+      margin: 0;
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+    }
+    #ios-install-banner .steps {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.8;
+    }
+    #ios-install-banner .steps .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #ios-install-banner .close-btn {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none; border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 22px;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
   <!-- Splash visible mientras carga Flutter -->
   <div id="splash">
-    <img src="icons/apple-touch-icon-180x180.png" alt="AldraScan">
+    <img id="splash-logo" src="icons/apple-touch-icon-180x180.png" alt="AldraScan">
+    <div id="splash-title">AldraScan</div>
+    <div id="splash-subtitle">Catálogo Dental Profesional</div>
     <div class="spinner"></div>
-    <div id="splash-text">ALDRASCAN CATALOG</div>
+  </div>
+
+  <!-- Banner de instalación iOS (se muestra solo en Safari iPhone/iPad) -->
+  <div id="ios-install-banner">
+    <button class="close-btn" onclick="dismissIOSBanner()" aria-label="Cerrar">×</button>
+    <div class="banner-row">
+      <img src="icons/apple-touch-icon-180x180.png" alt="AldraScan">
+      <div class="banner-text">
+        <h3>Instalar AldraScan</h3>
+        <p>Añade esta app a tu pantalla de inicio</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">1️⃣ &nbsp;Toca el botón <strong>Compartir</strong> (↑) de Safari</div>
+      <div class="step">2️⃣ &nbsp;Selecciona <strong>"Añadir a pantalla de inicio"</strong></div>
+      <div class="step">3️⃣ &nbsp;Toca <strong>"Añadir"</strong> — ¡listo!</div>
+    </div>
   </div>
 
   <script>
-    // Ocultar splash cuando Flutter esté listo
+    // ─── Ocultar splash cuando Flutter esté listo ───────────────────────
     window.addEventListener('flutter-first-frame', function() {
       var splash = document.getElementById('splash');
       if (splash) {
-        splash.style.transition = 'opacity 0.4s';
+        splash.style.transition = 'opacity 0.5s ease';
         splash.style.opacity = '0';
-        setTimeout(function() { splash.remove(); }, 400);
+        setTimeout(function() {
+          if (splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 500);
       }
+      // Mostrar banner de instalación iOS (una sola vez)
+      showIOSInstallBannerIfNeeded();
     });
+
+    // ─── Detectar iOS Safari (no Chrome en iOS) ─────────────────────────
+    function isIOSSafari() {
+      var ua = window.navigator.userAgent.toLowerCase();
+      var isIOS = /iphone|ipad|ipod/.test(ua);
+      var isSafari = /safari/.test(ua) && !/chrome|crios|fxios/.test(ua);
+      return isIOS && isSafari;
+    }
+
+    // ─── ¿Ya está instalada como PWA? ───────────────────────────────────
+    function isInStandaloneMode() {
+      return (
+        window.navigator.standalone === true ||
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches
+      );
+    }
+
+    // ─── Mostrar banner de instalación iOS ──────────────────────────────
+    function showIOSInstallBannerIfNeeded() {
+      if (!isIOSSafari()) return;
+      if (isInStandaloneMode()) return;
+      var dismissed = sessionStorage.getItem('ios_banner_dismissed');
+      if (dismissed) return;
+      var banner = document.getElementById('ios-install-banner');
+      if (banner) {
+        setTimeout(function() {
+          banner.style.display = 'block';
+        }, 2000);
+      }
+    }
+
+    function dismissIOSBanner() {
+      var banner = document.getElementById('ios-install-banner');
+      if (banner) {
+        banner.style.transition = 'transform 0.3s ease';
+        banner.style.transform = 'translateY(100%)';
+        setTimeout(function() { banner.style.display = 'none'; }, 300);
+      }
+      sessionStorage.setItem('ios_banner_dismissed', '1');
+    }
+
+    // ─── Registrar Service Worker (si está disponible) ──────────────────
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('flutter_service_worker.js', {
+          scope: './'
+        }).then(function(registration) {
+          console.log('SW registrado:', registration.scope);
+        }).catch(function(error) {
+          console.log('SW error:', error);
+        });
+      });
+    }
   </script>
 
   <script src="flutter_bootstrap.js" async></script>
