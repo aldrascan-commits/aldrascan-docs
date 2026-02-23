@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../utils/url_helper.dart';
 import '../data/products_data.dart';
 import '../theme/app_theme.dart';
 import '../widgets/product_card.dart';
@@ -8,10 +8,7 @@ import 'product_detail_screen.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  Future<void> _openWhatsApp(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) await launchUrl(uri);
-  }
+  Future<void> _openWhatsApp(String url) async => openUrl(url);
 
   @override
   Widget build(BuildContext context) {

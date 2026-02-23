@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../utils/url_helper.dart';
 import '../models/product.dart';
 import '../theme/app_theme.dart';
 
@@ -20,15 +20,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   const ProductDetailScreen({super.key, required this.product});
 
-  Future<void> _openWhatsApp() async {
-    final uri = Uri.parse(product.whatsappUrl);
-    if (await canLaunchUrl(uri)) await launchUrl(uri);
-  }
+  Future<void> _openWhatsApp() async => openUrl(product.whatsappUrl);
 
-  Future<void> _callPhone() async {
-    final uri = Uri.parse('tel:+34662078540');
-    if (await canLaunchUrl(uri)) await launchUrl(uri);
-  }
+  Future<void> _callPhone() async => openUrl(telUrl('+34662078540'));
 
   @override
   Widget build(BuildContext context) {

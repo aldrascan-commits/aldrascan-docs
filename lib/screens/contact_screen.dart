@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../utils/url_helper.dart';
 import '../theme/app_theme.dart';
 
 class ContactScreen extends StatelessWidget {
   const ContactScreen({super.key});
 
-  Future<void> _launch(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) await launchUrl(uri);
-  }
+  Future<void> _launch(String url) async => openUrl(url);
 
   @override
   Widget build(BuildContext context) {
