@@ -36,6 +36,20 @@ class DownloadsScreen extends StatelessWidget {
       icon: Icons.biotech_outlined,
       color: Color(0xFF1565C0),
     ),
+    _DocItem(
+      title: 'AldraScan CAD CAM',
+      subtitle: 'Fresadoras y flujo CAD/CAM para clínica y laboratorio',
+      description:
+          'Catálogo completo de soluciones CAD/CAM: fresadoras de alta precisión, '
+          'bloques de zirconio, cerámica y PMMA. Diseño y fabricación de coronas, '
+          'puentes e inlays en el mismo día. Flujo digital integrado.',
+      assetPath: 'assets/docs/aldrascan_cad_cam.pdf',
+      fileName: 'AldraScan_CAD_CAM.pdf',
+      sizeMb: '3.4 MB',
+      pages: 'Catálogo CAD/CAM',
+      icon: Icons.precision_manufacturing_outlined,
+      color: Color(0xFF00897B),
+    ),
   ];
 
   @override
