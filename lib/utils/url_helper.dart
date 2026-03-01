@@ -1,15 +1,4 @@
 // url_helper.dart — Import condicional web/nativo
-// En web usa dart:html directamente (window.location.href / window.open)
-// En nativo usa url_launcher con LaunchMode.externalApplication
-//
-// POR QUÉ ESTE ENFOQUE:
-// - iOS Safari PWA bloquea launchUrl() de Flutter si no viene de
-//   un gesto directo del navegador
-// - dart:html window.location.href = url  funciona 100% en iOS Safari
-//   porque se ejecuta síncronamente en el event handler del tap
-// - Mac/Chrome/Android también funcionan con sus respectivas rutas
-
-// ignore: uri_does_not_exist
 import 'url_launcher_stub.dart'
     if (dart.library.html) 'url_launcher_web.dart'
     if (dart.library.io) 'url_launcher_native.dart';
@@ -17,7 +6,7 @@ import 'url_launcher_stub.dart'
 export 'url_launcher_stub.dart'
     if (dart.library.html) 'url_launcher_web.dart'
     if (dart.library.io) 'url_launcher_native.dart'
-    show openUrlPlatform;
+    show openUrlPlatform, downloadBytesAsFile;
 
 /// Abre una URL de forma compatible con iOS Safari, PWA iPhone/iPad,
 /// Mac Safari, Android y navegadores de escritorio.
