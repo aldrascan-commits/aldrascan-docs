@@ -7,6 +7,7 @@ import 'screens/catalog_screen.dart';
 import 'screens/offers_screen.dart';
 import 'screens/contact_screen.dart';
 import 'screens/downloads_screen.dart';
+import 'screens/quiz_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +49,7 @@ class _MainShellState extends State<MainShell> {
     HomeScreen(),
     CatalogScreen(),
     OffersScreen(),
+    QuizScreen(),
     DownloadsScreen(),
     ContactScreen(),
   ];
@@ -114,6 +116,11 @@ class _MainShellState extends State<MainShell> {
                   icon: Icon(Icons.local_offer_outlined),
                   activeIcon: Icon(Icons.local_offer),
                   label: 'Ofertas',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.quiz_outlined),
+                  activeIcon: Icon(Icons.quiz),
+                  label: 'Quiz',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.download_outlined),

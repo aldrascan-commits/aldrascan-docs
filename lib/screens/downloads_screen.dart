@@ -22,6 +22,20 @@ class DownloadsScreen extends StatelessWidget {
       icon: Icons.picture_as_pdf_outlined,
       color: Color(0xFFE53935),
     ),
+    _DocItem(
+      title: 'AldraScan Pro – Ecosistema Dental',
+      subtitle: 'Ecosistema completo de tecnología dental digital',
+      description:
+          'Descubre el flujo de trabajo digital completo: escáneres intraorales, '
+          'CBCT, fresadoras CAD/CAM, impresoras 3D y software integrado. '
+          'Todo lo que necesitas para digitalizar tu clínica o laboratorio.',
+      assetPath: 'assets/docs/aldrascan_pro_ecosystem.pdf',
+      fileName: 'AldraScan_Pro_Dental_Ecosystem.pdf',
+      sizeMb: '4.3 MB',
+      pages: 'Dossier completo',
+      icon: Icons.biotech_outlined,
+      color: Color(0xFF1565C0),
+    ),
   ];
 
   @override
