@@ -839,7 +839,7 @@ class ProductData {
         'Control PID de precisión',
         'Temperatura máx. 1.200°C',
       ],
-      imageAsset: 'assets/products/duotron_t3200.png',
+      imageAsset: 'assets/products/veltz_horno.png',
       badge: 'Pack Completo',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Pack Veltz (6.300€). ¿Podéis darme más información?',
