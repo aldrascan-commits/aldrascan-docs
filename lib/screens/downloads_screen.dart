@@ -50,6 +50,20 @@ class DownloadsScreen extends StatelessWidget {
       icon: Icons.precision_manufacturing_outlined,
       color: Color(0xFF00897B),
     ),
+    _DocItem(
+      title: 'Catálogo CAD/CAM 2026 Profesional',
+      subtitle: 'Philden · Deprag · KDF · Duotron · Materiales',
+      description:
+          'Catálogo completo 2026: fresadoras Philden y Deprag (húmedo, seco, híbrido, '
+          'automático), hornos KDF y Duotron, sistemas de aspiración y materiales '
+          'Mazic y Luxen. Con precios y especificaciones técnicas completas.',
+      assetPath: 'assets/docs/aldrascan_cad_cam_2026.pdf',
+      fileName: 'AldraScan_CAD_CAM_2026.pdf',
+      sizeMb: '24 MB',
+      pages: 'Catálogo completo',
+      icon: Icons.precision_manufacturing_outlined,
+      color: Color(0xFF00695C),
+    ),
   ];
 
   @override

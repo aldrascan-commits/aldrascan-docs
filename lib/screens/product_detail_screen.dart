@@ -344,6 +344,8 @@ class ProductDetailScreen extends StatelessWidget {
       case 'cbct': return '🔬 CBCT 3D';
       case 'sillon': return '🦷 Sillón Dental';
       case 'fresadora': return '⚙️ Fresadora';
+      case 'impresora': return '🖨️ Impresora 3D';
+      case 'cadcam': return '🏭 CAD/CAM';
       case 'pack': return '📦 Pack';
       default: return cat;
     }

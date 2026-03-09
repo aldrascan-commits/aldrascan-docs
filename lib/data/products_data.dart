@@ -533,6 +533,318 @@ class ProductData {
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Luvis Chair (unidad dental Dentis). ¿Podéis darme precio y más información?',
     ),
+
+    // ─── CAD/CAM – FRESADORAS PHILDEN ────────────────────────────────────────
+
+    Product(
+      id: 'philden_s500',
+      name: 'Philden S500 Seco',
+      subtitle: 'Fresadora 5 Ejes Laboratorio',
+      category: 'cadcam',
+      price: 13550,
+      financing: '60 meses · desde 226 €/mes',
+      description:
+          'Fresadora de fresado seco ideal para laboratorio. 5 ejes, 12 herramientas, husillo 60.000 rpm. Requiere compresor 8 bar. Software CAM incluido. Precisión industrial para producción diaria.',
+      features: [
+        '5 ejes de precisión industrial',
+        '12 herramientas automáticas',
+        'Husillo 60.000 rpm / 900W',
+        'Fresado en seco (DRY)',
+        'Software CAM incluido',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset: 'assets/products/philden_s410.png',
+      badge: 'Laboratorio',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa la Philden S500 Seco (13.550€ + IVA). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'philden_adc500',
+      name: 'Philden ADC-500',
+      subtitle: 'Fresadora Automática 24/7',
+      category: 'cadcam',
+      price: 17990,
+      financing: '60 meses · desde 300 €/mes',
+      description:
+          'Fresadora automática con cargador de 10 discos para producción continua 24/7. 5 ejes, 12 herramientas, cambio automático de bloques. Máxima productividad para laboratorios de alto volumen.',
+      features: [
+        'Cargador automático 10 discos',
+        'Producción 24/7 sin paradas',
+        '5 ejes de alta precisión',
+        '12 herramientas automáticas',
+        'Fresado seco + software CAM',
+        'Ideal laboratorio alto volumen',
+      ],
+      imageAsset: 'assets/products/philden_s510.png',
+      badge: 'Producción 24/7',
+      isFeatured: true,
+      whatsappMessage: 'Hola, me interesa la Philden ADC-500 automática (17.990€ + IVA). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'philden_x500',
+      name: 'Philden X500 Híbrida',
+      subtitle: 'Wet & Dry – Todo en Uno',
+      category: 'cadcam',
+      price: 32800,
+      financing: '60 meses · desde 547 €/mes',
+      description:
+          'La fresadora industrial todo-en-uno con fresado húmedo Y seco en la misma máquina. 5 ejes, 21 herramientas, potencia 2,5 kW. Sistema profesional para clínicas y laboratorios de máximo rendimiento.',
+      features: [
+        'Fresado húmedo + seco combinado',
+        '5 ejes industriales',
+        '21 herramientas automáticas',
+        'Potencia 2,5 kW',
+        'Sistema todo-en-uno',
+        'Máximo rendimiento profesional',
+      ],
+      imageAsset: 'assets/products/philden_x500.png',
+      badge: 'Top Gama',
+      isFeatured: true,
+      whatsappMessage: 'Hola, me interesa la Philden X500 Híbrida (32.800€). ¿Podéis darme más información?',
+    ),
+
+    // ─── CAD/CAM – FRESADORAS DEPRAG ─────────────────────────────────────────
+
+    Product(
+      id: 'deprag_d5_afe',
+      name: 'Deprag D5 AFE',
+      subtitle: 'Fresado Seco Sin Compresor',
+      category: 'cadcam',
+      price: 19900,
+      financing: '60 meses · desde 332 €/mes',
+      description:
+          'Fresadora Deprag 5 ejes con tecnología Airless (sin compresor). 10 herramientas automáticas. Fresado en seco de alta precisión para laboratorio y clínica digital avanzada.',
+      features: [
+        '5 ejes de alta precisión',
+        '10 herramientas automáticas',
+        'Sin compresor (Airless)',
+        'Fresado seco profesional',
+        'Software CAM incluido',
+        'Soporte técnico especializado',
+      ],
+      imageAsset: 'assets/products/deprag_w4.png',
+      badge: 'Sin Compresor',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa la Deprag D5 AFE (19.900€). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'deprag_d5_max',
+      name: 'Deprag D5 MAX',
+      subtitle: 'Producción Masiva 24/7',
+      category: 'cadcam',
+      price: 20900,
+      financing: '60 meses · desde 348 €/mes',
+      description:
+          'La fresadora de producción masiva con 8 discos automáticos y 10 herramientas. 5 ejes, 520 kg, funcionamiento 24/7. Para laboratorios de alto volumen que requieren máxima fiabilidad y producción continua.',
+      features: [
+        '8 discos automáticos',
+        'Producción masiva 24/7',
+        '5 ejes – 10 herramientas',
+        'Peso industrial 520 kg',
+        'Máxima fiabilidad',
+        'Ideal laboratorio volumen',
+      ],
+      imageAsset: 'assets/products/deprag_w4.png',
+      badge: '8 Discos Auto',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa la Deprag D5 MAX (20.900€). ¿Podéis darme más información?',
+    ),
+
+    // ─── CAD/CAM – HORNOS SINTERIZACIÓN KDF ──────────────────────────────────
+
+    Product(
+      id: 'kdf_standard',
+      name: 'KDF Zircom Standard',
+      subtitle: 'Sinterización Japonesa 1.600°C',
+      category: 'cadcam',
+      price: 11800,
+      financing: '60 meses · desde 197 €/mes',
+      description:
+          'Horno de sinterización japonés KDF de alta fiabilidad. 1.600°C máximo, 3 bandejas (50 unidades), fabricación japonesa de precisión. Regalo de 1.000€ en material incluido en la compra.',
+      features: [
+        'Temperatura máx. 1.600°C',
+        '3 bandejas – 50 unidades',
+        'Fabricación japonesa',
+        'Alta fiabilidad y precisión',
+        '1.000€ en material de regalo',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: '1.000€ Regalo',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el KDF Zircom Standard (11.800€). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'kdf_speed',
+      name: 'KDF Zircom Speed',
+      subtitle: 'Sinterización Rápida 90 min',
+      category: 'cadcam',
+      price: 13890,
+      financing: '60 meses · desde 232 €/mes',
+      description:
+          'Horno KDF con modo rápido de sinterización en solo 90 minutos. 1.600°C, 3 bandejas. Perfecto para clínicas que necesitan restauraciones same-day. Regalo de 1.500€ en material incluido.',
+      features: [
+        'Modo SPEED: 90 minutos',
+        'Temperatura máx. 1.600°C',
+        '3 bandejas capacidad',
+        'Same-day dentistry',
+        '1.500€ en material de regalo',
+        'Fabricación japonesa premium',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: '90 min · 1.500€ Regalo',
+      isFeatured: true,
+      whatsappMessage: 'Hola, me interesa el KDF Zircom Speed (13.890€). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'kdf_plus',
+      name: 'KDF Zircom Plus',
+      subtitle: 'Alta Producción 60-90 Unidades',
+      category: 'cadcam',
+      price: 15300,
+      financing: '60 meses · desde 255 €/mes',
+      description:
+          'El horno KDF de mayor capacidad: 3 bandejas para 60-90 unidades simultáneas. 1.600°C. Para laboratorios de alta producción que necesitan máxima capacidad. Regalo de 1.500€ en material incluido.',
+      features: [
+        '60-90 unidades simultáneas',
+        '3 bandejas gran capacidad',
+        'Temperatura máx. 1.600°C',
+        'Alta producción laboratorio',
+        '1.500€ en material de regalo',
+        'Máxima capacidad KDF',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: 'Alta Producción',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el KDF Zircom Plus (15.300€). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'deprag_s7',
+      name: 'Deprag S7 MOSI2',
+      subtitle: 'Sinterización Rápida WiFi + App',
+      category: 'cadcam',
+      price: 7500,
+      financing: '60 meses · desde 125 €/mes',
+      description:
+          'Horno de sinterización rápida con tecnología MOSI2. Solo 90 minutos, 1.600°C, control por WiFi y app móvil. El más avanzado tecnológicamente con conectividad total desde el smartphone.',
+      features: [
+        'Sinterización en 90 minutos',
+        'Control WiFi + App móvil',
+        'Temperatura máx. 1.600°C',
+        'Tecnología MOSI2',
+        'Conectividad total',
+        'Control remoto desde móvil',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: 'WiFi + App',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Deprag S7 MOSI2 (7.500€). ¿Podéis darme más información?',
+    ),
+
+    // ─── CAD/CAM – HORNO COCCIÓN DUOTRON T-5200 ──────────────────────────────
+
+    Product(
+      id: 'duotron_t5200',
+      name: 'Duotron T-5200',
+      subtitle: 'Horno Profesional 1.200°C',
+      category: 'cadcam',
+      price: 12400,
+      financing: '60 meses · desde 207 €/mes',
+      description:
+          'Horno de cocción profesional de precisión. 1.200°C, soporte inyección, gestión USB, trifásico. Para laboratorios que requieren máxima precisión en cocción de cerámica y materiales premium.',
+      features: [
+        'Temperatura máx. 1.200°C',
+        'Soporte inyección',
+        'Gestión programas USB',
+        'Trifásico profesional',
+        'Precisión total en cocción',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: 'Inyección',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Duotron T-5200 (12.400€). ¿Podéis darme más información?',
+    ),
+
+    // ─── CAD/CAM – ASPIRACIÓN ─────────────────────────────────────────────────
+
+    Product(
+      id: 'philden_r407',
+      name: 'Philden R-407-1',
+      subtitle: 'Aspiración Portátil 150 m³/h',
+      category: 'cadcam',
+      price: 1230,
+      financing: null,
+      description:
+          'Sistema de aspiración portátil para fresadoras de seco. 150 m³/h, 59 dB, plug & play. Compacto y silencioso, compatible con fresadoras Philden y Deprag. Instalación inmediata sin obras.',
+      features: [
+        'Caudal 150 m³/h',
+        'Nivel sonoro 59 dB',
+        'Plug & Play – sin instalación',
+        'Portátil y compacto',
+        'Compatible Philden/Deprag',
+        'Filtro HEPA incluido',
+      ],
+      imageAsset: 'assets/products/philden_s410.png',
+      badge: 'Plug & Play',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Philden R-407-1 aspiración (1.230€). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'philden_e402',
+      name: 'Philden E-402',
+      subtitle: 'Aspiración Industrial 220 m³/h',
+      category: 'cadcam',
+      price: 1390,
+      financing: null,
+      description:
+          'Sistema de aspiración industrial ultrasilencioso para laboratorio. 220 m³/h, solo 53 dB. Mayor potencia y menor ruido que el R-407-1. Ideal para laboratorios con alta producción de fresado en seco.',
+      features: [
+        'Caudal industrial 220 m³/h',
+        'Ultrasilencioso 53 dB',
+        'Mayor potencia disponible',
+        'Para laboratorio profesional',
+        'Compatible todas fresadoras',
+        'Filtración de alta eficiencia',
+      ],
+      imageAsset: 'assets/products/philden_s410.png',
+      badge: 'Industrial',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Philden E-402 aspiración industrial (1.390€). ¿Podéis darme más información?',
+    ),
+
+    // ─── CAD/CAM – PACK VELTZ ─────────────────────────────────────────────────
+
+    Product(
+      id: 'pack_veltz',
+      name: 'Pack Veltz',
+      subtitle: 'Kit Completo Horno Inyección',
+      category: 'cadcam',
+      price: 6300,
+      financing: '60 meses · desde 105 €/mes',
+      description:
+          'Pack promocional Veltz completo para horno de inyección. Incluye 100 conos de soporte, 50 pins, kit de limpieza y 3 años de garantía. Todo lo necesario para empezar con inyección cerámica al mejor precio.',
+      features: [
+        '100 conos de soporte incluidos',
+        '50 pins de laboratorio',
+        'Kit de limpieza completo',
+        'Garantía extendida 3 años',
+        'Control PID de precisión',
+        'Temperatura máx. 1.200°C',
+      ],
+      imageAsset: 'assets/products/duotron_t3200.png',
+      badge: 'Pack Completo',
+      isFeatured: false,
+      whatsappMessage: 'Hola, me interesa el Pack Veltz (6.300€). ¿Podéis darme más información?',
+    ),
+
   ];
 
   static List<Product> byCategory(String categoryId) {
