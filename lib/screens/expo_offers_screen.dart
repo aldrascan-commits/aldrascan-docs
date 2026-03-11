@@ -640,100 +640,41 @@ class _ExpoOfferCardState extends State<_ExpoOfferCard> {
 
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF112030),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: offer.badgeColor.withValues(alpha: 0.35),
-        ),
+        color: const Color(0xFF081525),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: offer.badgeColor.withValues(alpha: 0.12),
-            blurRadius: 20,
-            offset: const Offset(0, 6),
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // ── Carrusel de imágenes ─────────────────────────────────────────
+          // ── Imagen 100% (cuadrada 1:1) con carrusel ──────────────────────
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
             ),
             child: Stack(
               children: [
-                SizedBox(
-                  height: 220,
+                AspectRatio(
+                  aspectRatio: 1.0,
                   child: hasMultiple
                       ? PageView.builder(
                           controller: _pageController,
                           itemCount: offer.imageAssets.length,
                           onPageChanged: (i) =>
                               setState(() => _currentImage = i),
-                          itemBuilder: (ctx, i) => _buildImage(
-                              offer.imageAssets[i], offer),
+                          itemBuilder: (ctx, i) =>
+                              _buildImage(offer.imageAssets[i], offer),
                         )
                       : _buildImage(offer.imageAssets[0], offer),
                 ),
-
-                // Badge animado
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: ScaleTransition(
-                    scale: widget.pulseAnimation,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: offer.badgeColor,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: offer.badgeColor.withValues(alpha: 0.5),
-                            blurRadius: 8,
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        offer.badge,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Etiqueta descuento / regalo
-                if (offer.discount != null)
-                  Positioned(
-                    top: 12,
-                    right: 12,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFD600),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        offer.discount!,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                // Indicadores de página (puntos)
+                // Puntos de paginación solo si hay múltiples imágenes
                 if (hasMultiple)
                   Positioned(
                     bottom: 10,
@@ -745,7 +686,7 @@ class _ExpoOfferCardState extends State<_ExpoOfferCard> {
                         offer.imageAssets.length,
                         (i) => AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
-                          width: _currentImage == i ? 18 : 7,
+                          width: _currentImage == i ? 20 : 7,
                           height: 7,
                           margin: const EdgeInsets.symmetric(horizontal: 3),
                           decoration: BoxDecoration(
@@ -762,145 +703,29 @@ class _ExpoOfferCardState extends State<_ExpoOfferCard> {
             ),
           ),
 
-          // ── Contenido ────────────────────────────────────────────────────
+          // ── Solo botón WhatsApp ──────────────────────────────────────────
           Padding(
-            padding: const EdgeInsets.all(18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Categoría
-                Text(
-                  offer.category.toUpperCase(),
+            padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _openWhatsApp,
+                icon: const Icon(Icons.chat_rounded, size: 16),
+                label: const Text(
+                  'Consultar por WhatsApp',
                   style: TextStyle(
-                    color: offer.badgeColor,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.5,
-                  ),
+                      fontSize: 13, fontWeight: FontWeight.w700),
                 ),
-                const SizedBox(height: 4),
-
-                // Nombre
-                Text(
-                  offer.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF25D366),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 13),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  elevation: 0,
                 ),
-
-                // Subtítulo
-                Text(
-                  offer.subtitle,
-                  style: const TextStyle(
-                    color: Colors.white60,
-                    fontSize: 13,
-                    height: 1.3,
-                  ),
-                ),
-
-                const SizedBox(height: 14),
-
-                // Precio
-                if (offer.price != null)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '${_formatPrice(offer.price!)}€',
-                        style: TextStyle(
-                          color: offer.badgeColor,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 4),
-                        child: Text(
-                          '+ IVA',
-                          style: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                // Financiación
-                if (offer.financing != null) ...[
-                  const SizedBox(height: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      '💳 ${offer.financing}',
-                      style: const TextStyle(
-                        color: Colors.white60,
-                        fontSize: 11,
-                      ),
-                    ),
-                  ),
-                ],
-
-                const SizedBox(height: 14),
-                Container(height: 1, color: Colors.white.withValues(alpha: 0.07)),
-                const SizedBox(height: 14),
-
-                // Features
-                ...offer.features.take(4).map(
-                      (f) => Padding(
-                        padding: const EdgeInsets.only(bottom: 7),
-                        child: Row(
-                          children: [
-                            Icon(Icons.check_circle_rounded,
-                                color: offer.badgeColor, size: 15),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                f,
-                                style: const TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                const SizedBox(height: 16),
-
-                // Botón WhatsApp
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _openWhatsApp,
-                    icon: const Icon(Icons.chat_rounded, size: 16),
-                    label: const Text(
-                      'Consultar oferta por WhatsApp',
-                      style: TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w700),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF25D366),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 0,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -912,8 +737,7 @@ class _ExpoOfferCardState extends State<_ExpoOfferCard> {
     return Image.asset(
       asset,
       width: double.infinity,
-      height: 220,
-      fit: BoxFit.cover,
+      fit: BoxFit.contain,
       errorBuilder: (_, __, ___) => Container(
         width: double.infinity,
         height: 220,
@@ -933,12 +757,5 @@ class _ExpoOfferCardState extends State<_ExpoOfferCard> {
         ),
       ),
     );
-  }
-
-  String _formatPrice(double price) {
-    return price
-        .toStringAsFixed(0)
-        .replaceAllMapped(
-            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.');
   }
 }
