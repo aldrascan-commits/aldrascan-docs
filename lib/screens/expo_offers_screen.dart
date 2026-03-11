@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../utils/url_helper.dart';
 
-// ─── Modelo de Oferta Expo ────────────────────────────────────────────────────
+// ─── Modelo ───────────────────────────────────────────────────────────────────
 class ExpoOffer {
   final String id;
   final String name;
   final String subtitle;
-  final String imageAsset;
+  final List<String> imageAssets; // múltiples imágenes → carrusel
   final double? price;
   final double? originalPrice;
   final String? discount;
@@ -21,7 +21,7 @@ class ExpoOffer {
     required this.id,
     required this.name,
     required this.subtitle,
-    required this.imageAsset,
+    required this.imageAssets,
     this.price,
     this.originalPrice,
     this.discount,
@@ -40,240 +40,178 @@ class ExpoOffer {
   }
 }
 
-// ─── Datos de Ofertas Expo ────────────────────────────────────────────────────
+// ─── Datos ────────────────────────────────────────────────────────────────────
 class ExpoOffersData {
   static const List<ExpoOffer> offers = [
 
-    // ── Escáneres ──────────────────────────────────────────────────────────────
+    // ── Medit i900 Mobility ────────────────────────────────────────────────────
     ExpoOffer(
-      id: 'expo_medit_i900',
-      name: 'Medit i900',
-      subtitle: 'Top de gama · Expodental precio especial',
-      imageAsset: 'assets/products/medit_i900.png',
-      price: 14900,
-      originalPrice: 17500,
-      discount: '-15%',
-      financing: '60 meses · desde 248 €/mes',
-      badge: '🔥 EXPO DEAL',
+      id: 'expo_i900_mobility',
+      name: 'Medit i900 Mobility',
+      subtitle: 'Top de gama inalámbrico · iPad Pro M5 de REGALO',
+      imageAssets: [
+        'assets/expo/expo_medit_i900_mobility_1.png',
+        'assets/expo/expo_medit_i900_mobility_2.png',
+        'assets/expo/expo_medit_i900_mobility_3.png',
+      ],
+      price: 13900,
+      discount: 'iPad Pro M5 REGALO',
+      financing: '60 meses · desde 232 €/mes',
+      badge: '🔥 TOP EXPO',
       badgeColor: Color(0xFFE53935),
       features: [
         '100 FPS — el más rápido del mercado',
-        'Precisión 4.9 µm (clase médica)',
-        'Modo inalámbrico incluido',
+        'Modo inalámbrico Mobility incluido',
+        'iPad Pro M5 de regalo',
+        'Precisión 4.9 µm',
         'UV-C desinfección integrada',
-        'Software Medit Link gratuito',
         'Formación y certificación incluidas',
       ],
       whatsappMessage:
-          'Hola, me interesa el Medit i900 con la oferta Expodental 2026 (14.900€). ¿Podéis darme más información?',
+          'Hola, me interesa el Medit i900 Mobility (13.900€ + iPad Pro M5 REGALO) de la oferta Expodental 2026. ¿Podéis darme más información?',
       category: 'escáner',
     ),
 
+    // ── Medit i900 Classic ─────────────────────────────────────────────────────
     ExpoOffer(
-      id: 'expo_medit_i700',
-      name: 'Medit i700',
-      subtitle: 'Velocidad profesional · Mejor precio feria',
-      imageAsset: 'assets/products/medit_i700_real.png',
-      price: 7900,
-      originalPrice: 8500,
-      discount: '-7%',
-      financing: '60 meses · desde 132 €/mes',
-      badge: '⭐ OFERTA EXPO',
+      id: 'expo_i900_classic',
+      name: 'Medit i900 Classic',
+      subtitle: 'Precisión cuando necesitas control · Portátil GRATIS',
+      imageAssets: [
+        'assets/expo/expo_medit_i900_classic_3.png',
+        'assets/expo/expo_medit_i900_classic_1.png',
+        'assets/expo/expo_medit_i900_classic_2.png',
+      ],
+      price: 11499,
+      discount: 'Portátil GRATIS',
+      financing: '60 meses · desde 192 €/mes',
+      badge: '⭐ ESTRELLA EXPO',
       badgeColor: Color(0xFF1565C0),
       features: [
-        '70 FPS doble velocidad',
-        'Precisión 10.9 µm profesional',
-        'Versión inalámbrica disponible',
-        'UV-C LED desinfección',
-        'Garantía 3 años oficial',
-        'Instalación y formación',
+        '100 FPS velocidad profesional',
+        'Precisión 4.9 µm clase médica',
+        'Portátil de alto rendimiento GRATIS',
+        'Software Medit Link incluido',
+        'Garantía oficial 3 años',
+        'Instalación y formación incluidas',
       ],
       whatsappMessage:
-          'Hola, me interesa el Medit i700 con la oferta Expodental 2026 (7.900€). ¿Podéis darme más información?',
+          'Hola, me interesa el Medit i900 Classic (11.499€ + Portátil GRATIS) de la oferta Expodental 2026. ¿Podéis darme más información?',
       category: 'escáner',
     ),
 
+    // ── Shining Elite ──────────────────────────────────────────────────────────
     ExpoOffer(
-      id: 'expo_medit_i600',
-      name: 'Medit i600',
-      subtitle: 'Entrada al digital · Precio imbatible',
-      imageAsset: 'assets/products/medit_i600.png',
-      price: 5500,
-      originalPrice: 5900,
-      discount: '-7%',
-      financing: '60 meses · desde 92 €/mes',
-      badge: '💙 INICIACIÓN',
-      badgeColor: Color(0xFF1976D2),
-      features: [
-        'Velocidad 35 FPS fluida',
-        'Ultraligero 245 gramos',
-        'Plug & Scan sin configuración',
-        'Garantía 3 años oficial',
-        'Envío en 24 horas',
-        'Formación clínica incluida',
+      id: 'expo_shining_elite',
+      name: 'Shining Elite',
+      subtitle: '+ Kit Scan Body incluido · Escáner premium Shining3D',
+      imageAssets: [
+        'assets/expo/expo_shining_elite_1.png',
+        'assets/expo/expo_shining_elite_2.png',
       ],
-      whatsappMessage:
-          'Hola, me interesa el Medit i600 con la oferta Expodental 2026 (5.500€). ¿Podéis darme más información?',
-      category: 'escáner',
-    ),
-
-    ExpoOffer(
-      id: 'expo_aoralscan_elite',
-      name: 'Aoralscan Elite',
-      subtitle: 'Escáner premium · Oferta Expo exclusiva',
-      imageAsset: 'assets/products/aoralscan_elite.jpg',
-      price: 9900,
-      originalPrice: 11500,
-      discount: '-14%',
-      financing: '60 meses · desde 165 €/mes',
-      badge: '🏆 PREMIUM EXPO',
+      price: 16200,
+      discount: 'Kit Scan Body',
+      financing: '60 meses · desde 270 €/mes',
+      badge: '🏆 PREMIUM',
       badgeColor: Color(0xFF6A1B9A),
       features: [
-        'Triple cámara DSLR HD',
-        'Tecnología SLR avanzada',
-        'Escaneo en color real',
-        'Flujo completo intraoral',
-        'Compatible Exocad/3Shape',
+        'Escáner intraoral Shining3D Elite',
+        'Kit Scan Body incluido de regalo',
+        'Alta precisión implantología',
+        'Compatible Exocad / 3Shape',
+        'Flujo completo digital',
         'Soporte técnico prioritario',
       ],
       whatsappMessage:
-          'Hola, me interesa el Aoralscan Elite con la oferta Expodental 2026 (9.900€). ¿Podéis darme más información?',
+          'Hola, me interesa el Shining Elite (16.200€ + Kit Scan Body) de la oferta Expodental 2026. ¿Podéis darme más información?',
       category: 'escáner',
     ),
 
-    // ── Pack Especiales ────────────────────────────────────────────────────────
+    // ── Aoralscan Elf ──────────────────────────────────────────────────────────
     ExpoOffer(
-      id: 'expo_pack_pro',
-      name: 'Pack AldraScan Pro',
-      subtitle: 'Escáner + Fresadora + iPad · Todo incluido',
-      imageAsset: 'assets/products/pack_aldrascan_pro.png',
-      price: 39900,
-      originalPrice: 45000,
-      discount: '-11%',
-      financing: '60 meses · desde 665 €/mes',
-      badge: '🎁 PACK EXPO',
-      badgeColor: Color(0xFF2E7D32),
-      features: [
-        'Medit i900 escáner intraoral',
-        'Lilivis Mill LM-100 fresadora',
-        'iPad Pro con software Express',
-        'Formación completa certificada',
-        'Instalación y puesta en marcha',
-        'Garantía 3 años todo incluido',
+      id: 'expo_aoralscan_elf',
+      name: 'Aoralscan Elf',
+      subtitle: 'Escáner Premium · 106g ultraligero · USB-C simple',
+      imageAssets: [
+        'assets/expo/expo_aoralscan_elf.png',
       ],
-      whatsappMessage:
-          'Hola, me interesa el Pack AldraScan Pro con la oferta Expodental 2026 (39.900€). ¿Podéis darme más información?',
-      category: 'pack',
-    ),
-
-    ExpoOffer(
-      id: 'expo_pack_lab',
-      name: 'Pack Laboratorio Digital',
-      subtitle: 'Impresora + Fresadora + Horno · Lab completo',
-      imageAsset: 'assets/products/pack_laboratorio_digital.png',
-      price: 29900,
-      originalPrice: 34500,
-      discount: '-13%',
-      financing: '60 meses · desde 498 €/mes',
-      badge: '🏭 LAB COMPLETO',
-      badgeColor: Color(0xFF00695C),
-      features: [
-        'Elegoo Mars 05 impresora 3D',
-        'Lilivis Mill LM-100 fresadora',
-        'Duotron T-3200 horno sinterización',
-        'Software CAD/CAM incluido',
-        'Formación técnica completa',
-        'Instalación en laboratorio',
-      ],
-      whatsappMessage:
-          'Hola, me interesa el Pack Laboratorio Digital con la oferta Expodental 2026 (29.900€). ¿Podéis darme más información?',
-      category: 'pack',
-    ),
-
-    // ── CAD/CAM ────────────────────────────────────────────────────────────────
-    ExpoOffer(
-      id: 'expo_lilivis_mill',
-      name: 'Lilivis Mill LM-100',
-      subtitle: 'Fresadora clínica · Precio especial Expo',
-      imageAsset: 'assets/products/lilivis_mill.png',
-      price: 18500,
-      originalPrice: 21000,
-      discount: '-12%',
-      financing: '60 meses · desde 308 €/mes',
-      badge: '⚙️ CAD/CAM EXPO',
-      badgeColor: Color(0xFFE65100),
-      features: [
-        '5 ejes de alta precisión',
-        'Húmedo, seco e híbrido',
-        'Compatible Zirconio, PMMA, cera',
-        'Ciclo rápido 15-30 min',
-        'Software CAD incluido',
-        'Instalación técnica incluida',
-      ],
-      whatsappMessage:
-          'Hola, me interesa la Lilivis Mill LM-100 con la oferta Expodental 2026 (18.500€). ¿Podéis darme más información?',
-      category: 'fresadora',
-    ),
-
-    ExpoOffer(
-      id: 'expo_kdf_speed',
-      name: 'KDF Zircom Speed',
-      subtitle: 'Sinterizador ultrarrápido · 90 min ciclo',
-      imageAsset: 'assets/products/kdf_speed.png',
-      price: 12900,
-      originalPrice: 13890,
-      discount: '-7%',
-      financing: '60 meses · desde 215 €/mes',
-      badge: '⚡ SINTER RÁPIDO',
+      price: 9900,
+      financing: '60 meses · desde 165 €/mes',
+      badge: '💎 ULTRA LIGERO',
       badgeColor: Color(0xFF00838F),
       features: [
-        'Ciclo ultrarrápido 90 minutos',
-        'Temperatura máx. 1.600°C',
-        'Material regalo 1.500€ incluido',
-        'Compatible todas las zirconias',
-        'Control automático preciso',
-        'Garantía 2 años incluida',
+        '106 g — el más ligero de su clase',
+        'USB-C plug & play sin PC dedicado',
+        'Ergonomía perfecta en mano',
+        'Precisión de escáner premium',
+        'Expodental 2026 precio especial',
+        'Formación técnica incluida',
       ],
       whatsappMessage:
-          'Hola, me interesa el KDF Zircom Speed con la oferta Expodental 2026 (12.900€). ¿Podéis darme más información?',
-      category: 'sinterizador',
+          'Hola, me interesa el Aoralscan Elf (9.900€) de la oferta Expodental 2026. ¿Podéis darme más información?',
+      category: 'escáner',
     ),
 
-    // ── CBCT ──────────────────────────────────────────────────────────────────
+    // ── AldraScan Pro (pack clínica día completo) ──────────────────────────────
     ExpoOffer(
-      id: 'expo_rayscan',
-      name: 'Rayscan Alpha 3D',
-      subtitle: 'CBCT multifuncional · Máxima precisión',
-      imageAsset: 'assets/products/rayscan_alpha.png',
-      price: 38500,
-      originalPrice: 44000,
-      discount: '-13%',
-      financing: '60 meses · desde 642 €/mes',
-      badge: '🔬 CBCT EXPO',
-      badgeColor: Color(0xFF4527A0),
+      id: 'expo_aldrascan_pro',
+      name: 'AldraScan Pro',
+      subtitle: 'Diagnóstico · Escaneo · Restauración — Todo en el mismo día',
+      imageAssets: [
+        'assets/expo/expo_aldrascan_pro_1.png',
+        'assets/expo/expo_aldrascan_pro_2.png',
+        'assets/expo/expo_aldrascan_pro_3.png',
+      ],
+      price: 29900,
+      discount: 'Desde',
+      financing: '60 meses · desde 498 €/mes',
+      badge: '🎁 PACK CLÍNICA',
+      badgeColor: Color(0xFF2E7D32),
       features: [
-        'FOV hasta 24×16 cm',
-        'Resolución 0.08 mm vóxel',
-        'Sensor CMOS último modelo',
-        'Reconstrucción 3D en 10 seg',
-        'Software implantología incluido',
-        'Instalación y formación completa',
+        'Escáner intraoral Medit incluido',
+        'Fresadora clínica CAD/CAM',
+        'Software ClinicCAD incluido',
+        'Todo en el mismo día',
+        'Instalación y puesta en marcha',
+        'Formación completa certificada',
       ],
       whatsappMessage:
-          'Hola, me interesa el Rayscan Alpha 3D con la oferta Expodental 2026 (38.500€). ¿Podéis darme más información?',
-      category: 'cbct',
+          'Hola, me interesa el Pack AldraScan Pro (desde 29.900€) de la oferta Expodental 2026. ¿Podéis darme más información?',
+      category: 'pack',
+    ),
+
+    // ── Oferta Financiación Exclusiva ──────────────────────────────────────────
+    ExpoOffer(
+      id: 'expo_financiacion',
+      name: 'Financiación Exclusiva',
+      subtitle: 'Empieza a producir hoy · Paga dentro de 90 días',
+      imageAssets: [
+        'assets/expo/expo_financiacion.png',
+      ],
+      financing: '3 meses de carencia inicial',
+      badge: '💳 COLEGIADOS',
+      badgeColor: Color(0xFFB8860B),
+      features: [
+        'Financiación preferente para colegiados',
+        '3 meses de carencia inicial',
+        'Empieza a producir antes de pagar',
+        'Tecnología de alta precisión',
+        'Condiciones exclusivas Expodental',
+        'Consulta condiciones sin compromiso',
+      ],
+      whatsappMessage:
+          'Hola, me interesa la oferta de financiación exclusiva para colegiados (3 meses de carencia). ¿Podéis darme más información?',
+      category: 'financiación',
     ),
   ];
 
-  // Categorías únicas
   static List<String> get categories {
     final cats = offers.map((o) => o.category).toSet().toList();
-    cats.sort();
     return ['todos', ...cats];
   }
 }
 
-// ─── Pantalla Principal OFERTAS EXPO ─────────────────────────────────────────
+// ─── Pantalla Principal ───────────────────────────────────────────────────────
 class ExpoOffersScreen extends StatefulWidget {
   const ExpoOffersScreen({super.key});
 
@@ -294,7 +232,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       vsync: this,
       duration: const Duration(seconds: 2),
     )..repeat(reverse: true);
-    _pulseAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+    _pulseAnimation = Tween<double>(begin: 0.92, end: 1.0).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
   }
@@ -315,47 +253,45 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
   @override
   Widget build(BuildContext context) {
     final filtered = _filtered;
-
     return Scaffold(
-      backgroundColor: const Color(0xFF0A1628),
+      backgroundColor: const Color(0xFF081525),
       appBar: _buildAppBar(),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(child: _buildHeroBanner()),
-          SliverToBoxAdapter(child: _buildCountdownStrip()),
+          SliverToBoxAdapter(child: _buildAlertStrip()),
           SliverToBoxAdapter(child: _buildCategoryFilter()),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
               child: Row(
                 children: [
                   Text(
                     '${filtered.length} ofertas exclusivas',
                     style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 13,
-                    ),
+                        color: Colors.white54, fontSize: 12),
                   ),
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE53935).withValues(alpha: 0.2),
+                      color: const Color(0xFFE53935).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                          color: const Color(0xFFE53935).withValues(alpha: 0.5)),
+                          color:
+                              const Color(0xFFE53935).withValues(alpha: 0.4)),
                     ),
                     child: const Row(
                       children: [
                         Icon(Icons.local_fire_department,
-                            color: Color(0xFFFF5252), size: 12),
+                            color: Color(0xFFFF5252), size: 11),
                         SizedBox(width: 4),
                         Text(
                           'Solo en Expodental',
                           style: TextStyle(
                             color: Color(0xFFFF5252),
-                            fontSize: 11,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -367,11 +303,11 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (ctx, i) => Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: _ExpoOfferCard(
                     offer: filtered[i],
                     pulseAnimation: _pulseAnimation,
@@ -400,6 +336,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
               fontWeight: FontWeight.w900,
               fontSize: 18,
               letterSpacing: 1.5,
+              color: Colors.white,
             ),
           ),
         ],
@@ -410,9 +347,8 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
         child: Container(
-          height: 1,
-          color: Colors.white.withValues(alpha: 0.1),
-        ),
+            height: 1,
+            color: Colors.white.withValues(alpha: 0.1)),
       ),
     );
   }
@@ -422,7 +358,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF1565C0), Color(0xFF6A1B9A), Color(0xFFE53935)],
+          colors: [Color(0xFF0D47A1), Color(0xFF6A1B9A), Color(0xFFB71C1C)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -430,35 +366,22 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF1565C0).withValues(alpha: 0.4),
-            blurRadius: 20,
+            blurRadius: 24,
             offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Stack(
         children: [
-          // Decorative circles
           Positioned(
-            right: -20,
-            top: -20,
+            right: -24,
+            top: -24,
             child: Container(
-              width: 120,
-              height: 120,
+              width: 130,
+              height: 130,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withValues(alpha: 0.05),
-              ),
-            ),
-          ),
-          Positioned(
-            right: 20,
-            bottom: -30,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white.withValues(alpha: 0.05),
+                color: Colors.white.withValues(alpha: 0.04),
               ),
             ),
           ),
@@ -467,33 +390,29 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFD600),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Text(
-                        '⚡ EXPODENTAL 2026',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1,
-                        ),
-                      ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFD600),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    '⚡ EXPODENTAL 2026',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1,
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 12),
                 const Text(
                   'Ofertas\nExclusivas\nde Feria',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 28,
+                    fontSize: 30,
                     fontWeight: FontWeight.w900,
                     height: 1.1,
                     letterSpacing: -0.5,
@@ -511,10 +430,9 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
                 const SizedBox(height: 16),
                 const Row(
                   children: [
-                    _HeroStat(icon: Icons.percent, label: 'Hasta -15%'),
+                    _HeroStat(icon: Icons.card_giftcard, label: 'Regalos incluidos'),
                     SizedBox(width: 16),
-                    _HeroStat(
-                        icon: Icons.credit_card, label: 'Hasta 60 meses'),
+                    _HeroStat(icon: Icons.credit_card, label: 'Hasta 60 meses'),
                     SizedBox(width: 16),
                     _HeroStat(icon: Icons.school, label: 'Formación gratis'),
                   ],
@@ -527,27 +445,29 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
     );
   }
 
-  Widget _buildCountdownStrip() {
+  Widget _buildAlertStrip() {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFD600).withValues(alpha: 0.1),
+        color: const Color(0xFFFFD600).withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-            color: const Color(0xFFFFD600).withValues(alpha: 0.4)),
+            color: const Color(0xFFFFD600).withValues(alpha: 0.35)),
       ),
       child: const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.access_time, color: Color(0xFFFFD600), size: 16),
+          Icon(Icons.access_time_rounded,
+              color: Color(0xFFFFD600), size: 16),
           SizedBox(width: 8),
-          Text(
-            '⏰ Ofertas válidas solo durante el periodo de Expodental 2026',
-            style: TextStyle(
-              color: Color(0xFFFFD600),
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
+          Expanded(
+            child: Text(
+              '⏰ Ofertas válidas solo durante el periodo de Expodental 2026',
+              style: TextStyle(
+                color: Color(0xFFFFD600),
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -561,10 +481,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       'todos': '🌟 Todos',
       'escáner': '📷 Escáneres',
       'pack': '📦 Packs',
-      'fresadora': '⚙️ Fresadoras',
-      'sinterizador': '🔥 Sinterizadores',
-      'cbct': '🔬 CBCT',
-      'impresora': '🖨️ Impresoras',
+      'financiación': '💳 Financiación',
     };
 
     return Container(
@@ -587,7 +504,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
               decoration: BoxDecoration(
                 color: isSelected
                     ? const Color(0xFF1565C0)
-                    : const Color(0xFF1A2540),
+                    : const Color(0xFF152035),
                 borderRadius: BorderRadius.circular(22),
                 border: Border.all(
                   color: isSelected
@@ -598,7 +515,8 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
               child: Text(
                 labels[cat] ?? cat,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.white60,
+                  color:
+                      isSelected ? Colors.white : Colors.white54,
                   fontSize: 12,
                   fontWeight: isSelected
                       ? FontWeight.w700
@@ -619,8 +537,6 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xFF1B5E20), Color(0xFF2E7D32)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -667,7 +583,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
   }
 }
 
-// ─── Hero Stat widget ─────────────────────────────────────────────────────────
+// ─── Hero Stat ────────────────────────────────────────────────────────────────
 class _HeroStat extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -677,151 +593,178 @@ class _HeroStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: Colors.white60, size: 12),
+        Icon(icon, color: Colors.white54, size: 12),
         const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white60,
-            fontSize: 11,
-          ),
-        ),
+        Text(label,
+            style: const TextStyle(color: Colors.white54, fontSize: 10)),
       ],
     );
   }
 }
 
-// ─── Tarjeta de Oferta Expo ───────────────────────────────────────────────────
-class _ExpoOfferCard extends StatelessWidget {
+// ─── Tarjeta con carrusel ─────────────────────────────────────────────────────
+class _ExpoOfferCard extends StatefulWidget {
   final ExpoOffer offer;
   final Animation<double> pulseAnimation;
 
-  const _ExpoOfferCard({
-    required this.offer,
-    required this.pulseAnimation,
-  });
+  const _ExpoOfferCard(
+      {required this.offer, required this.pulseAnimation});
 
-  Future<void> _openWhatsApp() async => openUrl(offer.whatsappUrl);
+  @override
+  State<_ExpoOfferCard> createState() => _ExpoOfferCardState();
+}
+
+class _ExpoOfferCardState extends State<_ExpoOfferCard> {
+  int _currentImage = 0;
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _openWhatsApp() async =>
+      openUrl(widget.offer.whatsappUrl);
 
   @override
   Widget build(BuildContext context) {
+    final offer = widget.offer;
+    final hasMultiple = offer.imageAssets.length > 1;
+
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF131E35),
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFF112030),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: offer.badgeColor.withValues(alpha: 0.3),
+          color: offer.badgeColor.withValues(alpha: 0.35),
         ),
         boxShadow: [
           BoxShadow(
-            color: offer.badgeColor.withValues(alpha: 0.15),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: offer.badgeColor.withValues(alpha: 0.12),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ── Imagen con badge ──────────────────────────────────────────────
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+          // ── Carrusel de imágenes ─────────────────────────────────────────
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: 220,
+                  child: hasMultiple
+                      ? PageView.builder(
+                          controller: _pageController,
+                          itemCount: offer.imageAssets.length,
+                          onPageChanged: (i) =>
+                              setState(() => _currentImage = i),
+                          itemBuilder: (ctx, i) => _buildImage(
+                              offer.imageAssets[i], offer),
+                        )
+                      : _buildImage(offer.imageAssets[0], offer),
                 ),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.asset(
-                    offer.imageAsset,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      color: const Color(0xFF1A2540),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              _categoryIcon(offer.category),
-                              color: offer.badgeColor.withValues(alpha: 0.5),
-                              size: 48,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              offer.name,
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.4),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Badge animado
-              Positioned(
-                top: 12,
-                left: 12,
-                child: ScaleTransition(
-                  scale: pulseAnimation,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: offer.badgeColor,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: offer.badgeColor.withValues(alpha: 0.5),
-                          blurRadius: 8,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      offer.badge,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Descuento
-              if (offer.discount != null)
+
+                // Badge animado
                 Positioned(
                   top: 12,
-                  right: 12,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFD600),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      offer.discount!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w900,
+                  left: 12,
+                  child: ScaleTransition(
+                    scale: widget.pulseAnimation,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: offer.badgeColor,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: offer.badgeColor.withValues(alpha: 0.5),
+                            blurRadius: 8,
+                          )
+                        ],
+                      ),
+                      child: Text(
+                        offer.badge,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ),
                   ),
                 ),
-            ],
+
+                // Etiqueta descuento / regalo
+                if (offer.discount != null)
+                  Positioned(
+                    top: 12,
+                    right: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFD600),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        offer.discount!,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // Indicadores de página (puntos)
+                if (hasMultiple)
+                  Positioned(
+                    bottom: 10,
+                    left: 0,
+                    right: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        offer.imageAssets.length,
+                        (i) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          width: _currentImage == i ? 18 : 7,
+                          height: 7,
+                          margin: const EdgeInsets.symmetric(horizontal: 3),
+                          decoration: BoxDecoration(
+                            color: _currentImage == i
+                                ? Colors.white
+                                : Colors.white38,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
 
-          // ── Contenido ─────────────────────────────────────────────────────
+          // ── Contenido ────────────────────────────────────────────────────
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -842,8 +785,8 @@ class _ExpoOfferCard extends StatelessWidget {
                   offer.name,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
 
@@ -853,59 +796,53 @@ class _ExpoOfferCard extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.white60,
                     fontSize: 13,
+                    height: 1.3,
                   ),
                 ),
 
                 const SizedBox(height: 14),
 
-                // Precios
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    if (offer.price != null) ...[
+                // Precio
+                if (offer.price != null)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
                       Text(
-                        '${offer.price!.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}€',
+                        '${_formatPrice(offer.price!)}€',
                         style: TextStyle(
                           color: offer.badgeColor,
-                          fontSize: 26,
+                          fontSize: 28,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                    ],
-                    const SizedBox(width: 8),
-                    if (offer.originalPrice != null) ...[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 3),
+                      const SizedBox(width: 6),
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 4),
                         child: Text(
-                          '${offer.originalPrice!.toStringAsFixed(0)}€',
+                          '+ IVA',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.3),
-                            fontSize: 14,
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor:
-                                Colors.white.withValues(alpha: 0.3),
+                            color: Colors.white38,
+                            fontSize: 13,
                           ),
                         ),
                       ),
                     ],
-                  ],
-                ),
+                  ),
 
                 // Financiación
                 if (offer.financing != null) ...[
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                        horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color:
-                          Colors.white.withValues(alpha: 0.06),
+                      color: Colors.white.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       '💳 ${offer.financing}',
                       style: const TextStyle(
-                        color: Colors.white70,
+                        color: Colors.white60,
                         fontSize: 11,
                       ),
                     ),
@@ -913,17 +850,17 @@ class _ExpoOfferCard extends StatelessWidget {
                 ],
 
                 const SizedBox(height: 14),
-                const Divider(color: Color(0xFF1E2D4A), height: 1),
+                Container(height: 1, color: Colors.white.withValues(alpha: 0.07)),
                 const SizedBox(height: 14),
 
                 // Features
                 ...offer.features.take(4).map(
                       (f) => Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
+                        padding: const EdgeInsets.only(bottom: 7),
                         child: Row(
                           children: [
-                            Icon(Icons.check_circle,
-                                color: offer.badgeColor, size: 14),
+                            Icon(Icons.check_circle_rounded,
+                                color: offer.badgeColor, size: 15),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
@@ -946,7 +883,7 @@ class _ExpoOfferCard extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: _openWhatsApp,
-                    icon: const Icon(Icons.chat, size: 16),
+                    icon: const Icon(Icons.chat_rounded, size: 16),
                     label: const Text(
                       'Consultar oferta por WhatsApp',
                       style: TextStyle(
@@ -971,22 +908,37 @@ class _ExpoOfferCard extends StatelessWidget {
     );
   }
 
-  IconData _categoryIcon(String category) {
-    switch (category) {
-      case 'escáner':
-        return Icons.document_scanner;
-      case 'pack':
-        return Icons.inventory_2;
-      case 'fresadora':
-        return Icons.precision_manufacturing;
-      case 'sinterizador':
-        return Icons.whatshot;
-      case 'cbct':
-        return Icons.biotech;
-      case 'impresora':
-        return Icons.print;
-      default:
-        return Icons.medical_services;
-    }
+  Widget _buildImage(String asset, ExpoOffer offer) {
+    return Image.asset(
+      asset,
+      width: double.infinity,
+      height: 220,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        width: double.infinity,
+        height: 220,
+        color: const Color(0xFF152035),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.image_not_supported_outlined,
+                  color: offer.badgeColor.withValues(alpha: 0.4), size: 40),
+              const SizedBox(height: 8),
+              Text(offer.name,
+                  style: const TextStyle(
+                      color: Colors.white38, fontSize: 13)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _formatPrice(double price) {
+    return price
+        .toStringAsFixed(0)
+        .replaceAllMapped(
+            RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.');
   }
 }
