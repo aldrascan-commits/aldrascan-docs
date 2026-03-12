@@ -772,54 +772,6 @@ class ProductData {
       whatsappMessage: 'Hola, me interesa el Duotron T-5200 (12.400€). ¿Podéis darme más información?',
     ),
 
-    // ─── CAD/CAM – ASPIRACIÓN ─────────────────────────────────────────────────
-
-    Product(
-      id: 'philden_r407',
-      name: 'Philden R-407-1',
-      subtitle: 'Aspiración Portátil 150 m³/h',
-      category: 'cadcam',
-      price: 1230,
-      financing: null,
-      description:
-          'Sistema de aspiración portátil para fresadoras de seco. 150 m³/h, 59 dB, plug & play. Compacto y silencioso, compatible con fresadoras Philden y Deprag. Instalación inmediata sin obras.',
-      features: [
-        'Caudal 150 m³/h',
-        'Nivel sonoro 59 dB',
-        'Plug & Play – sin instalación',
-        'Portátil y compacto',
-        'Compatible Philden/Deprag',
-        'Filtro HEPA incluido',
-      ],
-      imageAsset: 'assets/products/philden_r407.png',
-      badge: 'Plug & Play',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Philden R-407-1 aspiración (1.230€). ¿Podéis darme más información?',
-    ),
-
-    Product(
-      id: 'philden_e402',
-      name: 'Philden E-402',
-      subtitle: 'Aspiración Industrial 220 m³/h',
-      category: 'cadcam',
-      price: 1390,
-      financing: null,
-      description:
-          'Sistema de aspiración industrial ultrasilencioso para laboratorio. 220 m³/h, solo 53 dB. Mayor potencia y menor ruido que el R-407-1. Ideal para laboratorios con alta producción de fresado en seco.',
-      features: [
-        'Caudal industrial 220 m³/h',
-        'Ultrasilencioso 53 dB',
-        'Mayor potencia disponible',
-        'Para laboratorio profesional',
-        'Compatible todas fresadoras',
-        'Filtración de alta eficiencia',
-      ],
-      imageAsset: 'assets/products/philden_e402.png',
-      badge: 'Industrial',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Philden E-402 aspiración industrial (1.390€). ¿Podéis darme más información?',
-    ),
-
     // ─── CAD/CAM – PACK VELTZ ─────────────────────────────────────────────────
 
     Product(
