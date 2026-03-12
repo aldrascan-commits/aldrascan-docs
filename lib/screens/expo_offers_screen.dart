@@ -203,6 +203,37 @@ class ExpoOffersData {
           'Hola, me interesa la oferta de financiación exclusiva para colegiados (3 meses de carencia). ¿Podéis darme más información?',
       category: 'financiación',
     ),
+
+    // ── Galería Expo – imágenes adicionales ────────────────────────────────────
+    ExpoOffer(
+      id: 'expo_galeria',
+      name: 'Más Ofertas Expodental',
+      subtitle: 'Descubre toda la gama · Tecnología dental de vanguardia',
+      imageAssets: [
+        'assets/expo/expo_img_01.webp',
+        'assets/expo/expo_img_02.webp',
+        'assets/expo/expo_img_03.webp',
+        'assets/expo/expo_img_04.webp',
+        'assets/expo/expo_img_05.webp',
+        'assets/expo/expo_img_06.webp',
+        'assets/expo/expo_img_07.webp',
+        'assets/expo/expo_img_08.webp',
+      ],
+      financing: '60 meses · financiación disponible',
+      badge: '📸 GALERÍA EXPO',
+      badgeColor: Color(0xFF1565C0),
+      features: [
+        'Toda la gama AldraScan Expodental',
+        'Precios especiales de feria',
+        'Financiación hasta 60 meses',
+        'Instalación y formación incluidas',
+        'Soporte técnico 24/7',
+        'Más de 200 clínicas digitalizadas',
+      ],
+      whatsappMessage:
+          'Hola, he visto las ofertas Expodental 2026 en el catálogo AldraScan. ¿Podéis darme más información?',
+      category: 'galería',
+    ),
   ];
 
   static List<String> get categories {
@@ -482,6 +513,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       'escáner': '📷 Escáneres',
       'pack': '📦 Packs',
       'financiación': '💳 Financiación',
+      'galería': '📸 Galería',
     };
 
     return Container(
