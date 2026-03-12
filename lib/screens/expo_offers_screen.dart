@@ -204,6 +204,34 @@ class ExpoOffersData {
       category: 'financiación',
     ),
 
+    // ── KDF Zircom – Fresadoras CAD/CAM ───────────────────────────────────────
+    ExpoOffer(
+      id: 'expo_kdf_zircom',
+      name: 'KDF Zircom · Fresadoras CAD/CAM',
+      subtitle: 'Standard · Speed · Plus — Producción propia en clínica',
+      imageAssets: [
+        'assets/expo/expo_kdf_standard.png',
+        'assets/expo/expo_kdf_speed.png',
+        'assets/expo/expo_kdf_plus.png',
+      ],
+      price: 12900,
+      discount: 'Desde',
+      financing: '60 meses · desde 215 €/mes',
+      badge: '⚙️ CAD/CAM',
+      badgeColor: Color(0xFF37474F),
+      features: [
+        'KDF Zircom Standard · Speed · Plus',
+        'Fresado húmedo y seco disponible',
+        'Compatible Exocad / 3Shape',
+        'Software CAD incluido',
+        'Instalación y formación en clínica',
+        'Garantía oficial KDF',
+      ],
+      whatsappMessage:
+          'Hola, me interesan las fresadoras KDF Zircom (desde 12.900€) de la oferta Expodental 2026. ¿Podéis darme más información?',
+      category: 'fresadora',
+    ),
+
     // ── Galería Expo – imágenes adicionales ────────────────────────────────────
     ExpoOffer(
       id: 'expo_galeria',
@@ -512,6 +540,7 @@ class _ExpoOffersScreenState extends State<ExpoOffersScreen>
       'todos': '🌟 Todos',
       'escáner': '📷 Escáneres',
       'pack': '📦 Packs',
+      'fresadora': '⚙️ CAD/CAM',
       'financiación': '💳 Financiación',
       'galería': '📸 Galería',
     };
