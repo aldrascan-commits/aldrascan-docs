@@ -313,22 +313,22 @@ class ProductData {
       name: 'Philden X500 Híbrida',
       subtitle: 'Elite Húmedo + Seco · Alta producción 40-80 coronas/día',
       category: 'fresadora',
-      price: 31900,
-      financing: 'Consultar financiación',
+      price: 32800,
+      financing: '60 meses · desde 547 €/mes',
       description:
-          'La fresadora más avanzada de Philden. Sistema Húmedo y Seco en una sola máquina, alta producción industrial de 40-80 coronas/día. Ahorra 12.633€ (-28% vs PVP 43.778€).',
+          'La fresadora más avanzada de Philden. Sistema Húmedo y Seco en una sola máquina, alta producción industrial de 40-80 coronas/día. La solución definitiva para laboratorios de máxima exigencia.',
       features: [
         'Sistema Húmedo + Seco combinado',
         'Alta producción 40-80 coronas/día',
         'Versatilidad total de materiales',
         'Alta producción industrial',
-        'Ahorra 12.633€ vs PVP',
-        '-28% descuento feria',
+        '5 ejes de precisión absoluta',
+        'Software CAM premium incluido',
       ],
       imageAsset: 'assets/products/philden_x500.png',
       badge: 'Mejor Oferta',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden X500 Híbrida (31.900€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa la Philden X500 Híbrida (32.800€). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -403,43 +403,47 @@ class ProductData {
     Product(
       id: 'philden_s410',
       name: 'Philden S410 Húmedo',
-      subtitle: 'CAM Iniciación · Sistema húmedo · 15-25 coronas/día',
+      subtitle: 'CAM Clínica · Sistema húmedo · 4 ejes · Sin aire',
       category: 'fresadora',
-      price: 16990,
-      financing: 'Consultar financiación',
+      price: 19900,
+      financing: '60 meses · desde 332 €/mes',
       description:
-          'Sistema CAM de iniciación de Philden. Sistema húmedo compacto ideal para clínicas que comienzan en CAD/CAM. 15-25 coronas/día. Precio feria especial desde 16.990€ (antes 19.292€).',
+          'Fresadora húmeda Philden S410 para clínica. 4 ejes, sin necesidad de compresor de aire, 6 herramientas. Ideal para clínicas que quieren producir restauraciones in-house con máxima simplicidad.',
       features: [
-        'Sistema húmedo compacto',
-        'Capacidad 15-25 coronas/día',
-        'Nivel iniciación CAD/CAM',
-        'Precio feria especial',
+        '4 ejes de fresado húmedo',
+        'Sin compresor de aire requerido',
+        '6 herramientas incluidas',
+        'Toma corriente 220V estándar',
+        'Ideal para inicio en CAD/CAM',
+        'Instalación y formación incluidas',
       ],
       imageAsset: 'assets/products/philden_s410.png',
-      badge: 'Iniciación',
+      badge: 'Clínica Ideal',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden S410 (16.990€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa la Philden S410 (19.900€). ¿Podéis darme más información?',
     ),
 
     Product(
       id: 'philden_s510',
       name: 'Philden S510 Seco',
-      subtitle: 'CAM Estándar · 5 ejes · -15% OFF feria',
+      subtitle: 'CAM Laboratorio · 5 ejes · Electrónica Pro',
       category: 'fresadora',
-      price: 15900,
-      financing: 'Consultar financiación',
+      price: 14790,
+      financing: '60 meses · desde 247 €/mes',
       description:
-          'Fresadora CAM seca estándar de 5 ejes con electrónica Pro. 20-35 coronas/día. Precio feria 15.900€ (-15% OFF, antes 16.442€). La evolución natural desde la iniciación.',
+          'Fresadora CAM seca de 5 ejes con electrónica Pro. Ideal para laboratorio dental con producción media-alta. 20-35 coronas/día con materiales secos: zirconio, PMMA, cera y resina.',
       features: [
-        '5 ejes seco',
-        'Electrónica Pro',
+        '5 ejes de precisión',
+        'Electrónica Pro de alta fiabilidad',
         '20-35 coronas/día',
-        '-15% OFF precio feria',
+        'Fresado en seco — sin agua',
+        'Software CAM incluido',
+        'Garantía oficial 2 años',
       ],
       imageAsset: 'assets/products/philden_s510.png',
-      badge: '-15% OFF',
+      badge: 'Laboratorio',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden S510 (15.900€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa la Philden S510 (14.790€). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -470,8 +474,8 @@ class ProductData {
       name: 'DEPRAG W4',
       subtitle: 'Fresadora 4 ejes · Cerámica vítrea · Auto-calibración',
       category: 'fresadora',
-      price: 17500,
-      financing: '60 meses · desde 292 €/mes',
+      price: 19900,
+      financing: '60 meses · desde 332 €/mes',
       description:
           'Fresadora dental de 4 ejes especializada en cerámica vítrea. Precisión 0,01mm / 5µm. Sistema Wet/Tanque con 20 bloques de capacidad. Auto-calibración con -15% de desperdicio.',
       features: [
@@ -485,9 +489,9 @@ class ProductData {
         'Especializada en Cerámica Vítrea',
       ],
       imageAsset: 'assets/products/deprag_w4.png',
-      badge: 'Precio Feria',
+      badge: 'Oferta Especial',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la DEPRAG W4 (17.500€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa la DEPRAG W4 (19.900€). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -570,8 +574,8 @@ class ProductData {
       name: 'KDF Zircom Standard',
       subtitle: 'Fiabilidad japonesa · 1.600°C · 50 unidades',
       category: 'cadcam',
-      price: 11800,
-      financing: '60 meses · desde 197 €/mes',
+      price: 12800,
+      financing: '60 meses · desde 214 €/mes',
       description:
           'Horno de sinterización japonés KDF de alta fiabilidad. 1.600°C máximo, 3 bandejas (50 unidades), fabricación japonesa de precisión. Regalo de 1.000€ en material incluido en la compra.',
       features: [
@@ -585,7 +589,7 @@ class ProductData {
       imageAsset: 'assets/products/kdf_standard.png',
       badge: '1.000€ Regalo',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el KDF Zircom Standard (11.800€). ¿Podéis darme más información?',
+      whatsappMessage: 'Hola, me interesa el KDF Zircom Standard (12.800€). ¿Podéis darme más información?',
     ),
 
     Product(
