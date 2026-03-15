@@ -747,31 +747,6 @@ class ProductData {
       whatsappMessage: 'Hola, me interesa el Deprag S7 MOSI2 (7.500€). ¿Podéis darme más información?',
     ),
 
-    // ─── CAD/CAM – HORNO COCCIÓN DUOTRON T-5200 ──────────────────────────────
-
-    Product(
-      id: 'duotron_t5200',
-      name: 'Duotron T-5200',
-      subtitle: 'Horno Profesional 1.200°C',
-      category: 'cadcam',
-      price: 12400,
-      financing: '60 meses · desde 207 €/mes',
-      description:
-          'Horno de cocción profesional de precisión. 1.200°C, soporte inyección, gestión USB, trifásico. Para laboratorios que requieren máxima precisión en cocción de cerámica y materiales premium.',
-      features: [
-        'Temperatura máx. 1.200°C',
-        'Soporte inyección',
-        'Gestión programas USB',
-        'Trifásico profesional',
-        'Precisión total en cocción',
-        'Garantía oficial 2 años',
-      ],
-      imageAsset: 'assets/products/duotron_t3200.png',
-      badge: 'Inyección',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Duotron T-5200 (12.400€). ¿Podéis darme más información?',
-    ),
-
     // ─── CAD/CAM – PACK VELTZ ─────────────────────────────────────────────────
 
     Product(
