@@ -50,9 +50,7 @@ class ExpoOffersData {
       name: 'Medit i900 Mobility',
       subtitle: 'Top de gama inalámbrico · iPad Pro M5 de REGALO',
       imageAssets: [
-        'assets/expo/expo_medit_i900_mobility_1.png',
-        'assets/expo/expo_medit_i900_mobility_2.png',
-        'assets/expo/expo_medit_i900_mobility_3.png',
+        'assets/expo/expo_i900_mobility_new.png',
       ],
       price: 13900,
       discount: 'iPad Pro M5 REGALO',
@@ -78,9 +76,8 @@ class ExpoOffersData {
       name: 'Medit i900 Classic',
       subtitle: 'Precisión cuando necesitas control · Portátil GRATIS',
       imageAssets: [
-        'assets/expo/expo_medit_i900_classic_3.png',
-        'assets/expo/expo_medit_i900_classic_1.png',
-        'assets/expo/expo_medit_i900_classic_2.png',
+        'assets/expo/expo_i900_classic_new1.png',
+        'assets/expo/expo_i900_classic_new2.png',
       ],
       price: 11499,
       discount: 'Portátil GRATIS',
@@ -106,8 +103,7 @@ class ExpoOffersData {
       name: 'Shining Elite',
       subtitle: '+ Kit Scan Body incluido · Escáner premium Shining3D',
       imageAssets: [
-        'assets/expo/expo_shining_elite_1.png',
-        'assets/expo/expo_shining_elite_2.png',
+        'assets/expo/expo_aoralscan_elite_new.png',
       ],
       price: 16200,
       discount: 'Kit Scan Body',
@@ -133,7 +129,7 @@ class ExpoOffersData {
       name: 'Aoralscan Elf',
       subtitle: 'Escáner Premium · 106g ultraligero · USB-C simple',
       imageAssets: [
-        'assets/expo/expo_aoralscan_elf.png',
+        'assets/expo/expo_aoralscan_elf_new.png',
       ],
       price: 9900,
       financing: '60 meses · desde 165 €/mes',
@@ -158,9 +154,7 @@ class ExpoOffersData {
       name: 'AldraScan Pro',
       subtitle: 'Diagnóstico · Escaneo · Restauración — Todo en el mismo día',
       imageAssets: [
-        'assets/expo/expo_aldrascan_pro_1.png',
-        'assets/expo/expo_aldrascan_pro_2.png',
-        'assets/expo/expo_aldrascan_pro_3.png',
+        'assets/expo/expo_aldrascan_pro_new.png',
       ],
       price: 29900,
       discount: 'Desde',
@@ -186,7 +180,7 @@ class ExpoOffersData {
       name: 'Financiación Exclusiva',
       subtitle: 'Empieza a producir hoy · Paga dentro de 90 días',
       imageAssets: [
-        'assets/expo/expo_financiacion.png',
+        'assets/expo/expo_financiacion_new.png',
       ],
       financing: '3 meses de carencia inicial',
       badge: '💳 COLEGIADOS',
