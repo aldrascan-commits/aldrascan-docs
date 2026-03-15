@@ -609,7 +609,7 @@ class ProductData {
         'Conectividad total',
         'Control remoto desde móvil',
       ],
-      imageAsset: 'assets/products/duotron_t3200.png',
+      imageAsset: 'assets/products/deprag_s7.png',
       badge: 'WiFi + App',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Deprag S7 MOSI2 (7.500€). ¿Podéis darme más información?',
