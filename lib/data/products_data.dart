@@ -98,7 +98,7 @@ class ProductData {
         'Software gratuito incluido',
         'Envío inmediato disponible',
       ],
-      imageAsset: 'assets/products/aoralscan_elf.png',
+      imageAsset: 'assets/products/aoralscan_elf_new.png',
       badge: 'Ultra Ligero 106g',
       isFeatured: false,
       whatsappMessage: 'Hola, me interesa el Aoralscan Elf (106g). ¿Podéis darme más información y precio?',
