@@ -89,8 +89,37 @@ class ProductCard extends StatelessWidget {
                   ],
                   const SizedBox(height: 6),
 
-                  // Precio
-                  if (product.price != null)
+                  // Precio / CTA
+                  if (product.category == 'scanner')
+                    // Escáneres → "Solicita Oferta" destacado
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFF6F00), Color(0xFFFFA000)],
+                        ),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.local_offer_outlined,
+                              size: 11, color: Colors.white),
+                          SizedBox(width: 4),
+                          Text(
+                            'Solicita Oferta',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 0.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else if (product.price != null)
                     Text(
                       product.formattedPrice,
                       style: const TextStyle(
@@ -109,8 +138,9 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
 
-                  // Financiación
-                  if (product.financing != null) ...[
+                  // Financiación — sólo para no-escáneres
+                  if (product.category != 'scanner' &&
+                      product.financing != null) ...[
                     const SizedBox(height: 3),
                     Row(
                       children: [

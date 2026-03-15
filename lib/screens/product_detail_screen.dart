@@ -140,8 +140,53 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Precio
-                  if (product.price != null) ...[
+                  // Precio / CTA
+                  if (product.category == 'scanner') ...[
+                    // Escáneres → CTA "Solicita Oferta" destacado
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 10),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFF6F00), Color(0xFFFFA000)],
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFFF6F00).withValues(alpha: 0.35),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.local_offer_outlined,
+                              size: 18, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Solicita Oferta',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Precio personalizado según tu clínica',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppTheme.textSecondary,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ] else if (product.price != null) ...[
                     Text(
                       product.formattedPrice,
                       style: const TextStyle(
@@ -161,8 +206,9 @@ class ProductDetailScreen extends StatelessWidget {
                     ),
                   ],
 
-                  // Financiación
-                  if (product.financing != null) ...[
+                  // Financiación — sólo para no-escáneres
+                  if (product.category != 'scanner' &&
+                      product.financing != null) ...[
                     const SizedBox(height: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
