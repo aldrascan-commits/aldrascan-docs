@@ -394,7 +394,7 @@ class ProductData {
         'Fresado seco + software CAM',
         'Ideal laboratorio alto volumen',
       ],
-      imageAsset: 'assets/products/philden_s510.png',
+      imageAsset: 'assets/products/philden_adc500.png',
       badge: 'Producción 24/7',
       isFeatured: true,
       whatsappMessage: 'Hola, me interesa la Philden ADC-500 automática (17.990€). ¿Podéis darme más información?',
