@@ -8,7 +8,8 @@ import 'product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function(String category)? onNavigateToCatalog;
-  const HomeScreen({super.key, this.onNavigateToCatalog});
+  final VoidCallback? onNavigateToPackPro;
+  const HomeScreen({super.key, this.onNavigateToCatalog, this.onNavigateToPackPro});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -171,8 +172,16 @@ class HomeScreen extends StatefulWidget {
                     controller: _bannerController,
                     currentIndex: _bannerIndex,
                     onPageChanged: (i) => setState(() => _bannerIndex = i),
-                    onCtaTap: () => _openWhatsApp(
-                      'https://wa.me/34662078540?text=Hola,%20quiero%20información'),
+                    onCtaTap: () {
+                      final current = _bannerIndex;
+                      if (current == 3) {
+                        // Banner "AldraScan Pro" → navegar al Pack Pro
+                        widget.onNavigateToPackPro?.call();
+                      } else {
+                        _openWhatsApp(
+                          'https://wa.me/34662078540?text=Hola,%20quiero%20información');
+                      }
+                    },
                   ),
 
                   // ── Stats bar ────────────────────────────────────────────
@@ -187,7 +196,10 @@ class HomeScreen extends StatefulWidget {
                   const SizedBox(height: 12),
                   _CategoriesGrid(onCategoryTap: widget.onNavigateToCatalog),
 
-                  // ── Productos destacados ─────────────────────────────────
+                  // ── Banner Pack AldraScan Pro ─────────────────────────────
+                  const SizedBox(height: 20),
+                  _PackProBanner(onTap: widget.onNavigateToPackPro),
+
                   const SizedBox(height: 28),
                   const _SectionHeader(
                     title: 'Productos Destacados',
@@ -710,6 +722,118 @@ class _WhatsAppCTA extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Banner Pack AldraScan Pro en Home
+// ─────────────────────────────────────────────────────────────────────────────
+class _PackProBanner extends StatelessWidget {
+  final VoidCallback? onTap;
+  const _PackProBanner({this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF0D3B73), Color(0xFF061A35), Color(0xFF1B1B2E)],
+          ),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: const Color(0xFFFFCB47).withValues(alpha: 0.35), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF1352A0).withValues(alpha: 0.3),
+              blurRadius: 20,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFFCB47), Color(0xFFFF8F00)],
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: const Icon(Icons.workspace_premium_rounded, color: Colors.white, size: 28),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFFFFCB47), Color(0xFFFF8F00)],
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        '🏆 PACK CLÍNICA PREMIUM',
+                        style: TextStyle(
+                          color: Color(0xFF1A1200),
+                          fontSize: 9,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'AldraScan Pro',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -0.3,
+                      ),
+                    ),
+                    const Text(
+                      'Todo en el mismo día · 39.900 € + IVA',
+                      style: TextStyle(
+                        color: Color(0xFF94A3B8),
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFFFCB47), Color(0xFFFF8F00)],
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text(
+                  'Ver pack',
+                  style: TextStyle(
+                    color: Color(0xFF1A1200),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'screens/contact_screen.dart';
 import 'screens/downloads_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/expo_offers_screen.dart';
+import 'screens/pack_aldrascan_pro_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,14 +54,20 @@ class _MainShellState extends State<MainShell>
   late AnimationController _fabController;
 
   List<Widget> get _screens => [
-    HomeScreen(onNavigateToCatalog: (cat) {
-      setState(() {
-        _catalogCategory = cat;
-        _currentIndex = 1;
-      });
-    }),
+    HomeScreen(
+      onNavigateToCatalog: (cat) {
+        setState(() {
+          _catalogCategory = cat;
+          _currentIndex = 1;
+        });
+      },
+      onNavigateToPackPro: () {
+        setState(() => _currentIndex = 3);
+      },
+    ),
     CatalogScreen(initialCategory: _catalogCategory),
     const ExpoOffersScreen(),
+    const PackAldrascanProScreen(),
     const OffersScreen(),
     const QuizScreen(),
     const DownloadsScreen(),
@@ -128,6 +135,7 @@ class _PremiumBottomNav extends StatelessWidget {
     _NavItem(icon: Icons.home_outlined,     activeIcon: Icons.home_rounded,     label: 'Inicio'),
     _NavItem(icon: Icons.grid_view_outlined, activeIcon: Icons.grid_view_rounded, label: 'Catálogo'),
     _NavItem(icon: Icons.star_outline,      activeIcon: Icons.star_rounded,      label: 'Expo',    isSpecial: true),
+    _NavItem(icon: Icons.workspace_premium_outlined, activeIcon: Icons.workspace_premium_rounded, label: 'Pack Pro', isSpecial: false),
     _NavItem(icon: Icons.local_offer_outlined, activeIcon: Icons.local_offer,    label: 'Ofertas'),
     _NavItem(icon: Icons.quiz_outlined,     activeIcon: Icons.quiz_rounded,      label: 'Quiz'),
     _NavItem(icon: Icons.download_outlined, activeIcon: Icons.download_rounded,  label: 'Recursos'),
