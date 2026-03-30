@@ -468,9 +468,8 @@ class _StatsBar extends StatelessWidget {
 class _SectionHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
-  final Widget? trailing;
 
-  const _SectionHeader({required this.title, this.subtitle, this.trailing});
+  const _SectionHeader({required this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -500,7 +499,6 @@ class _SectionHeader extends StatelessWidget {
               ],
             ),
           ),
-          if (trailing != null) trailing!,
         ],
       ),
     );

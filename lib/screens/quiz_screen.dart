@@ -610,7 +610,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
             width: double.infinity,
             padding: const EdgeInsets.all(28),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [

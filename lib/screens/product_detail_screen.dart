@@ -330,7 +330,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                           const SizedBox(height: 20),
 
                           // ── Descripción ────────────────────────────────────
-                          _SectionTitle(icon: Icons.info_outline, title: 'Descripción'),
+                          const _SectionTitle(icon: Icons.info_outline, title: 'Descripción'),
                           const SizedBox(height: 10),
                           Text(
                             product.description,
@@ -344,7 +344,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen>
                           const SizedBox(height: 24),
 
                           // ── Características ────────────────────────────────
-                          _SectionTitle(
+                          const _SectionTitle(
                               icon: Icons.check_circle_outline,
                               title: 'Características incluidas'),
                           const SizedBox(height: 12),

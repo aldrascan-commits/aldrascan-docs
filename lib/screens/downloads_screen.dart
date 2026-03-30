@@ -160,13 +160,13 @@ class DownloadsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: const Color(0xFFFFE082)),
               ),
-              child: Row(
+              child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.info_outline,
+                  Icon(Icons.info_outline,
                       color: Color(0xFFF9A825), size: 20),
-                  const SizedBox(width: 10),
-                  const Expanded(
+                  SizedBox(width: 10),
+                  Expanded(
                     child: Text(
                       'Los precios indicados en el catálogo son '
                       'precios especiales para Expodental 2026. '
@@ -383,7 +383,7 @@ class _DocCardState extends State<_DocCard> {
             // ── Metadatos ─────────────────────────────────────────────────
             Row(
               children: [
-                _MetaBadge(Icons.description_outlined, 'PDF'),
+                const _MetaBadge(Icons.description_outlined, 'PDF'),
                 const SizedBox(width: 8),
                 _MetaBadge(Icons.storage_outlined, doc.sizeMb),
                 const SizedBox(width: 8),
