@@ -3,13 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../utils/url_helper.dart';
+import '../services/download_counter_service.dart';
 
-class DownloadsScreen extends StatelessWidget {
+class DownloadsScreen extends StatefulWidget {
   const DownloadsScreen({super.key});
 
+  @override
+  State<DownloadsScreen> createState() => _DownloadsScreenState();
+}
+
+class _DownloadsScreenState extends State<DownloadsScreen> {
   // Lista de documentos disponibles
   static const _docs = [
     _DocItem(
+      id: 'expodental_2026',
       title: 'Catálogo Expodental 2026',
       subtitle: 'Lista completa de precios y equipos AldraScan',
       description:
@@ -23,6 +30,7 @@ class DownloadsScreen extends StatelessWidget {
       color: Color(0xFFE53935),
     ),
     _DocItem(
+      id: 'pro_ecosystem',
       title: 'AldraScan Pro – Ecosistema Dental',
       subtitle: 'Ecosistema completo de tecnología dental digital',
       description:
@@ -37,6 +45,7 @@ class DownloadsScreen extends StatelessWidget {
       color: Color(0xFF1565C0),
     ),
     _DocItem(
+      id: 'cad_cam',
       title: 'AldraScan CAD CAM',
       subtitle: 'Fresadoras y flujo CAD/CAM para clínica y laboratorio',
       description:
@@ -51,6 +60,7 @@ class DownloadsScreen extends StatelessWidget {
       color: Color(0xFF00897B),
     ),
     _DocItem(
+      id: 'cad_cam_2026',
       title: 'Catálogo CAD/CAM 2026 Profesional',
       subtitle: 'Philden · Deprag · KDF · Duotron · Materiales',
       description:
@@ -65,6 +75,37 @@ class DownloadsScreen extends StatelessWidget {
       color: Color(0xFF00695C),
     ),
   ];
+
+  int _totalDownloads = 0;
+  Map<String, int> _docCounts = {};
+  bool _countersLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCounters();
+  }
+
+  Future<void> _loadCounters() async {
+    final svc = DownloadCounterService.instance;
+    final ids = _docs.map((d) => d.id).toList();
+    final results = await Future.wait([
+      svc.getTotal(),
+      svc.getAllCounts(ids),
+    ]);
+    if (!mounted) return;
+    setState(() {
+      _totalDownloads = results[0] as int;
+      _docCounts = results[1] as Map<String, int>;
+      _countersLoaded = true;
+    });
+  }
+
+  /// Llamado desde _DocCard cada vez que hay una descarga exitosa.
+  void _onDownloadSuccess(String docId) async {
+    await DownloadCounterService.instance.increment(docId);
+    await _loadCounters(); // refresca todo
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,57 +125,8 @@ class DownloadsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Header ─────────────────────────────────────────────────────
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [AppTheme.primary, AppTheme.primaryLight],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 52,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: const Icon(Icons.download_rounded,
-                        color: Colors.white, size: 28),
-                  ),
-                  const SizedBox(width: 16),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Documentación AldraScan',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          'Descarga catálogos y listas de precios',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // ── Header con contador total ──────────────────────────────────
+            _buildHeader(),
 
             const SizedBox(height: 24),
             const Text(
@@ -147,12 +139,16 @@ class DownloadsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // ── Lista de documentos ─────────────────────────────────────────
-            ..._docs.map((doc) => _DocCard(doc: doc)),
+            // ── Lista de documentos ────────────────────────────────────────
+            ..._docs.map((doc) => _DocCard(
+                  doc: doc,
+                  downloadCount: _docCounts[doc.id] ?? 0,
+                  onDownloadSuccess: () => _onDownloadSuccess(doc.id),
+                )),
 
             const SizedBox(height: 24),
 
-            // ── Nota informativa ────────────────────────────────────────────
+            // ── Nota informativa ──────────────────────────────────────────
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -163,8 +159,7 @@ class DownloadsScreen extends StatelessWidget {
               child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info_outline,
-                      color: Color(0xFFF9A825), size: 20),
+                  Icon(Icons.info_outline, color: Color(0xFFF9A825), size: 20),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -185,7 +180,7 @@ class DownloadsScreen extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // ── Contacto rápido ─────────────────────────────────────────────
+            // ── Contacto rápido ───────────────────────────────────────────
             GestureDetector(
               onTap: () => openUrl(
                   'https://wa.me/34662078540?text=Hola%2C%20he%20descargado%20el%20cat%C3%A1logo%20y%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n'),
@@ -244,30 +239,216 @@ class DownloadsScreen extends StatelessWidget {
       ),
     );
   }
+
+  // ── Header con estadísticas de descargas ────────────────────────────────────
+  Widget _buildHeader() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppTheme.primary, AppTheme.primaryLight],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          // Fila superior: icono + textos
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Row(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(Icons.download_rounded,
+                      color: Colors.white, size: 28),
+                ),
+                const SizedBox(width: 16),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Documentación AldraScan',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 3),
+                      Text(
+                        'Descarga catálogos y listas de precios',
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Separador
+          const SizedBox(height: 16),
+          Container(height: 1, color: Colors.white.withValues(alpha: 0.15)),
+
+          // Fila de stats: total descargas + número de docs
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _headerStat(
+                  icon: Icons.download_done_rounded,
+                  value: _countersLoaded
+                      ? _formatCount(_totalDownloads)
+                      : '—',
+                  label: 'Descargas totales',
+                ),
+                Container(
+                    width: 1, height: 36,
+                    color: Colors.white.withValues(alpha: 0.25)),
+                _headerStat(
+                  icon: Icons.folder_open_rounded,
+                  value: '${_docs.length}',
+                  label: 'Documentos',
+                ),
+                Container(
+                    width: 1, height: 36,
+                    color: Colors.white.withValues(alpha: 0.25)),
+                _headerStat(
+                  icon: Icons.trending_up_rounded,
+                  value: _countersLoaded && _totalDownloads > 0
+                      ? _topDocName()
+                      : '—',
+                  label: 'Más descargado',
+                  smallValue: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _headerStat({
+    required IconData icon,
+    required String value,
+    required String label,
+    bool smallValue = false,
+  }) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.white70, size: 18),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: smallValue ? 12 : 22,
+            fontWeight: FontWeight.w900,
+            letterSpacing: smallValue ? 0 : -0.5,
+            height: 1.1,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white60,
+            fontSize: 9,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 0.3,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  String _formatCount(int n) {
+    if (n >= 1000) return '${(n / 1000).toStringAsFixed(1)}k';
+    return '$n';
+  }
+
+  String _topDocName() {
+    if (_docCounts.isEmpty) return '—';
+    final top = _docCounts.entries.reduce(
+      (a, b) => a.value >= b.value ? a : b,
+    );
+    if (top.value == 0) return '—';
+    // Nombre corto
+    final doc = _docs.firstWhere(
+      (d) => d.id == top.key,
+      orElse: () => _docs.first,
+    );
+    final words = doc.title.split(' ');
+    return words.take(2).join(' ');
+  }
 }
 
-// ─── Tarjeta de documento ──────────────────────────────────────────────────────
+// ─── Tarjeta de documento ─────────────────────────────────────────────────────
 class _DocCard extends StatefulWidget {
   final _DocItem doc;
-  const _DocCard({required this.doc});
+  final int downloadCount;
+  final VoidCallback onDownloadSuccess;
+
+  const _DocCard({
+    required this.doc,
+    required this.downloadCount,
+    required this.onDownloadSuccess,
+  });
 
   @override
   State<_DocCard> createState() => _DocCardState();
 }
 
-class _DocCardState extends State<_DocCard> {
+class _DocCardState extends State<_DocCard>
+    with SingleTickerProviderStateMixin {
   bool _downloading = false;
+  late AnimationController _pulseCtrl;
+  late Animation<double> _pulseAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _pulseCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _pulseAnim = Tween<double>(begin: 1.0, end: 1.15).animate(
+      CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pulseCtrl.dispose();
+    super.dispose();
+  }
 
   Future<void> _downloadPdf() async {
     setState(() => _downloading = true);
 
     try {
       if (kIsWeb) {
-        // En web: cargar el asset como bytes y disparar descarga via JS
         final byteData = await rootBundle.load(widget.doc.assetPath);
         final bytes = byteData.buffer.asUint8List();
-        // Llama función JS que hace el Blob download
         downloadBytesAsFile(bytes, widget.doc.fileName);
+
+        // Animación de pulso en el contador
+        _pulseCtrl.forward().then((_) => _pulseCtrl.reverse());
+
+        // Notificar éxito al padre para incrementar contador
+        widget.onDownloadSuccess();
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -276,7 +457,7 @@ class _DocCardState extends State<_DocCard> {
                 children: [
                   const Icon(Icons.check_circle, color: Colors.white, size: 18),
                   const SizedBox(width: 8),
-                  Text('Descargando ${widget.doc.fileName}'),
+                  Expanded(child: Text('Descargando ${widget.doc.fileName}')),
                 ],
               ),
               backgroundColor: AppTheme.whatsapp,
@@ -286,9 +467,8 @@ class _DocCardState extends State<_DocCard> {
           );
         }
       } else {
-        // En Android: abrir PDF con url_launcher
-        await openUrl(
-            'https://aldrascan.com/docs/${widget.doc.fileName}');
+        await openUrl('https://aldrascan.com/docs/${widget.doc.fileName}');
+        widget.onDownloadSuccess();
       }
     } catch (e) {
       if (mounted) {
@@ -307,6 +487,8 @@ class _DocCardState extends State<_DocCard> {
   @override
   Widget build(BuildContext context) {
     final doc = widget.doc;
+    final count = widget.downloadCount;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -326,7 +508,7 @@ class _DocCardState extends State<_DocCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Cabecera ──────────────────────────────────────────────────
+            // ── Cabecera ────────────────────────────────────────────────────
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -363,12 +545,14 @@ class _DocCardState extends State<_DocCard> {
                     ],
                   ),
                 ),
+                // ── Contador de descargas ────────────────────────────────
+                _buildDownloadBadge(count),
               ],
             ),
 
             const SizedBox(height: 12),
 
-            // ── Descripción ───────────────────────────────────────────────
+            // ── Descripción ──────────────────────────────────────────────
             Text(
               doc.description,
               style: const TextStyle(
@@ -380,7 +564,7 @@ class _DocCardState extends State<_DocCard> {
 
             const SizedBox(height: 12),
 
-            // ── Metadatos ─────────────────────────────────────────────────
+            // ── Metadatos ────────────────────────────────────────────────
             Row(
               children: [
                 const _MetaBadge(Icons.description_outlined, 'PDF'),
@@ -388,12 +572,30 @@ class _DocCardState extends State<_DocCard> {
                 _MetaBadge(Icons.storage_outlined, doc.sizeMb),
                 const SizedBox(width: 8),
                 _MetaBadge(Icons.auto_stories_outlined, doc.pages),
+                const Spacer(),
+                // Contador compacto inline
+                if (count > 0)
+                  Row(
+                    children: [
+                      Icon(Icons.download_rounded,
+                          size: 11, color: doc.color.withValues(alpha: 0.7)),
+                      const SizedBox(width: 3),
+                      Text(
+                        '$count ${count == 1 ? 'descarga' : 'descargas'}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: doc.color.withValues(alpha: 0.8),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
 
             const SizedBox(height: 14),
 
-            // ── Botón descarga ────────────────────────────────────────────
+            // ── Botón descarga ──────────────────────────────────────────
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -431,9 +633,63 @@ class _DocCardState extends State<_DocCard> {
       ),
     );
   }
+
+  /// Badge animado que muestra el número de descargas de este doc.
+  Widget _buildDownloadBadge(int count) {
+    return ScaleTransition(
+      scale: _pulseAnim,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+        decoration: BoxDecoration(
+          color: count > 0
+              ? widget.doc.color.withValues(alpha: 0.10)
+              : AppTheme.background,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: count > 0
+                ? widget.doc.color.withValues(alpha: 0.35)
+                : AppTheme.divider,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.download_rounded,
+              size: 12,
+              color: count > 0
+                  ? widget.doc.color
+                  : AppTheme.textHint,
+            ),
+            const SizedBox(width: 4),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 350),
+              transitionBuilder: (child, anim) => ScaleTransition(
+                scale: anim,
+                child: child,
+              ),
+              child: Text(
+                '$count',
+                key: ValueKey(count),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  color: count > 0
+                      ? widget.doc.color
+                      : AppTheme.textHint,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-// ─── Badge de metadato ─────────────────────────────────────────────────────────
+// ─── Badge de metadato ──────────────────────────────────────────────────────
 class _MetaBadge extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -467,8 +723,9 @@ class _MetaBadge extends StatelessWidget {
   }
 }
 
-// ─── Modelo de documento ───────────────────────────────────────────────────────
+// ─── Modelo de documento ───────────────────────────────────────────────────
 class _DocItem {
+  final String id;
   final String title;
   final String subtitle;
   final String description;
@@ -480,6 +737,7 @@ class _DocItem {
   final Color color;
 
   const _DocItem({
+    required this.id,
     required this.title,
     required this.subtitle,
     required this.description,
