@@ -1,11 +1,25 @@
 import '../models/product.dart';
 
+// ══════════════════════════════════════════════════════════════════════════════
+// CRITERIOS DE ORDENACIÓN
+//
+// • Dentro de cada categoría: isFeatured = true → primero
+// • Dentro de featured: mayor impacto visual / conversión → primero
+// • Dentro de no-featured: precio descendente (más caro → primero)
+// • Grid home (featured): intercalado por categoría para variedad visual
+//   [Escáner TOP] [Pack TOP] [CBCT] [Fresadora TOP] [Escáner 2] [Pack 2]
+//   [Horno] [Escáner 3] [Fresadora 2] [Escáner 4]
+// ══════════════════════════════════════════════════════════════════════════════
+
 class ProductData {
   static const List<Product> products = [
 
     // ══════════════════════════════════════════════════════════════════════════
-    // 1. ESCÁNERES INTRAORALES — ordenados de gama alta a iniciación
-    //    → Sin precio visible. CTA único: "Solicita Oferta"
+    // 1. ESCÁNERES INTRAORALES
+    //    Orden: i900 Mobility (top+regalo) → i900 Classic (regalo mac) →
+    //           i700 (gama media-alta) → Aoralscan Elite (implanto) →
+    //           Aoralscan Elf (ultraliger) → Panda Smart (iniciación+PC) →
+    //           Medit i600 (entrada)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
@@ -16,13 +30,13 @@ class ProductData {
       price: null,
       financing: 'Solicita Oferta',
       description:
-          '100% inalámbrico con batería integrada. El escáner más avanzado del mercado: 70 FPS, FOV 100x ampliado y solo 317g con batería. iPad Pro incluido de regalo. 12 ScanBodys de regalo. La libertad total en el escaneo.',
+          '100% inalámbrico con batería integrada. El escáner más avanzado del mercado: 70 FPS, FOV 100× ampliado y solo 317 g con batería. iPad Pro incluido de regalo. 12 ScanBodys de regalo. La libertad total en el escaneo.',
       features: [
         '100% inalámbrico con batería integrada',
         'iPad Pro incluido de regalo',
         'Velocidad hasta 70 FPS',
-        'FOV ampliado 100x más grande',
-        'Ultraligero 317g con batería',
+        'FOV ampliado 100× más grande',
+        'Ultraligero 317 g con batería',
         '12 ScanBodys de regalo',
         'Configuración Apple incluida',
         'Soporte clínico especializado',
@@ -30,7 +44,8 @@ class ProductData {
       imageAsset: 'assets/products/medit_i900_mobility_real.png',
       badge: 'Top de Gama',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Medit i900 Mobility con iPad Pro. ¿Podéis darme más información y precio?',
+      whatsappMessage:
+          'Hola, me interesa el Medit i900 Mobility con iPad Pro. ¿Podéis darme más información y precio?',
     ),
 
     Product(
@@ -41,12 +56,12 @@ class ProductData {
       price: null,
       financing: 'Solicita Oferta',
       description:
-          'El buque insignia cableado de Medit. 70 FPS, FOV 100x más grande y precisión 10,9 µm. Incluye MacBook Air M4 de regalo. 12 ScanBodys incluidos para usuarios AldraScan.',
+          'El buque insignia cableado de Medit. 70 FPS, FOV 100× más grande y precisión 10,9 µm. Incluye MacBook Air M4 de regalo. 12 ScanBodys incluidos para usuarios AldraScan.',
       features: [
         'Hasta 70 FPS con Medit Flexscan',
-        'FOV 100x más grande',
+        'FOV 100× más grande',
         'Precisión 10,9 µm',
-        'Peso ultraligero 268g',
+        'Peso ultraligero 268 g',
         'MacBook Air M4 de regalo',
         '12 ScanBodys incluidos',
         'Garantía oficial 3 años',
@@ -54,54 +69,8 @@ class ProductData {
       imageAsset: 'assets/products/medit_i900_classic_real.png',
       badge: 'MacBook Air M4',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Medit i900 Classic+ con MacBook Air M4. ¿Podéis darme más información y precio?',
-    ),
-
-    Product(
-      id: 'aoralscan_elite_scanbody',
-      name: 'Aoralscan Elite + Kit ScanBody',
-      subtitle: 'Más vendido Shining3D · Kit ScanBody de regalo',
-      category: 'scanner',
-      price: null,
-      financing: 'Solicita Oferta',
-      description:
-          'Tecnología IPG 2 en 1 con fotogrametría integrada. Kit ScanBody valorado en 2.000€ incluido de regalo. Alta precisión con campo 19x14mm y solo 124g. El preferido para implantología digital.',
-      features: [
-        'Tecnología IPG 2 en 1 + Fotogrametría',
-        'Kit ScanBody incluido (valor 2.000€)',
-        'Alta Precisión campo 19x14mm',
-        'Ultraligero 124 gramos',
-        'Escaneo IA + Motion',
-        'Autoclave 100 ciclos certificado',
-        'Amortización 8-12 meses',
-      ],
-      imageAsset: 'assets/products/aoralscan_elite_scanbody.png',
-      badge: 'Kit ScanBody Regalo',
-      isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Aoralscan Elite + Kit ScanBody. ¿Podéis darme más información y precio?',
-    ),
-
-    Product(
-      id: 'aoralscan_elf',
-      name: 'Aoralscan Elf',
-      subtitle: 'El más ligero del mercado · 106g',
-      category: 'scanner',
-      price: null,
-      financing: 'Solicita Oferta',
-      description:
-          'El escáner intraoral más ligero del mundo con solo 106 gramos. Tecnología IntelliBite de Shining3D. 3 puntas incluidas para máxima versatilidad clínica.',
-      features: [
-        'Peso pluma — solo 106 gramos',
-        'Tecnología IntelliBite (Shining3D)',
-        '3 puntas incluidas (19×14 / 16×12 / 12×9 mm)',
-        'Dimensiones 245×27×30 mm',
-        'Software gratuito incluido',
-        'Envío inmediato disponible',
-      ],
-      imageAsset: 'assets/products/aoralscan_elf_new.png',
-      badge: 'Ultra Ligero 106g',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Aoralscan Elf (106g). ¿Podéis darme más información y precio?',
+      whatsappMessage:
+          'Hola, me interesa el Medit i900 Classic+ con MacBook Air M4. ¿Podéis darme más información y precio?',
     ),
 
     Product(
@@ -124,20 +93,70 @@ class ProductData {
       imageAsset: 'assets/products/medit_i700_real.png',
       badge: '70 FPS Wireless',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Medit i700 / i700w. ¿Podéis darme más información y precio?',
+      whatsappMessage:
+          'Hola, me interesa el Medit i700 / i700w. ¿Podéis darme más información y precio?',
+    ),
+
+    Product(
+      id: 'aoralscan_elite_scanbody',
+      name: 'Aoralscan Elite + Kit ScanBody',
+      subtitle: 'Más vendido Shining3D · Kit ScanBody de regalo',
+      category: 'scanner',
+      price: null,
+      financing: 'Solicita Oferta',
+      description:
+          'Tecnología IPG 2 en 1 con fotogrametría integrada. Kit ScanBody valorado en 2.000 € incluido de regalo. Alta precisión con campo 19×14 mm y solo 124 g. El preferido para implantología digital.',
+      features: [
+        'Tecnología IPG 2 en 1 + Fotogrametría',
+        'Kit ScanBody incluido (valor 2.000 €)',
+        'Alta precisión campo 19×14 mm',
+        'Ultraligero 124 g',
+        'Escaneo IA + Motion',
+        'Autoclave 100 ciclos certificado',
+        'Amortización 8-12 meses',
+      ],
+      imageAsset: 'assets/products/aoralscan_elite_scanbody.png',
+      badge: 'Kit ScanBody Regalo',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa el Aoralscan Elite + Kit ScanBody. ¿Podéis darme más información y precio?',
+    ),
+
+    Product(
+      id: 'aoralscan_elf',
+      name: 'Aoralscan Elf',
+      subtitle: 'El más ligero del mercado · 106 g',
+      category: 'scanner',
+      price: null,
+      financing: 'Solicita Oferta',
+      description:
+          'El escáner intraoral más ligero del mundo con solo 106 gramos. Tecnología IntelliBite de Shining3D. 3 puntas incluidas para máxima versatilidad clínica.',
+      features: [
+        'Peso pluma — solo 106 g',
+        'Tecnología IntelliBite (Shining3D)',
+        '3 puntas incluidas (19×14 / 16×12 / 12×9 mm)',
+        'Dimensiones 245×27×30 mm',
+        'Software gratuito incluido',
+        'Envío inmediato disponible',
+      ],
+      imageAsset: 'assets/products/aoralscan_elf_new.png',
+      badge: 'Ultra Ligero 106 g',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa el Aoralscan Elf (106 g). ¿Podéis darme más información y precio?',
     ),
 
     Product(
       id: 'panda_smart',
       name: 'Panda Smart',
-      subtitle: 'Iniciación inteligente · 138g · PC incluido',
+      subtitle: 'Iniciación inteligente · 138 g · PC incluido',
       category: 'scanner',
       price: null,
       financing: 'Solicita Oferta',
       description:
           'El escáner ultraligero con solo 138 gramos que incluye PC de alto rendimiento. USB-C Plug & Play, calibración automática y tecnología Motion. La puerta de entrada al escaneo digital sin complicaciones.',
       features: [
-        'Ultraligero 138g — sin fatiga en jornada',
+        'Ultraligero 138 g — sin fatiga en jornada',
         'PC de alto rendimiento incluido',
         'Conexión USB-C Plug & Play',
         'Calibración automática',
@@ -147,34 +166,39 @@ class ProductData {
       imageAsset: 'assets/products/panda_smart.png',
       badge: 'PC Incluido',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Panda Smart (138g + PC incluido). ¿Podéis darme más información y precio?',
+      whatsappMessage:
+          'Hola, me interesa el Panda Smart (138 g + PC incluido). ¿Podéis darme más información y precio?',
     ),
 
     Product(
       id: 'medit_i600',
       name: 'Medit i600',
-      subtitle: 'La entrada al flujo digital · Amortización 12 meses',
+      subtitle: 'Entrada al flujo digital · 35 FPS · 245 g',
       category: 'scanner',
       price: null,
       financing: 'Solicita Oferta',
       description:
-          'El escáner ideal para clínicas que dan el primer paso a la odontología digital. Alta precisión, 35 FPS y solo 245g. La relación calidad-precio más equilibrada del catálogo.',
+          'El escáner ideal para clínicas que dan el primer paso a la odontología digital. Alta precisión, 35 FPS y solo 245 g. La relación calidad-precio más equilibrada del catálogo.',
       features: [
         'Velocidad 35 FPS de vídeo',
-        'Ultraligero 245 gramos',
+        'Ultraligero 245 g',
         'Plug & Scan — fácil uso inmediato',
         'Garantía oficial 3 años',
-        'Envío en 24h garantizado',
+        'Envío en 24 h garantizado',
         'Formación clínica incluida',
       ],
       imageAsset: 'assets/products/medit_i600.png',
       badge: 'Oferta Estrella',
-      isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Medit i600. ¿Podéis darme más información y precio?',
+      isFeatured: false,
+      whatsappMessage:
+          'Hola, me interesa el Medit i600. ¿Podéis darme más información y precio?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
-    // 2. PACKS TODO EN UNO — soluciones completas de mayor a menor precio
+    // 2. PACKS TODO EN UNO
+    //    Orden: AldraScan Pro (más completo, 39.900 €) →
+    //           Pack Laboratorio Digital (29.900 €) →
+    //           Pack Medit i900 (13.900 €)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
@@ -185,21 +209,22 @@ class ProductData {
       price: 39900,
       financing: '60 meses · desde 665 €/mes',
       description:
-          'La solución más completa del mercado. Medit i900 + Software ClinicCAD con IA + Fresadora 5 ejes. Produce 40-60 coronas/mes. Flujo completo: escaneo 90 min + fresado 90 min. Ahorra 10.100€ vs PVP.',
+          'La solución más completa del mercado. Medit i900 + Software ClinicCAD con IA + Fresadora 5 ejes. Produce 40-60 coronas/mes. Flujo completo: escaneo 90 min + fresado 90 min. Ahorra 8.600 € vs PVP.',
       features: [
-        'Medit i900 — escáner top de gama',
-        'ClinicCAD — Diseño con IA integrada',
-        'Fresadora 5 ejes incluida',
-        '40-60 coronas por mes',
-        'Sin provisionales · Sin segundas citas',
-        'Instalación VIP incluida',
-        'Formación clínica completa',
-        'Ahorra 10.100€ vs PVP 50.000€',
+        'Medit i900 Mobility — escáner top de gama',
+        'ClinicCAD — diseño con IA integrada',
+        'Lilivis Mill — fresadora dual 3 ejes',
+        'iPad Pro 13" de regalo',
+        'Kit de materiales completo',
+        'Instalación y formación incluidas',
+        'Ahorra 8.600 € vs PVP 48.500 €',
+        'ROI estimado +265 % en 3 años',
       ],
       imageAsset: 'assets/products/pack_aldrascan_pro.png',
-      badge: 'Top Ventas',
+      badge: '🏆 Pack Premium',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Pack AldraScan Pro (39.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Pack AldraScan Pro (39.900 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -210,20 +235,21 @@ class ProductData {
       price: 29900,
       financing: '60 meses · consultar cuota',
       description:
-          'Del diseño digital al producto final. Pack completo 3 etapas: Lilivis Mill LM-100 (fresadora) + Duotron T-3200 (sinterizado) + Elegoo Mars 5 (impresión 3D). Ahorra +9.000€. Solo oferta Expodental.',
+          'Del diseño digital al producto final. Pack completo 3 etapas: Lilivis Mill LM-100 (fresadora) + Duotron T-3200 (sinterizado) + Elegoo Mars 5 (impresión 3D). Ahorra +9.000 €. Solo oferta Expodental.',
       features: [
         'Lilivis Mill LM-100 — Fresadora Dual 3 Ejes',
-        'Duotron T-3200 — Sinterizado Máx. 1.100°C',
+        'Duotron T-3200 — Sinterizado máx. 1.100°C',
         'Elegoo Mars 5 — Impresión 3D LCD Mono 4K',
-        '+500€ en materiales incluidos',
+        '+500 € en materiales incluidos',
         'Flujo completo en clínica',
-        'Ahorra +9.000€ vs compra separada',
+        'Ahorra +9.000 € vs compra separada',
         'Solo disponible en feria / fin de stock',
       ],
       imageAsset: 'assets/products/pack_laboratorio_digital.png',
       badge: 'Oferta Expodental',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Pack Laboratorio Digital (29.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Pack Laboratorio Digital (29.900 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -238,7 +264,7 @@ class ProductData {
       features: [
         'Medit i900 — escáner profesional',
         'Mac Mini última generación',
-        'Pantalla 24" Touch incluida',
+        'Pantalla 24" incluida',
         'Mueble clínico integrado',
         'Garantía oficial 3 años',
         'Instalación incluida',
@@ -248,11 +274,13 @@ class ProductData {
       imageAsset: 'assets/products/pack_medit_i900.png',
       badge: 'Oferta Estrella',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Pack Medit i900 Todo en Uno (13.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Pack Medit i900 Todo en Uno (13.900 €). ¿Podéis darme más información?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
     // 3. CBCT 3D — diagnóstico por imagen
+    //    Orden: Meyer (líder precio, +featured) → Rayscan (IA premium)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
@@ -269,7 +297,7 @@ class ProductData {
         'Resolución Alta Definición HD',
         'Software 3D de diagnóstico incluido',
         'Velocidad de escaneo rápida',
-        'Radiografía Pano + Modos Extra',
+        'Radiografía Pano + modos extra',
         'Baja dosis — seguridad paciente',
         'Producción 30-50 CBCT/mes',
         'Amortización 10-15 meses',
@@ -277,7 +305,8 @@ class ProductData {
       imageAsset: 'assets/products/meyer_cbct.png',
       badge: 'Líder Calidad/Precio',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el Meyer 3D 13x10 (29.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Meyer 3D 13×10 (29.900 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -288,11 +317,11 @@ class ProductData {
       price: 29900,
       financing: '60 meses · desde 498 €/mes',
       description:
-          'CBCT premium con IA integrada y la mayor versatilidad del mercado. FOV variable ø50-ø170mm, Vóxel 70-400µm. Reconstrucción en 8 seg, escaneo en 1 seg. Pano + Ceph incluidos.',
+          'CBCT premium con IA integrada y la mayor versatilidad del mercado. FOV variable ø50-ø170 mm, Vóxel 70-400 µm. Reconstrucción en 8 seg, escaneo en 1 seg. Pano + Ceph incluidos.',
       features: [
-        'FOV variable ø50-ø170mm',
+        'FOV variable ø50-ø170 mm',
         'IA — filtros Smart antiartefactos',
-        'Alta definición Vóxel 70 µm - 400 µm',
+        'Alta definición Vóxel 70-400 µm',
         'Reconstrucción 8 seg / Escaneo 1 seg',
         'Pano + Ceph modalidades incluidas',
         'Ultra baja dosis — Certificado CE',
@@ -300,35 +329,44 @@ class ProductData {
       ],
       imageAsset: 'assets/products/rayscan_alpha.png',
       badge: 'IA Integrada',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Rayscan Alpha 3D (29.900€). ¿Podéis darme más información?',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa el Rayscan Alpha 3D (29.900 €). ¿Podéis darme más información?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
-    // 4. FRESADORAS CAD/CAM — de alto rendimiento a iniciación
+    // 4. FRESADORAS CAD/CAM
+    //    Featured (alta conversión): Philden ADC-500 (auto 24/7) →
+    //                                Deprag D5 MAX (8 discos)
+    //    No featured (precio desc.): Philden X500 (32.800) →
+    //                                Philden S410 / Deprag D5 AFE / W4 (19.900) →
+    //                                Philden S510 (14.790) →
+    //                                Philden S500 (13.550) →
+    //                                Lilivis Mill (consultar)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
-      id: 'philden_x500',
-      name: 'Philden X500 Híbrida',
-      subtitle: 'Elite Húmedo + Seco · Alta producción 40-80 coronas/día',
+      id: 'philden_adc500',
+      name: 'Philden ADC-500',
+      subtitle: 'Automática · Cargador 10 discos · Producción 24/7',
       category: 'fresadora',
-      price: 32800,
-      financing: '60 meses · desde 547 €/mes',
+      price: 17990,
+      financing: '60 meses · desde 300 €/mes',
       description:
-          'La fresadora más avanzada de Philden. Sistema Húmedo y Seco en una sola máquina, alta producción industrial de 40-80 coronas/día. La solución definitiva para laboratorios de máxima exigencia.',
+          'Fresadora automática con cargador de 10 discos para producción continua 24/7. 5 ejes, 12 herramientas y cambio automático de bloques. Máxima productividad para laboratorios de alto volumen.',
       features: [
-        'Sistema Húmedo + Seco combinado',
-        'Alta producción 40-80 coronas/día',
-        'Versatilidad total de materiales',
-        'Alta producción industrial',
-        '5 ejes de precisión absoluta',
-        'Software CAM premium incluido',
+        'Cargador automático 10 discos',
+        'Producción continua 24/7',
+        '5 ejes de alta precisión',
+        '12 herramientas automáticas',
+        'Fresado seco + software CAM',
+        'Ideal laboratorio alto volumen',
       ],
-      imageAsset: 'assets/products/philden_x500.png',
-      badge: 'Mejor Oferta',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden X500 Híbrida (32.800€). ¿Podéis darme más información?',
+      imageAsset: 'assets/products/philden_adc500.png',
+      badge: 'Producción 24/7',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa la Philden ADC-500 automática (17.990 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -350,8 +388,33 @@ class ProductData {
       ],
       imageAsset: 'assets/products/deprag_w4.png',
       badge: '8 Discos Auto',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa la Deprag D5 MAX (20.900 €). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'philden_x500',
+      name: 'Philden X500 Híbrida',
+      subtitle: 'Elite Húmedo + Seco · Alta producción 40-80 coronas/día',
+      category: 'fresadora',
+      price: 32800,
+      financing: '60 meses · desde 547 €/mes',
+      description:
+          'La fresadora más avanzada de Philden. Sistema Húmedo y Seco en una sola máquina, alta producción industrial de 40-80 coronas/día. La solución definitiva para laboratorios de máxima exigencia.',
+      features: [
+        'Sistema Húmedo + Seco combinado',
+        'Alta producción 40-80 coronas/día',
+        'Versatilidad total de materiales',
+        '5 ejes de precisión absoluta',
+        'Software CAM premium incluido',
+        'Solución definitiva laboratorio',
+      ],
+      imageAsset: 'assets/products/philden_x500.png',
+      badge: 'Híbrida Elite',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Deprag D5 MAX (20.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa la Philden X500 Híbrida (32.800 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -374,30 +437,8 @@ class ProductData {
       imageAsset: 'assets/products/deprag_w4.png',
       badge: 'Sin Compresor',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Deprag D5 AFE (19.900€). ¿Podéis darme más información?',
-    ),
-
-    Product(
-      id: 'philden_adc500',
-      name: 'Philden ADC-500',
-      subtitle: 'Automática · Cargador 10 discos · Producción 24/7',
-      category: 'fresadora',
-      price: 17990,
-      financing: '60 meses · desde 300 €/mes',
-      description:
-          'Fresadora automática con cargador de 10 discos para producción continua 24/7. 5 ejes, 12 herramientas y cambio automático de bloques. Máxima productividad para laboratorios de alto volumen.',
-      features: [
-        'Cargador automático 10 discos',
-        'Producción continua 24/7',
-        '5 ejes de alta precisión',
-        '12 herramientas automáticas',
-        'Fresado seco + software CAM',
-        'Ideal laboratorio alto volumen',
-      ],
-      imageAsset: 'assets/products/philden_adc500.png',
-      badge: 'Producción 24/7',
-      isFeatured: true,
-      whatsappMessage: 'Hola, me interesa la Philden ADC-500 automática (17.990€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa la Deprag D5 AFE (19.900 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -413,14 +454,40 @@ class ProductData {
         '4 ejes de fresado húmedo',
         'Sin compresor de aire requerido',
         '6 herramientas incluidas',
-        'Toma corriente 220V estándar',
+        'Toma corriente 220 V estándar',
         'Ideal para inicio en CAD/CAM',
         'Instalación y formación incluidas',
       ],
       imageAsset: 'assets/products/philden_s410.png',
       badge: 'Clínica Ideal',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden S410 (19.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa la Philden S410 (19.900 €). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'deprag_w4',
+      name: 'DEPRAG W4',
+      subtitle: 'Fresadora 4 ejes · Cerámica vítrea · Auto-calibración',
+      category: 'fresadora',
+      price: 19900,
+      financing: '60 meses · desde 332 €/mes',
+      description:
+          'Fresadora dental de 4 ejes especializada en cerámica vítrea. Precisión 0,01 mm / 5 µm. Sistema Wet/Tanque con 20 bloques de capacidad. Auto-calibración con -15 % de desperdicio.',
+      features: [
+        '4 ejes de fresado',
+        'Potencia 2,5 kW / 60.000 rpm',
+        'Precisión 0,01 mm / 5 µm',
+        'Capacidad 20 bloques',
+        'Sistema Wet / Tanque',
+        'Especializada en cerámica vítrea',
+        'Pantalla LCD 19,5" Windows 10',
+      ],
+      imageAsset: 'assets/products/deprag_w4.png',
+      badge: 'Precio Feria',
+      isFeatured: false,
+      whatsappMessage:
+          'Hola, me interesa la DEPRAG W4 (19.900 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -443,7 +510,8 @@ class ProductData {
       imageAsset: 'assets/products/philden_s510.png',
       badge: 'Laboratorio',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden S510 (14.790€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa la Philden S510 (14.790 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -458,7 +526,7 @@ class ProductData {
       features: [
         '5 ejes de precisión industrial',
         '12 herramientas automáticas',
-        'Husillo 60.000 rpm / 900W',
+        'Husillo 60.000 rpm / 900 W',
         'Fresado en seco (DRY)',
         'Software CAM incluido',
         'Garantía oficial 2 años',
@@ -466,32 +534,8 @@ class ProductData {
       imageAsset: 'assets/products/philden_s410.png',
       badge: 'Laboratorio',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Philden S500 Seco (13.550€). ¿Podéis darme más información?',
-    ),
-
-    Product(
-      id: 'deprag_w4',
-      name: 'DEPRAG W4',
-      subtitle: 'Fresadora 4 ejes · Cerámica vítrea · Auto-calibración',
-      category: 'fresadora',
-      price: 19900,
-      financing: '60 meses · desde 332 €/mes',
-      description:
-          'Fresadora dental de 4 ejes especializada en cerámica vítrea. Precisión 0,01mm / 5µm. Sistema Wet/Tanque con 20 bloques de capacidad. Auto-calibración con -15% de desperdicio.',
-      features: [
-        '4 ejes de fresado',
-        'Potencia 2,5 kW / 60.000 rpm',
-        'Precisión 0,01mm / 5 µm',
-        'Capacidad 20 bloques',
-        'Sistema Wet / Tanque',
-        'Materiales: Cerámica / PMMA',
-        'Pantalla LCD 19,5" Windows 10',
-        'Especializada en Cerámica Vítrea',
-      ],
-      imageAsset: 'assets/products/deprag_w4.png',
-      badge: 'Oferta Especial',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la DEPRAG W4 (19.900€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa la Philden S500 Seco (13.550 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -502,13 +546,13 @@ class ProductData {
       price: null,
       financing: 'Consultar oferta Expodental',
       description:
-          'Fresadora dental Wet & Dry de alta precisión. Dual Spindles con 4 motores a 50.000 rpm. Precisión ±25µm. Procesa disilicato, híbrida y zirconia. Compacta y silenciosa ≤69 dB.',
+          'Fresadora dental Wet & Dry de alta precisión. Dual Spindles con 4 motores a 50.000 rpm. Precisión ±25 µm. Procesa disilicato, híbrida y zirconia. Compacta y silenciosa ≤69 dB.',
       features: [
         'Dual 3 ejes simultáneo',
         '4 motores / 50.000 rpm',
         'Precisión repetibilidad ±25 µm',
         'Velocidad 8-15 min por pieza',
-        'Materiales: Disilicato, Híbrida, Zirconia, PMMA',
+        'Materiales: disilicato, híbrida, zirconia, PMMA',
         'Pantalla táctil LCD 7"',
         'Tamaño compacto 743×464×455 mm / 61 kg',
         'Unidades limitadas',
@@ -516,80 +560,38 @@ class ProductData {
       imageAsset: 'assets/products/lilivis_mill.png',
       badge: 'Unidades Limitadas',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Lilivis Mill LM-100. ¿Podéis darme precio y más información?',
+      whatsappMessage:
+          'Hola, me interesa la Lilivis Mill LM-100. ¿Podéis darme precio y más información?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
-    // 5. CAD/CAM – HORNOS SINTERIZACIÓN · de mayor a menor precio
+    // 5. HORNOS SINTERIZACIÓN / CAD-CAM
+    //    Featured: KDF Speed (90 min, regalo 1.500 €) → Deprag S7 (WiFi)
+    //    No featured (precio desc.): KDF Plus → KDF Standard → Pack Veltz
     // ══════════════════════════════════════════════════════════════════════════
-
-    Product(
-      id: 'kdf_plus',
-      name: 'KDF Zircom Plus',
-      subtitle: 'Alta Producción · 60-90 unidades · 1.600°C',
-      category: 'cadcam',
-      price: 15300,
-      financing: '60 meses · desde 255 €/mes',
-      description:
-          'El horno KDF de mayor capacidad: 3 bandejas para 60-90 unidades simultáneas a 1.600°C. Para laboratorios de alta producción que necesitan máxima capacidad. Regalo 1.500€ en material.',
-      features: [
-        '60-90 unidades simultáneas',
-        '3 bandejas gran capacidad',
-        'Temperatura máx. 1.600°C',
-        'Alta producción laboratorio',
-        '1.500€ en material de regalo',
-        'Máxima capacidad — gama KDF',
-      ],
-      imageAsset: 'assets/products/kdf_plus.png',
-      badge: 'Alta Producción',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el KDF Zircom Plus (15.300€). ¿Podéis darme más información?',
-    ),
 
     Product(
       id: 'kdf_speed',
       name: 'KDF Zircom Speed',
-      subtitle: 'Sinterización Rápida 90 min · Same-Day Dentistry',
+      subtitle: 'Sinterización rápida 90 min · Same-Day Dentistry',
       category: 'cadcam',
       price: 13890,
       financing: '60 meses · desde 232 €/mes',
       description:
-          'Horno KDF con modo rápido de sinterización en solo 90 minutos. 1.600°C, 3 bandejas. Perfecto para clínicas que ofrecen restauraciones en el mismo día. Regalo 1.500€ en material.',
+          'Horno KDF con modo rápido de sinterización en solo 90 minutos. 1.600°C, 3 bandejas. Perfecto para clínicas que ofrecen restauraciones en el mismo día. Regalo 1.500 € en material.',
       features: [
         'Modo SPEED: solo 90 minutos',
         'Temperatura máx. 1.600°C',
         '3 bandejas de capacidad',
         'Same-day dentistry habilitado',
-        '1.500€ en material de regalo',
+        '1.500 € en material de regalo',
         'Fabricación japonesa premium',
       ],
       imageAsset: 'assets/products/kdf_speed.png',
-      badge: '90 min · 1.500€ Regalo',
+      badge: '90 min · 1.500 € Regalo',
       isFeatured: true,
-      whatsappMessage: 'Hola, me interesa el KDF Zircom Speed (13.890€). ¿Podéis darme más información?',
-    ),
-
-    Product(
-      id: 'kdf_standard',
-      name: 'KDF Zircom Standard',
-      subtitle: 'Fiabilidad japonesa · 1.600°C · 50 unidades',
-      category: 'cadcam',
-      price: 12800,
-      financing: '60 meses · desde 214 €/mes',
-      description:
-          'Horno de sinterización japonés KDF de alta fiabilidad. 1.600°C máximo, 3 bandejas (50 unidades), fabricación japonesa de precisión. Regalo de 1.000€ en material incluido en la compra.',
-      features: [
-        'Temperatura máx. 1.600°C',
-        '3 bandejas — 50 unidades',
-        'Fabricación japonesa de precisión',
-        'Alta fiabilidad garantizada',
-        '1.000€ en material de regalo',
-        'Garantía oficial 2 años',
-      ],
-      imageAsset: 'assets/products/kdf_standard.png',
-      badge: '1.000€ Regalo',
-      isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el KDF Zircom Standard (12.800€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el KDF Zircom Speed (13.890 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -611,8 +613,57 @@ class ProductData {
       ],
       imageAsset: 'assets/products/deprag_s7.png',
       badge: 'WiFi + App',
+      isFeatured: true,
+      whatsappMessage:
+          'Hola, me interesa el Deprag S7 MOSI2 (7.500 €). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'kdf_plus',
+      name: 'KDF Zircom Plus',
+      subtitle: 'Alta Producción · 60-90 unidades · 1.600°C',
+      category: 'cadcam',
+      price: 15300,
+      financing: '60 meses · desde 255 €/mes',
+      description:
+          'El horno KDF de mayor capacidad: 3 bandejas para 60-90 unidades simultáneas a 1.600°C. Para laboratorios de alta producción que necesitan máxima capacidad. Regalo 1.500 € en material.',
+      features: [
+        '60-90 unidades simultáneas',
+        '3 bandejas gran capacidad',
+        'Temperatura máx. 1.600°C',
+        'Alta producción laboratorio',
+        '1.500 € en material de regalo',
+        'Máxima capacidad — gama KDF',
+      ],
+      imageAsset: 'assets/products/kdf_plus.png',
+      badge: 'Alta Producción',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Deprag S7 MOSI2 (7.500€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el KDF Zircom Plus (15.300 €). ¿Podéis darme más información?',
+    ),
+
+    Product(
+      id: 'kdf_standard',
+      name: 'KDF Zircom Standard',
+      subtitle: 'Fiabilidad japonesa · 1.600°C · 50 unidades',
+      category: 'cadcam',
+      price: 12800,
+      financing: '60 meses · desde 214 €/mes',
+      description:
+          'Horno de sinterización japonés KDF de alta fiabilidad. 1.600°C máximo, 3 bandejas (50 unidades), fabricación japonesa de precisión. Regalo de 1.000 € en material incluido en la compra.',
+      features: [
+        'Temperatura máx. 1.600°C',
+        '3 bandejas — 50 unidades',
+        'Fabricación japonesa de precisión',
+        'Alta fiabilidad garantizada',
+        '1.000 € en material de regalo',
+        'Garantía oficial 2 años',
+      ],
+      imageAsset: 'assets/products/kdf_standard.png',
+      badge: '1.000 € Regalo',
+      isFeatured: false,
+      whatsappMessage:
+          'Hola, me interesa el KDF Zircom Standard (12.800 €). ¿Podéis darme más información?',
     ),
 
     Product(
@@ -635,26 +686,28 @@ class ProductData {
       imageAsset: 'assets/products/veltz_horno.png',
       badge: 'Pack Completo',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Pack Veltz (6.300€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Pack Veltz (6.300 €). ¿Podéis darme más información?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
-    // 6. IMPRESORAS 3D Y HORNOS SINTERIZADO DENTAL
+    // 6. IMPRESORAS 3D Y HORNOS COMPLEMENTARIOS
+    //    Orden: Lilivis Print (consultar) → Duotron T-3200 (precio)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
       id: 'lilivis_print_lp100',
       name: 'Lilivis Print LP-100 + UV',
-      subtitle: 'Impresora 3D Dental MSLA · Auto-calibración 95%',
+      subtitle: 'Impresora 3D Dental MSLA · Auto-calibración 95 %',
       price: null,
       category: 'impresora',
       financing: 'Consultar condiciones Expodental',
       description:
-          'Impresora 3D dental MSLA Adaptativa con sistema LSA de auto-calibración al 95%. Resolución 50µm XY, velocidad 10-30 min/trabajo. Lentes Fresnel patentadas. Incluye sistema UV de curado.',
+          'Impresora 3D dental MSLA Adaptativa con sistema LSA de auto-calibración al 95 %. Resolución 50 µm XY, velocidad 10-30 min/trabajo. Lentes Fresnel patentadas. Incluye sistema UV de curado.',
       features: [
         'Tecnología MSLA Adaptativa',
         'Resolución 50 µm (XY) / 405 nm',
-        'Sistema LSA auto-calibración 95%',
+        'Sistema LSA auto-calibración 95 %',
         'Velocidad 10-30 min por trabajo',
         'Plataforma 120×75×120 mm',
         'Lentes Fresnel asféricas patentadas',
@@ -664,7 +717,8 @@ class ProductData {
       imageAsset: 'assets/products/lilivis_print.png',
       badge: 'Solicitar Oferta',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa la Lilivis Print LP-100. ¿Podéis darme precio y condiciones Expodental?',
+      whatsappMessage:
+          'Hola, me interesa la Lilivis Print LP-100. ¿Podéis darme precio y condiciones Expodental?',
     ),
 
     Product(
@@ -675,7 +729,7 @@ class ProductData {
       price: 4300,
       financing: '60 meses · desde 72 €/mes',
       description:
-          'Horno de sinterizado profesional Máx. 1.100°C con bomba de vacío integrada. Ahorra 1.320€ (antes 5.620€). Ciclo 2-4 horas, cámara Ø92×66mm. Bandejas de cocción incluidas.',
+          'Horno de sinterizado profesional máx. 1.100°C con bomba de vacío integrada. Ahorra 1.320 € (antes 5.620 €). Ciclo 2-4 horas, cámara Ø92×66 mm. Bandejas de cocción incluidas.',
       features: [
         'Temperatura máx. 1.100°C',
         'Ciclo 2-4 horas',
@@ -683,17 +737,19 @@ class ProductData {
         'Bomba de vacío integrada',
         'Bandejas de cocción incluidas',
         'Control automático de ciclo',
-        'Ahorra 1.320€ vs PVP',
+        'Ahorra 1.320 € vs PVP',
         'Kit materiales de regalo',
       ],
       imageAsset: 'assets/products/duotron_t3200.png',
-      badge: 'Ahorra 1.320€',
+      badge: 'Ahorra 1.320 €',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Duotron T-3200 (4.300€). ¿Podéis darme más información?',
+      whatsappMessage:
+          'Hola, me interesa el Duotron T-3200 (4.300 €). ¿Podéis darme más información?',
     ),
 
     // ══════════════════════════════════════════════════════════════════════════
     // 7. SILLONES DENTALES
+    //    Orden: Luvis Chair (alta gama) → Cingol X1 (versátil)
     // ══════════════════════════════════════════════════════════════════════════
 
     Product(
@@ -718,7 +774,8 @@ class ProductData {
       imageAsset: 'assets/products/luvis_chair.png',
       badge: 'Alta Gama',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Luvis Chair (unidad dental Dentis). ¿Podéis darme precio y más información?',
+      whatsappMessage:
+          'Hola, me interesa el Luvis Chair (unidad dental Dentis). ¿Podéis darme precio y más información?',
     ),
 
     Product(
@@ -743,18 +800,42 @@ class ProductData {
       imageAsset: 'assets/products/sillon_x1_blue.png',
       badge: 'Oferta Expodental',
       isFeatured: false,
-      whatsappMessage: 'Hola, me interesa el Sillón Cingol X1. ¿Podéis darme precio y más información?',
+      whatsappMessage:
+          'Hola, me interesa el Sillón Cingol X1. ¿Podéis darme precio y más información?',
     ),
 
   ];
+
+  // ── Helpers ──────────────────────────────────────────────────────────────────
 
   static List<Product> byCategory(String categoryId) {
     if (categoryId == 'all') return products;
     return products.where((p) => p.category == categoryId).toList();
   }
 
-  static List<Product> get featured =>
-      products.where((p) => p.isFeatured).toList();
+  /// Featured intercalado por categoría para variedad visual en el grid de home.
+  /// Orden: scanner → pack → cbct → fresadora → cadcam → resto
+  static List<Product> get featured {
+    final all = products.where((p) => p.isFeatured).toList();
+    final order = ['scanner', 'pack', 'cbct', 'fresadora', 'cadcam', 'sillon', 'impresora'];
+    final buckets = <String, List<Product>>{};
+    for (final cat in order) {
+      buckets[cat] = all.where((p) => p.category == cat).toList();
+    }
+    final result = <Product>[];
+    bool added = true;
+    while (added) {
+      added = false;
+      for (final cat in order) {
+        final bucket = buckets[cat]!;
+        if (bucket.isNotEmpty) {
+          result.add(bucket.removeAt(0));
+          added = true;
+        }
+      }
+    }
+    return result;
+  }
 
   static List<Product> search(String query) {
     final q = query.toLowerCase();
