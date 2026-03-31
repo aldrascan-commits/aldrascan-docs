@@ -180,10 +180,10 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
           const SizedBox(height: 56),
           // Footer
           const Divider(color: _grayDark, height: 1),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
             child: Row(
-              children: const [
+              children: [
                 Text('Designed for Excellence', style: TextStyle(color: _grayDark, fontSize: 10)),
                 Spacer(),
                 Text('Precisión • Velocidad • Rentabilidad', style: TextStyle(color: _grayDark, fontSize: 10)),
@@ -202,7 +202,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
   // ══════════════════════════════════════════════════════════════════════════
   Widget _slideWorkflow() {
     final cards = [
-      _WFCard(
+      const _WFCard(
         badge: 'ESCANEO', num: '01',
         product: 'Medit i900 Mobility',
         time: '3-5 min',
@@ -210,7 +210,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
         image: 'assets/products/medit_i900_mobility_real.png',
         color: _blue,
       ),
-      _WFCard(
+      const _WFCard(
         badge: 'DISEÑO', num: '02',
         product: 'ClinicCAD con IA',
         time: '5-8 min',
@@ -218,7 +218,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
         image: 'assets/products/cliniccad_logo.png',
         color: _blue,
       ),
-      _WFCard(
+      const _WFCard(
         badge: 'PRODUCCIÓN', num: '03',
         product: 'Lilivis Mill\n(Dual 3-Axis)',
         time: '8-15 min',
@@ -226,7 +226,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
         image: 'assets/products/lilivis_mill.png',
         color: _blue,
       ),
-      _WFCard(
+      const _WFCard(
         badge: 'COCCIÓN', num: '04',
         product: 'Duotron Series',
         time: '2-4h',
@@ -286,11 +286,11 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: cards.length,
-              separatorBuilder: (_, __) => Row(
+              separatorBuilder: (_, __) => const Row(
                 children: [
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   Text('›', style: TextStyle(color: _cardBorder, fontSize: 24)),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                 ],
               ),
               itemBuilder: (_, i) => _buildWFCardMini(cards[i], i == _activeWorkflowCard),
@@ -307,9 +307,9 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
             ),
             child: Row(
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('TIEMPO TOTAL DE PROCESO',
                         style: TextStyle(color: _gray, fontSize: 9, letterSpacing: 1)),
                     SizedBox(height: 2),
@@ -324,8 +324,8 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
                     color: _greenDark,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.check_circle, color: _green, size: 14),
                       SizedBox(width: 6),
                       Text('Tratamiento completo\nen una sola visita',
@@ -367,7 +367,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(c.image, fit: BoxFit.contain,
-                          errorBuilder: (_, __, ___) => Icon(Icons.devices, color: _blue, size: 40)),
+                          errorBuilder: (_, __, ___) => const Icon(Icons.devices, color: _blue, size: 40)),
                     ),
                   ),
                   Positioned(
@@ -445,7 +445,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
           Expanded(
             child: Center(
               child: Image.asset(c.image, fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => Icon(Icons.devices, color: _blue, size: 36)),
+                  errorBuilder: (_, __, ___) => const Icon(Icons.devices, color: _blue, size: 36)),
             ),
           ),
           const SizedBox(height: 6),
@@ -507,10 +507,10 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
                         const SizedBox(height: 20),
                         // Grid 2x2 features
                         _feature2x2([
-                          _FeatureItem(Icons.wifi, 'Wi-Fi 6E', 'Conectividad ultrarrápida y estable sin cables.'),
-                          _FeatureItem(Icons.tablet_mac, 'iPad Nativo', 'Escanea directamente con Medit Link Express.'),
-                          _FeatureItem(Icons.air, '242g Ultra-ligero', 'El scanner inalámbrico más liviano del mercado.'),
-                          _FeatureItem(Icons.battery_full, 'All-Day Battery', 'Energía inteligente para sesiones continuas.'),
+                          const _FeatureItem(Icons.wifi, 'Wi-Fi 6E', 'Conectividad ultrarrápida y estable sin cables.'),
+                          const _FeatureItem(Icons.tablet_mac, 'iPad Nativo', 'Escanea directamente con Medit Link Express.'),
+                          const _FeatureItem(Icons.air, '242g Ultra-ligero', 'El scanner inalámbrico más liviano del mercado.'),
+                          const _FeatureItem(Icons.battery_full, 'All-Day Battery', 'Energía inteligente para sesiones continuas.'),
                         ]),
                       ],
                     ),
@@ -592,10 +592,10 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
           Container(height: 1, color: _blue.withValues(alpha: 0.5)),
           const SizedBox(height: 20),
           // Medit Apps Ecosistema AI
-          Row(
+          const Row(
             children: [
-              const Text('MEDIT APPS ', style: TextStyle(color: _white, fontSize: 14, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
-              const Text('ECOSISTEMA AI', style: TextStyle(color: _blue, fontSize: 14, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
+              Text('MEDIT APPS ', style: TextStyle(color: _white, fontSize: 14, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
+              Text('ECOSISTEMA AI', style: TextStyle(color: _blue, fontSize: 14, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
             ],
           ),
           const SizedBox(height: 14),
@@ -662,10 +662,10 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
                         ),
                         const SizedBox(height: 18),
                         _feature2x2([
-                          _FeatureItem(Icons.memory, 'Dual Spindles', 'Sistema Dual 3-Axis con 4 motores a 50,000 rpm.'),
-                          _FeatureItem(Icons.schedule, 'One-Day Dentistry', 'De escaneo a colocación en una sola visita.'),
-                          _FeatureItem(Icons.water_drop, 'Wet Processing', 'Fresado húmedo con precisión de ±25μm.'),
-                          _FeatureItem(Icons.layers, 'Multi-Material', 'Versatilidad: Zirconia, PMMA, Cerámica, Disilicato.'),
+                          const _FeatureItem(Icons.memory, 'Dual Spindles', 'Sistema Dual 3-Axis con 4 motores a 50,000 rpm.'),
+                          const _FeatureItem(Icons.schedule, 'One-Day Dentistry', 'De escaneo a colocación en una sola visita.'),
+                          const _FeatureItem(Icons.water_drop, 'Wet Processing', 'Fresado húmedo con precisión de ±25μm.'),
+                          const _FeatureItem(Icons.layers, 'Multi-Material', 'Versatilidad: Zirconia, PMMA, Cerámica, Disilicato.'),
                         ]),
                       ],
                     ),
@@ -691,8 +691,8 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
           // Badge + título
           _badgePill('OFERTA LIMITADA', _red),
           const SizedBox(height: 12),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Text('Pack Laboratorio ', style: TextStyle(color: _white, fontSize: 26, fontWeight: FontWeight.w900)),
               Text('Digital', style: TextStyle(color: _blue, fontSize: 26, fontWeight: FontWeight.w900)),
             ],
@@ -723,9 +723,9 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
               color: _greenDark,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Icon(Icons.check_circle, color: _green, size: 14),
                 SizedBox(width: 8),
                 Text('De depender de terceros... a producir internamente.',
@@ -771,18 +771,18 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('ROI Pack AldraScan Pro',
+                        Text('ROI Pack AldraScan Pro',
                             style: TextStyle(color: _white, fontSize: 13, fontWeight: FontWeight.w700)),
-                        const Text('Inv. 39.900€  ·  Proyección 12 Meses (Beneficio Neto)',
+                        Text('Inv. 39.900€  ·  Proyección 12 Meses (Beneficio Neto)',
                             style: TextStyle(color: _gray, fontSize: 10)),
                       ],
                     ),
-                    const Spacer(),
+                    Spacer(),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -888,9 +888,9 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
               color: _greenDark,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text('✓  Escenario medio: 25 coronas + 15 carillas/mes = Break Even mes 7-8',
                     style: TextStyle(color: _white, fontSize: 11)),
                 SizedBox(height: 4),
@@ -1145,9 +1145,9 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
             ),
           ),
           const SizedBox(height: 24),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text('Designed for Excellence · ', style: TextStyle(color: _grayDark, fontSize: 10)),
               Text('Precisión • Velocidad • Rentabilidad', style: TextStyle(color: _grayDark, fontSize: 10)),
             ],
@@ -1393,7 +1393,7 @@ class _PackAldrascanProScreenState extends State<PackAldrascanProScreen>
                     ],
                   ),
                   const SizedBox(height: 4),
-                ]).toList(),
+                ]),
               ],
             ),
           ),
