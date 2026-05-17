@@ -1,0 +1,2901 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AldraScan — Dashboard Pro</title>
+<meta name="theme-color" content="#0066ff">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── DESIGN TOKENS ─── */
+:root {
+  /* Surface */
+  --bg: #f6f7fb;
+  --bg-deep: #eef1f7;
+  --bg-card: #ffffff;
+  --bg-row: #fafbfc;
+  --bg-hover: #f1f5f9;
+  --bg-elev: #ffffff;
+  --border: rgba(15, 23, 42, 0.06);
+  --border-md: rgba(15, 23, 42, 0.10);
+  --border-strong: rgba(15, 23, 42, 0.18);
+
+  /* Text */
+  --text: #0a1628;
+  --text-2: #475569;
+  --text-3: #94a3b8;
+
+  /* Brand */
+  --brand: #0066ff;
+  --brand-2: #0052cc;
+  --brand-deep: #003d99;
+  --brand-bg: #ebf2ff;
+  --brand-text: #0052cc;
+  --brand-glow: rgba(0,102,255,0.18);
+  --accent: #06b6d4;
+
+  /* Semantic */
+  --green: #10b981;
+  --green-bg: #ecfdf5;
+  --green-text: #047857;
+  --red: #ef4444;
+  --red-bg: #fef2f2;
+  --red-text: #b91c1c;
+  --amber: #f59e0b;
+  --amber-bg: #fffbeb;
+  --amber-text: #b45309;
+  --purple: #8b5cf6;
+  --purple-bg: #f5f3ff;
+  --purple-text: #6d28d9;
+  --pink: #ec4899;
+  --teal: #14b8a6;
+
+  /* Heatmap (margin cell tints) */
+  --hm-excellent: rgba(16,185,129,0.10);
+  --hm-good: rgba(0,102,255,0.07);
+  --hm-ok: rgba(245,158,11,0.09);
+  --hm-low: rgba(239,68,68,0.08);
+
+  /* Geometry */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --radius-lg: 18px;
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04), 0 1px 3px rgba(15,23,42,0.06);
+  --shadow: 0 1px 3px rgba(15,23,42,0.05), 0 4px 12px rgba(15,23,42,0.04), 0 12px 24px -8px rgba(15,23,42,0.05);
+  --shadow-md: 0 4px 8px rgba(15,23,42,0.06), 0 12px 24px rgba(15,23,42,0.06), 0 24px 48px -12px rgba(15,23,42,0.08);
+  --shadow-lg: 0 24px 48px -12px rgba(15,23,42,0.18), 0 12px 28px rgba(15,23,42,0.10);
+  --shadow-brand: 0 4px 14px rgba(0,102,255,0.22), 0 0 0 1px rgba(0,102,255,0.05);
+
+  --grad-brand: linear-gradient(135deg,#0066ff 0%,#0052cc 100%);
+  --grad-cyan: linear-gradient(135deg,#06b6d4 0%,#0066ff 100%);
+  --grad-mesh:
+    radial-gradient(at 0% 0%, rgba(0,102,255,0.05) 0px, transparent 40%),
+    radial-gradient(at 100% 0%, rgba(6,182,212,0.04) 0px, transparent 40%),
+    radial-gradient(at 100% 100%, rgba(139,92,246,0.04) 0px, transparent 40%);
+
+  /* Type — Modern Montserrat */
+  --font-display: 'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font: 'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace,'SF Mono',Menlo,monospace;
+  --transition: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Enhanced gradient palette */
+  --gradient-primary: linear-gradient(135deg, #0066ff 0%, #004ecf 50%, #0036a3 100%);
+  --gradient-accent: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+
+  /* Tweaks runtime overrides (Tweaks panel writes here) */
+  --tweak-body-font-size: 13px;
+}
+
+/* ─── DARK MODE ─── */
+[data-theme="dark"] {
+  --bg: #07090f;
+  --bg-deep: #050810;
+  --bg-card: #0f1623;
+  --bg-row: #0c1320;
+  --bg-hover: #1a2333;
+  --bg-elev: #131d2e;
+  --border: rgba(255,255,255,0.05);
+  --border-md: rgba(255,255,255,0.09);
+  --border-strong: rgba(255,255,255,0.18);
+
+  --text: #f1f5f9;
+  --text-2: #94a3b8;
+  --text-3: #64748b;
+
+  --brand: #4d8eff;
+  --brand-2: #2972ff;
+  --brand-deep: #80aaff;
+  --brand-bg: rgba(77,142,255,0.12);
+  --brand-text: #80aaff;
+  --brand-glow: rgba(77,142,255,0.3);
+
+  --green-bg: rgba(16,185,129,0.12);
+  --green-text: #34d399;
+  --red-bg: rgba(239,68,68,0.14);
+  --red-text: #f87171;
+  --amber-bg: rgba(245,158,11,0.12);
+  --amber-text: #fbbf24;
+  --purple-bg: rgba(139,92,246,0.14);
+  --purple-text: #c4b5fd;
+
+  --hm-excellent: rgba(16,185,129,0.10);
+  --hm-good: rgba(77,142,255,0.12);
+  --hm-ok: rgba(245,158,11,0.12);
+  --hm-low: rgba(239,68,68,0.12);
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow: 0 4px 12px rgba(0,0,0,0.4), 0 12px 24px -8px rgba(0,0,0,0.5);
+  --shadow-md: 0 12px 24px rgba(0,0,0,0.5), 0 24px 48px -12px rgba(0,0,0,0.6);
+  --shadow-lg: 0 32px 64px -12px rgba(0,0,0,0.7);
+  --shadow-brand: 0 4px 20px rgba(77,142,255,0.4), 0 0 0 1px rgba(77,142,255,0.2);
+
+  --grad-mesh:
+    radial-gradient(at 0% 0%, rgba(77,142,255,0.10) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6,182,212,0.05) 0px, transparent 40%),
+    radial-gradient(at 100% 100%, rgba(139,92,246,0.06) 0px, transparent 50%);
+}
+
+/* ─── BASE ─── */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; color-scheme: light dark; }
+body {
+  font-family: var(--font);
+  font-size: var(--tweak-body-font-size, 13px);
+  background: var(--bg);
+  background-image: var(--grad-mesh);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  font-feature-settings: 'cv11','ss01','ss03';
+  letter-spacing: -0.011em;
+  transition: background-color 0.3s var(--transition), color 0.3s var(--transition);
+}
+::selection { background: var(--brand-glow); color: var(--brand-deep); }
+*:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
+.tnum { font-feature-settings:'tnum';font-variant-numeric:tabular-nums; }
+
+/* ─── TOP BAR ─── */
+.top-bar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 100%);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 0 var(--border), 0 4px 20px -6px rgba(15,23,42,0.04);
+}
+[data-theme="dark"] .top-bar {
+  background: linear-gradient(180deg, rgba(15,22,35,0.9) 0%, rgba(7,9,15,0.8) 100%);
+}
+.top-bar-left { display:flex;align-items:center;gap:18px;min-width:0; }
+.top-bar-right { display:flex;align-items:center;gap:8px; }
+.logo-mark { display:flex;align-items:center;gap:10px;flex-shrink:0; }
+.logo-icon {
+  width:34px;height:34px;background:var(--grad-brand);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-brand);
+  position:relative;overflow:hidden;
+}
+.logo-icon::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.25),transparent 50%);}
+.logo-icon svg { width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;position:relative;z-index:1; }
+.logo-text { font-size:16px;font-weight:800;color:var(--text);letter-spacing:-0.03em;text-rendering:optimizeLegibility; }
+.logo-sub { font-size:12px;color:var(--text-2);border-left:1px solid var(--border-md);padding-left:14px;margin-left:2px;font-weight:600;text-rendering:optimizeLegibility; }
+.pro-badge {
+  display:inline-flex;align-items:center;gap:5px;
+  background:linear-gradient(135deg,#0a1628,#1e293b);color:#fff;font-size:10px;font-weight:700;
+  padding:4px 11px;border-radius:50px;text-transform:uppercase;letter-spacing:0.1em;
+  border:1px solid rgba(0,102,255,0.4);box-shadow:0 0 0 1px rgba(0,102,255,0.15),0 2px 8px rgba(0,102,255,0.2);
+}
+.pro-badge::before { content:'';width:6px;height:6px;border-radius:50%;background:#06b6d4;box-shadow:0 0 8px #06b6d4; animation:pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+/* Tabs */
+.nav-tabs { display:flex;gap:3px;background:var(--bg-deep);border-radius:12px;padding:5px;border:1px solid var(--border); }
+.nav-tab {
+  padding:9px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--text-2);border:none;
+  transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);font-family:var(--font);white-space:nowrap;letter-spacing:-0.01em;
+  text-rendering:optimizeLegibility;
+}
+.nav-tab.active {
+  background:var(--bg-card);color:var(--brand-text);
+  box-shadow: 0 2px 8px rgba(0,102,255,0.12);
+  font-weight:700;
+}
+.nav-tab:hover:not(.active) { color:var(--text);background:color-mix(in srgb, var(--bg-card) 50%, transparent); }
+
+/* Theme toggle */
+.icon-btn {
+  width:34px;height:34px;border-radius:10px;background:var(--bg-deep);border:1px solid var(--border);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--text-2);font-size:15px;transition:all 0.2s var(--transition);
+}
+.icon-btn:hover { background:var(--bg-card);color:var(--text);border-color:var(--border-md);box-shadow:var(--shadow-sm); }
+.kbd-hint {
+  display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:8px;
+  background:var(--bg-deep);border:1px solid var(--border);
+  font-size:11px;color:var(--text-2);cursor:pointer;transition:all 0.2s var(--transition);
+}
+.kbd-hint:hover { color:var(--text);border-color:var(--border-md); }
+.kbd { font-family:var(--font-mono);font-size:10px;padding:1px 5px;border-radius:4px;background:var(--bg-card);border:1px solid var(--border-md);box-shadow:0 1px 0 var(--border-md); }
+
+/* ─── LAYOUT ─── */
+.page { display:none;padding:28px;max-width:1480px;margin:0 auto; }
+.page.active { display:block;animation:fadeIn 0.4s var(--transition); }
+@keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+.page-header { margin-bottom:24px; }
+.page-header h1 {
+  font-family:var(--font-display);
+  font-size:40px;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-0.05em;
+  background:var(--gradient-primary);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-rendering:optimizeLegibility;
+}
+.page-header p { font-size:15px;color:var(--text-2);max-width:720px;line-height:1.65;font-weight:500; }
+
+/* ─── KPI CARDS ─── */
+.cards-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px; }
+@media(max-width:1100px){.cards-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.cards-grid{grid-template-columns:1fr;}}
+.kpi-card {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:28px;box-shadow:0 2px 8px rgba(15,23,42,0.04);position:relative;overflow:hidden;
+  transition:all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change:transform,box-shadow,border-color;
+}
+.kpi-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+  border-color: rgba(0,102,255,0.15);
+}
+.kpi-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#e2e8f0;
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kpi-card::after {
+  content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;
+  border-radius:50%;opacity:0.06;background:currentColor;filter:blur(50px);pointer-events:none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kpi-card:hover::after { opacity: 0.12; }
+.kpi-card.blue { color: var(--brand); }
+.kpi-card.blue::before{background:var(--grad-brand);}
+.kpi-card.green { color: var(--green); }
+.kpi-card.green::before{background:linear-gradient(90deg,#10b981,#34d399);}
+.kpi-card.purple { color: var(--purple); }
+.kpi-card.purple::before{background:linear-gradient(90deg,#8b5cf6,#a78bfa);}
+.kpi-card.amber { color: var(--amber); }
+.kpi-card.amber::before{background:linear-gradient(90deg,#f59e0b,#fbbf24);}
+.kpi-card.red { color: var(--red); }
+.kpi-card.red::before{background:linear-gradient(90deg,#ef4444,#f87171);}
+.kpi-label { font-size:11px;color:var(--text-2);margin-bottom:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;text-rendering:optimizeLegibility; }
+.kpi-value { font-size:36px;font-weight:800;color:var(--text);line-height:1;margin-bottom:8px;letter-spacing:-0.04em;font-feature-settings:'tnum';font-variant-numeric:tabular-nums;text-rendering:optimizeLegibility; }
+.kpi-sub { font-size:13px;color:var(--text-3);font-weight:500;line-height:1.5; }
+.kpi-card.blue .kpi-value{background:var(--grad-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.kpi-card.green .kpi-value{color:var(--green-text);}
+.kpi-card.purple .kpi-value{color:var(--purple-text);}
+.kpi-card.amber .kpi-value{color:var(--amber-text);}
+.kpi-card.red .kpi-value{color:var(--red-text);}
+
+/* ─── TABLE ─── */
+.table-card {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px;
+}
+.table-card-header {
+  padding:20px 24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  background: linear-gradient(180deg, rgba(0,102,255,0.03), transparent);
+}
+.table-card-title { font-size:15px;font-weight:700;letter-spacing:-0.015em;text-rendering:optimizeLegibility; }
+.table-card-sub { font-size:13px;color:var(--text-2);font-weight:500; }
+.table-scroll { max-height: calc(100vh - 380px); overflow:auto; }
+.table-scroll img, .oferta-tbl td img {
+  filter:brightness(1.02) contrast(1.06) saturate(1.08);
+  image-rendering:-webkit-optimize-contrast;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  transition:all 0.2s var(--transition);
+}
+.table-scroll img:hover, .oferta-tbl td img:hover {
+  filter:brightness(1.08) contrast(1.1) saturate(1.15) drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  transform:scale(1.05);
+}
+[data-theme="dark"] .table-scroll img, [data-theme="dark"] .oferta-tbl td img {
+  filter:brightness(1.05) contrast(1.05) saturate(1.05);
+  box-shadow:0 1px 3px rgba(0,0,0,0.4);
+}
+.product-thumb {
+  width:32px;height:32px;border-radius:6px;margin-right:10px;cursor:pointer;
+  object-fit:cover;background:var(--bg-row);flex-shrink:0;
+}
+.oferta-thumb {
+  width:40px;height:40px;border-radius:6px;margin-right:10px;
+  object-fit:cover;background:var(--bg-row);flex-shrink:0;
+}
+.product-cell { display:flex;align-items:center;gap:0;min-width:0; }
+
+/* PVD row inversion in offer */
+.oferta-tbl tr.pvd-mode td:not(:first-child):not(:last-child) {
+  background:color-mix(in srgb, var(--purple) 6%, transparent);
+}
+.oferta-tbl tr.pvd-mode td:first-child {
+  border-left:3px solid var(--purple);
+  background:color-mix(in srgb, var(--purple) 8%, transparent);
+}
+.tbl { width:100%;border-collapse:collapse;font-size:13px;table-layout:auto; }
+.tbl th {
+  text-align:left;padding:14px 16px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.12em;color:var(--text-2);
+  background:linear-gradient(180deg, rgba(0,102,255,0.04) 0%, transparent 100%);
+  border-bottom:1px solid var(--border-md);
+  position:sticky;top:0;z-index:2;text-rendering:optimizeLegibility;
+}
+.tbl td { padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:13px;line-height:1.5;transition:background 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl tr:hover td { background:linear-gradient(90deg, rgba(0,102,255,0.02) 0%, transparent 100%); }
+[data-theme="dark"] .tbl th { background: linear-gradient(90deg, rgba(0,102,255,0.08) 0%, transparent 100%); }
+[data-theme="dark"] .tbl tr:hover td { background: var(--bg-row); }
+.tbl tbody tr { animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) backwards; animation-delay: calc(0.02s * var(--row-index, 0)); }
+@keyframes slideInUp { from { opacity:0;transform:translateY(12px); } to { opacity:1;transform:none; } }
+@keyframes slideInLeft { from { opacity:0;transform:translateX(-12px); } to { opacity:1;transform:none; } }
+.tbl td.right,.tbl th.right { text-align:right;white-space:nowrap;font-feature-settings:'tnum';font-variant-numeric:tabular-nums; }
+.tbl td.center,.tbl th.center { text-align:center; }
+.cat-type-header td {
+  background:linear-gradient(90deg, var(--brand-bg), color-mix(in srgb, var(--brand-bg) 50%, transparent));
+  padding:9px 16px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--brand-deep);border-bottom:1px solid var(--border);
+  position:sticky;top:35px;z-index:1;
+}
+
+/* Heatmap cells */
+.hm-excellent { background: var(--hm-excellent) !important; }
+.hm-good      { background: var(--hm-good) !important; }
+.hm-ok        { background: var(--hm-ok) !important; }
+.hm-low       { background: var(--hm-low) !important; }
+
+/* ─── BADGES ─── */
+.badge { display:inline-flex;align-items:center;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:-0.01em;white-space:nowrap;text-rendering:optimizeLegibility; }
+.badge-green { background:var(--green-bg);color:var(--green-text);border:1px solid color-mix(in srgb,var(--green) 25%,transparent); }
+.badge-amber { background:var(--amber-bg);color:var(--amber-text);border:1px solid color-mix(in srgb,var(--amber) 25%,transparent); }
+.badge-red { background:var(--red-bg);color:var(--red-text);border:1px solid color-mix(in srgb,var(--red) 25%,transparent); }
+.badge-blue { background:var(--brand-bg);color:var(--brand-text);border:1px solid color-mix(in srgb,var(--brand) 20%,transparent); }
+.badge-purple { background:var(--purple-bg);color:var(--purple-text);border:1px solid color-mix(in srgb,var(--purple) 25%,transparent); }
+.type-badge {
+  display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:6px;
+  font-size:10.5px;font-weight:600;border:1px solid;letter-spacing:-0.005em;white-space:nowrap;
+}
+.type-scanner { background:color-mix(in srgb,var(--brand) 8%, var(--bg-card));color:var(--brand-deep);border-color:color-mix(in srgb,var(--brand) 18%,transparent); }
+.type-fotogram{ background:color-mix(in srgb,#06b6d4 8%, var(--bg-card));color:#0e7490;border-color:color-mix(in srgb,#06b6d4 22%,transparent); }
+.type-xray    { background:color-mix(in srgb,var(--teal) 8%, var(--bg-card));color:#0f766e;border-color:color-mix(in srgb,var(--teal) 25%,transparent); }
+.type-printer { background:color-mix(in srgb,var(--pink) 8%, var(--bg-card));color:#9d174d;border-color:color-mix(in srgb,var(--pink) 22%,transparent); }
+.type-mill    { background:color-mix(in srgb,var(--green) 8%, var(--bg-card));color:#047857;border-color:color-mix(in srgb,var(--green) 22%,transparent); }
+.type-unit    { background:color-mix(in srgb,var(--red) 8%, var(--bg-card));color:#9f1239;border-color:color-mix(in srgb,var(--red) 22%,transparent); }
+.type-pack    { background:color-mix(in srgb,var(--amber) 8%, var(--bg-card));color:#92400e;border-color:color-mix(in srgb,var(--amber) 25%,transparent); }
+.type-soft    { background:color-mix(in srgb,var(--purple) 8%, var(--bg-card));color:#5b21b6;border-color:color-mix(in srgb,var(--purple) 22%,transparent); }
+.type-other   { background:var(--bg-deep);color:var(--text-2);border-color:var(--border-md); }
+
+[data-theme="dark"] .type-scanner { color:#80aaff; }
+[data-theme="dark"] .type-fotogram{ color:#67e8f9; }
+[data-theme="dark"] .type-xray    { color:#5eead4; }
+[data-theme="dark"] .type-printer { color:#f9a8d4; }
+[data-theme="dark"] .type-mill    { color:#34d399; }
+[data-theme="dark"] .type-unit    { color:#fda4af; }
+[data-theme="dark"] .type-pack    { color:#fbbf24; }
+[data-theme="dark"] .type-soft    { color:#c4b5fd; }
+[data-theme="dark"] .type-other   { color:#cbd5e1; }
+
+/* Margin bar */
+.bar-wrap { display:flex;align-items:center;gap:8px;min-width:110px; }
+.bar-track { flex:1;height:6px;background:color-mix(in srgb,var(--text-3) 22%,transparent);border-radius:50px;overflow:hidden; }
+.bar-fill { height:100%;border-radius:50px;transition:width 0.6s var(--transition); }
+.bar-pct { font-size:12px;font-weight:700;min-width:42px;text-align:right;font-feature-settings:'tnum'; }
+.total-row td {
+  background:linear-gradient(90deg,var(--brand-bg),color-mix(in srgb,var(--brand-bg) 30%,transparent)) !important;
+  font-weight:700;font-size:13px;color:var(--brand-text);white-space:nowrap;
+  border-top:2px solid color-mix(in srgb,var(--brand) 25%,transparent);
+}
+.row-alert td { background:var(--red-bg) !important; }
+.row-alert:hover td { background:color-mix(in srgb, var(--red) 20%, var(--bg-card)) !important; }
+.margin-alert-icon { display:inline-flex;align-items:center;gap:3px;color:var(--red-text);font-size:11px;font-weight:700; }
+
+/* ─── FILTERS / TOOLBAR ─── */
+.section-toolbar { display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px; }
+.filter-row { display:flex;gap:6px;flex-wrap:wrap;align-items:center; }
+.filter-btn {
+  padding:8px 14px;border-radius:50px;font-size:12px;font-weight:600;
+  border:1px solid var(--border-md);background:var(--bg-card);color:var(--text-2);
+  cursor:pointer;transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);font-family:var(--font);
+  display:flex;align-items:center;gap:6px;text-rendering:optimizeLegibility;
+}
+.filter-btn.active { background:var(--grad-brand);color:#fff;border-color:var(--brand-2);box-shadow:0 4px 16px rgba(0,102,255,0.3);font-weight:700; }
+.filter-btn.active .filter-dot { background:#fff !important; }
+.filter-btn.active .filter-count { background:rgba(255,255,255,0.3);color:#fff; }
+.filter-btn:hover:not(.active) { background:var(--bg-row);color:var(--text);border-color:var(--border-strong);transform:translateY(-1px); }
+.filter-dot { width:8px;height:8px;border-radius:50%;display:inline-block; }
+.filter-count {
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:20px;height:18px;padding:0 6px;border-radius:50px;
+  font-size:10.5px;font-weight:700;font-feature-settings:'tnum';
+  background:var(--bg-deep);color:var(--text-2);
+  margin-left:2px;transition:all 0.2s var(--transition);
+}
+.io-toolbar { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.input-search {
+  padding:10px 14px;border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  font-size:14px;font-family:var(--font);min-width:240px;font-weight:500;
+  background:var(--bg-card);color:var(--text);outline:none;
+  transition:border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.input-search:focus { border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-glow); }
+.input-search::placeholder { color:var(--text-3); }
+
+/* Buttons */
+.btn {
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--radius-sm);
+  font-size:13px;font-weight:700;cursor:pointer;border:1px solid;
+  transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);font-family:var(--font);letter-spacing:-0.005em;
+  position:relative;overflow:hidden;text-rendering:optimizeLegibility;
+}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.12),transparent 50%);pointer-events:none;}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background:var(--grad-brand);color:#fff;border-color:var(--brand-2);box-shadow:0 4px 16px rgba(0,102,255,0.3); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow:0 12px 32px rgba(0,102,255,0.4); }
+.btn-primary:active { transform: translateY(-1px); }
+.btn-secondary { background:var(--bg-card);color:var(--text);border-color:var(--border-md);box-shadow:var(--shadow-sm); }
+.btn-secondary:hover { background:var(--bg-row);border-color:var(--border-strong); }
+.btn-green { background:var(--green-bg);color:var(--green-text);border-color:color-mix(in srgb,var(--green) 30%,transparent); }
+.btn-green:hover { background:color-mix(in srgb,var(--green) 18%, var(--bg-card));border-color:color-mix(in srgb,var(--green) 45%,transparent); }
+.btn-amber { background:var(--amber-bg);color:var(--amber-text);border-color:color-mix(in srgb,var(--amber) 30%,transparent); }
+.btn-amber:hover { background:color-mix(in srgb,var(--amber) 18%, var(--bg-card));border-color:color-mix(in srgb,var(--amber) 45%,transparent); }
+.btn-purple { background:var(--purple-bg);color:var(--purple-text);border-color:color-mix(in srgb,var(--purple) 30%,transparent); }
+.btn-purple:hover { background:color-mix(in srgb,var(--purple) 18%, var(--bg-card));border-color:color-mix(in srgb,var(--purple) 45%,transparent); }
+.btn-red { background:var(--red-bg);color:var(--red-text);border-color:color-mix(in srgb,var(--red) 30%,transparent); }
+.btn-red:hover { background:color-mix(in srgb,var(--red) 18%, var(--bg-card));border-color:color-mix(in srgb,var(--red) 45%,transparent); }
+.btn-sm { padding:6px 12px;font-size:11.5px; }
+.btn-icon {
+  width:30px;height:30px;border-radius:var(--radius-sm);background:var(--red-bg);color:var(--red-text);
+  border:1px solid color-mix(in srgb,var(--red) 22%,transparent);cursor:pointer;font-size:14px;
+  display:inline-flex;align-items:center;justify-content:center;transition:all 0.15s;
+}
+.btn-icon:hover { background:color-mix(in srgb,var(--red) 18%, var(--bg-card));border-color:color-mix(in srgb,var(--red) 35%,transparent); }
+
+/* Threshold bar */
+.threshold-bar {
+  display:flex;align-items:center;gap:14px;padding:12px 18px;background:var(--bg-card);
+  border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:16px;flex-wrap:wrap;box-shadow:var(--shadow-sm);
+}
+.threshold-bar label { font-size:12px;color:var(--text-2);font-weight:600; }
+.threshold-bar input[type=range] { width:180px;accent-color:var(--red); }
+.threshold-bar .th-val { font-size:14px;font-weight:700;color:var(--red-text);min-width:42px;font-feature-settings:'tnum'; }
+.threshold-bar .th-count { font-size:11px;color:var(--text-3); }
+
+/* ─── CALCULADORA ─── */
+.calc-layout { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
+@media(max-width:900px){.calc-layout{grid-template-columns:1fr;}}
+.card {
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:22px;transition:all 0.2s var(--transition);
+}
+.card:hover { box-shadow:var(--shadow-md); }
+.lbl { font-size:10.5px;color:var(--text-2);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:14px; }
+.field { display:flex;flex-direction:column;gap:6px;margin-bottom:14px; }
+.field label { font-size:12px;color:var(--text-2);font-weight:500; }
+.field input,.field select {
+  width:100%;padding:10px 12px;border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  font-size:14px;background:var(--bg-card);color:var(--text);outline:none;transition:all 0.15s var(--transition);font-family:var(--font);
+  font-feature-settings:'tnum';font-variant-numeric:tabular-nums;
+}
+.field input:hover,.field select:hover { border-color:var(--border-strong); }
+.field input:focus,.field select:focus { border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-glow); }
+.px { position:relative; }
+.px span { position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text-2);pointer-events:none; }
+.px input { padding-left:22px; }
+.grid2 { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+.metrics-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0; }
+.metric-box { background:var(--bg-row);border-radius:var(--radius-sm);padding:14px 16px;border:1px solid var(--border);transition:all 0.2s var(--transition); }
+.metric-box.hi { background:var(--green-bg);border-color:color-mix(in srgb,var(--green) 25%,transparent); }
+.metric-box.hi .metric-val { color:var(--green-text); }
+.metric-box.hi .metric-lbl { color:var(--green-text);opacity:0.85; }
+.metric-box.danger { background:var(--red-bg);border-color:color-mix(in srgb,var(--red) 25%,transparent); }
+.metric-box.danger .metric-val { color:var(--red-text); }
+.metric-box .metric-lbl { font-size:10.5px;color:var(--text-2);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em; }
+.metric-box .metric-val { font-size:22px;font-weight:700;color:var(--text);line-height:1;letter-spacing:-0.025em;font-feature-settings:'tnum';font-variant-numeric:tabular-nums; }
+.metric-box .metric-sub { font-size:11px;color:var(--text-3);margin-top:4px; }
+.divider { height:1px;background:var(--border);margin:16px 0; }
+.breakdown-row { display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px; }
+.breakdown-row:last-child { border-bottom:none;font-weight:600; }
+.breakdown-row span:first-child { color:var(--text-2); }
+.pos { color:var(--green-text);font-weight:600; }
+.neg { color:var(--red-text);font-weight:600; }
+.tip-box { margin-top:12px;padding:10px 13px;background:var(--bg-row);border-radius:var(--radius-sm);font-size:12px;color:var(--text-2);line-height:1.5;border-left:3px solid var(--border-md); }
+.bar-struct { margin-top:14px; }
+.bar-struct-track { height:8px;border-radius:50px;background:color-mix(in srgb,var(--text-3) 22%,transparent);overflow:hidden;display:flex; }
+.bs-coste { background:var(--red);height:100%; }
+.bs-margin { background:var(--green);height:100%; }
+.bar-legend { display:flex;gap:14px;margin-top:7px; }
+.bar-legend span { display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2); }
+.dot { width:8px;height:8px;border-radius:2px;display:inline-block; }
+.calc-ref-list { max-height:560px;overflow-y:auto;padding-right:4px; }
+.calc-ref-item {
+  cursor:pointer;padding:10px 12px;border-radius:8px;margin-bottom:5px;
+  border:1px solid var(--border);transition:all 0.15s;display:flex;align-items:center;justify-content:space-between;
+}
+.calc-ref-item:hover { border-color:var(--green);background:var(--green-bg); }
+.calc-ref-left { flex:1;min-width:0; }
+.calc-ref-name { font-size:13px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.calc-ref-meta { font-size:11px;color:var(--text-2); }
+.calc-ref-mg { font-size:13px;font-weight:700;color:var(--green-text); }
+
+/* ─── COMPARADOR ─── */
+.compare-grid { display:grid;gap:16px; }
+.compare-grid.cols-2 { grid-template-columns:1fr 1fr; }
+.compare-grid.cols-3 { grid-template-columns:1fr 1fr 1fr; }
+@media(max-width:900px){.compare-grid.cols-2,.compare-grid.cols-3{grid-template-columns:1fr;}}
+.compare-card {
+  border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  transition:all 0.2s var(--transition);position:relative;background:var(--bg-card);box-shadow:var(--shadow-sm);
+}
+.compare-card:hover { box-shadow:var(--shadow); }
+.compare-card.best { border-color:var(--green); box-shadow:0 0 0 4px color-mix(in srgb,var(--green) 12%,transparent), var(--shadow); }
+.compare-card .cc-header { padding:14px 16px;background:var(--bg-row);border-bottom:1px solid var(--border); }
+.compare-card.best .cc-header { background:var(--green-bg); }
+.cc-name { font-size:14px;font-weight:700;margin-bottom:4px;letter-spacing:-0.01em; }
+.cc-type { font-size:11px;color:var(--text-2); }
+.cc-best-tag { position:absolute;top:10px;right:10px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;box-shadow:0 2px 8px rgba(16,185,129,0.4); }
+.cc-row { display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px; }
+.cc-row:last-child { border-bottom:none; }
+.cc-row .cc-label { color:var(--text-2); }
+.cc-row .cc-val { font-weight:600;font-feature-settings:'tnum'; }
+.cc-row.highlight { background:var(--green-bg); }
+.cc-row.highlight .cc-val { color:var(--green-text);font-weight:700; }
+.compare-selector { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center; }
+.compare-selector select {
+  padding:8px 12px;border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  font-size:13px;background:var(--bg-card);color:var(--text);font-family:var(--font);outline:none;min-width:220px;
+  transition:all 0.15s var(--transition);
+}
+.compare-selector select:focus { border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-glow); }
+
+/* ─── PACKS ─── */
+.pack-builder-layout { display:grid;grid-template-columns:1fr 380px;gap:20px; }
+@media(max-width:1100px){.pack-builder-layout{grid-template-columns:1fr;}}
+.pack-product-list { max-height:560px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px; }
+.pack-product-item {
+  display:flex;align-items:center;justify-content:space-between;padding:9px 11px;
+  border-radius:7px;cursor:pointer;border:1px solid transparent;transition:all 0.15s;margin-bottom:3px;
+}
+.pack-product-item:hover { background:var(--brand-bg);border-color:var(--brand); }
+.pack-product-item.in-pack { background:var(--green-bg);border-color:var(--green); }
+.pp-name { font-size:13px;font-weight:500; }
+.pp-price { font-size:11.5px;color:var(--text-2);font-feature-settings:'tnum'; }
+.pack-summary-card { position:sticky;top:84px; }
+.pack-lines { border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:12px; }
+.pack-line { display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--border);font-size:13px; }
+.pack-line:last-child { border-bottom:none; }
+.pack-line .pl-name { flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px; }
+.pack-line .pl-price { font-weight:600;margin:0 12px;font-feature-settings:'tnum'; }
+.pack-line .pl-remove { cursor:pointer;color:var(--red-text);font-size:16px;border:none;background:none; }
+
+/* ─── OFERTAS ─── */
+.oferta-layout { display:grid;grid-template-columns:1fr 370px;gap:20px; }
+@media(max-width:1100px){.oferta-layout{grid-template-columns:1fr;}}
+.oferta-table-wrap { overflow-x:auto; }
+.oferta-tbl { width:100%;border-collapse:collapse;font-size:13px; }
+.oferta-tbl th {
+  text-align:left;padding:9px 12px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;
+  color:var(--text-2);background:var(--bg-row);border-bottom:1px solid var(--border);
+}
+.oferta-tbl td { padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle; }
+.oferta-tbl tr:last-child td { border-bottom:none; }
+.oferta-tbl td.right { text-align:right; }
+.line-input {
+  width:100%;padding:6px 10px;border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  font-size:13px;background:var(--bg-card);color:var(--text);outline:none;font-family:var(--font);
+  font-feature-settings:'tnum';font-variant-numeric:tabular-nums;
+  transition:all 0.15s var(--transition);
+}
+.line-input:focus { border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-glow); }
+.actions-row { display:flex;gap:8px;margin-top:12px;flex-wrap:wrap; }
+.oferta-summary { position:sticky;top:84px; }
+.sum-block { background:var(--bg-row);border-radius:var(--radius-sm);padding:13px 15px;margin-bottom:10px;border:1px solid var(--border); }
+.sum-row { display:flex;justify-content:space-between;font-size:13px;padding:5px 0; }
+.sum-row .sum-lbl { color:var(--text-2); }
+.sum-row .sum-val { font-weight:600;font-feature-settings:'tnum'; }
+.sum-row.total { font-size:15px;border-top:1px solid var(--border-md);margin-top:6px;padding-top:10px; }
+.sum-row.total .sum-lbl { color:var(--text);font-weight:600; }
+.dual-block { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px; }
+.dual-item { background:var(--bg-row);border-radius:var(--radius-sm);padding:13px;border:1px solid var(--border); }
+.dual-lbl { font-size:10px;color:var(--text-2);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:4px; }
+.dual-val { font-size:18px;font-weight:700;color:var(--text);font-feature-settings:'tnum'; letter-spacing:-0.02em; }
+.dual-sub { font-size:11px;color:var(--text-3);margin-top:2px; }
+.iva-select-row { display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap; }
+.iva-select-row label { font-size:12px;color:var(--text-2); }
+.iva-select-row select {
+  padding:6px 10px;border:1px solid var(--border-md);border-radius:var(--radius-sm);font-size:13px;
+  background:var(--bg-card);color:var(--text);outline:none;font-family:var(--font);transition:all 0.15s;
+}
+.iva-select-row select:focus { border-color:var(--brand); }
+.search-bar { display:flex;gap:8px;margin-bottom:14px; }
+.search-bar input {
+  flex:1;padding:8px 12px;border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  font-size:13px;background:var(--bg-card);color:var(--text);outline:none;font-family:var(--font);
+  transition:all 0.15s var(--transition);
+}
+.search-bar input:focus { border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-glow); }
+.search-result-item {
+  padding:9px 12px;cursor:pointer;border-radius:8px;margin-bottom:4px;
+  border:1px solid var(--border);background:var(--bg-card);transition:all 0.15s;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.search-result-item:hover { background:var(--brand-bg);border-color:color-mix(in srgb,var(--brand) 25%,transparent); }
+.saved-item { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;cursor:pointer;transition:all 0.15s var(--transition); }
+.saved-item:hover { border-color:color-mix(in srgb,var(--brand) 35%,transparent);box-shadow:var(--shadow-sm); }
+.saved-item-name { font-size:13px;font-weight:600;margin-bottom:3px; }
+.saved-item-meta { font-size:11px;color:var(--text-2); }
+.empty-state { text-align:center;padding:48px 32px;color:var(--text-3);font-size:13px; }
+.empty-state .empty-icon { font-size:34px;margin-bottom:10px;opacity:0.5; }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  display:none;position:fixed;inset:0;background:rgba(10,22,40,0.6);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:200;
+  align-items:center;justify-content:center;animation:fadeIn 0.2s ease;
+}
+.modal-overlay.show { display:flex; }
+.modal {
+  background:var(--bg-card);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg), 0 0 0 1px var(--border);
+  max-width:560px;width:92%;padding:28px;position:relative;animation:slideUp 0.3s var(--transition);
+}
+@keyframes slideUp { from { opacity:0;transform:translateY(20px) scale(0.98);} to { opacity:1;transform:translateY(0) scale(1);} }
+.modal h2 { font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-0.025em; }
+.modal p { font-size:13px;color:var(--text-2);margin-bottom:14px;line-height:1.5; }
+.modal-close {
+  position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-2);
+  width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+  transition:all 0.15s;
+}
+.modal-close:hover { background:var(--bg-row);color:var(--text); }
+.drop-zone {
+  border:2px dashed var(--border-md);border-radius:var(--radius-sm);padding:32px;text-align:center;
+  cursor:pointer;transition:all 0.2s var(--transition);margin-bottom:14px;background:var(--bg-row);
+}
+.drop-zone:hover,.drop-zone.dragover { border-color:var(--brand);background:var(--brand-bg); }
+.drop-zone p { font-size:13px;color:var(--text-2); }
+.drop-zone .dz-icon { font-size:30px;margin-bottom:10px;opacity:0.7; }
+
+/* ─── TOAST ─── */
+.toast {
+  position:fixed;bottom:24px;right:24px;
+  background:rgba(10,22,40,0.95);backdrop-filter:blur(14px);color:#fff;
+  padding:11px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;
+  box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,0.08);
+  opacity:0;transform:translateY(8px);transition:all 0.25s var(--transition);
+  pointer-events:none;z-index:9999;display:flex;align-items:center;gap:8px;
+}
+.toast.show { opacity:1;transform:translateY(0); }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:10px;height:10px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:color-mix(in srgb,var(--text-3) 30%,transparent);border-radius:10px;border:2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background:color-mix(in srgb,var(--text-3) 50%,transparent); }
+
+/* ─── LEADS / AUTOCOMPLETE ─── */
+.lead-row { display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap; }
+.lead-status {
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-3);
+  padding:4px 10px;border-radius:50px;background:var(--bg-deep);border:1px solid var(--border);
+}
+.lead-status.has-leads { color:var(--green-text);background:var(--green-bg);border-color:color-mix(in srgb,var(--green) 20%,transparent); }
+.lead-suggestions {
+  position:absolute;top:100%;left:0;right:0;background:var(--bg-card);
+  border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  max-height:300px;overflow-y:auto;box-shadow:var(--shadow-md);
+  z-index:50;margin-top:4px;
+}
+.lead-suggestion {
+  padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;gap:8px;transition:background 0.15s;
+}
+.lead-suggestion:hover { background:var(--brand-bg); }
+.lead-suggestion:last-child { border-bottom:none; }
+.lead-name { font-size:13px;font-weight:600;letter-spacing:-0.005em; }
+.lead-meta { font-size:11px;color:var(--text-2);margin-top:2px; }
+.lead-priority { font-size:9.5px;padding:2px 7px;border-radius:50px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap; }
+.lead-info-chip {
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 12px;background:var(--brand-bg);border:1px solid color-mix(in srgb,var(--brand) 20%,transparent);
+  border-radius:var(--radius-sm);margin-top:-6px;margin-bottom:14px;font-size:12px;color:var(--brand-text);
+}
+.lead-info-chip .clear-lead {
+  margin-left:auto;background:none;border:none;color:var(--brand-text);cursor:pointer;
+  font-size:14px;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+}
+.lead-info-chip .clear-lead:hover { background:rgba(0,102,255,0.18); }
+.field--autocomplete { position:relative; }
+.btn-wa {
+  background:linear-gradient(135deg,#25d366,#1da851);color:#fff;border:none;
+  box-shadow:0 4px 12px rgba(37,211,102,0.3);
+}
+.btn-wa:hover { transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,211,102,0.4); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  .top-bar { flex-wrap:wrap;height:auto;padding:10px 16px;gap:8px; }
+  .top-bar-left { gap:10px; }
+  .logo-sub, .pro-badge, .kbd-hint { display:none; }
+  .nav-tabs { width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch; }
+  .page { padding:16px; }
+  .page-header h1 { font-size:20px; }
+  .oferta-layout { grid-template-columns:1fr; }
+  .oferta-summary { position:static; }
+  .pack-builder-layout { grid-template-columns:1fr; }
+  .pack-summary-card { position:static; }
+  .input-search { min-width:100%; }
+  .table-scroll { max-height:none; overflow-x:auto; }
+  .tbl th, .tbl td { padding:8px 10px; font-size:12px; }
+}
+@media(max-width:480px){
+  .page { padding:12px; }
+  .page-header h1 { font-size:18px; }
+  .cards-grid { grid-template-columns:1fr; gap:10px; }
+  .kpi-card { padding:12px 14px; }
+  .kpi-val { font-size:18px; }
+  .top-bar { padding:8px 12px; gap:6px; }
+  .nav-tab { padding:6px 12px; font-size:11px; }
+  .input-search { font-size:12px; padding:8px 10px; }
+  .btn { padding:8px 12px; font-size:12px; }
+  .tbl th, .tbl td { padding:6px 8px; font-size:11px; }
+  .product-thumb { width:24px;height:24px;margin-right:4px; }
+  .oferta-thumb { width:32px;height:32px;margin-right:6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <div class="logo-mark">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+      </div>
+      <span class="logo-text">AldraScan</span>
+    </div>
+    <span class="logo-sub">Dashboard de Márgenes</span>
+    <span class="pro-badge">Interno · Pro</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('catalog',this)">📋 Catálogo</button>
+    <button class="nav-tab" onclick="showPage('compare',this)">⚖️ Comparador</button>
+    <button class="nav-tab" onclick="showPage('packs',this)">📦 Packs</button>
+    <button class="nav-tab" onclick="showPage('calc',this)">🧮 Calculadora</button>
+    <button class="nav-tab" onclick="showPage('oferta',this)">📄 Ofertas</button>
+  </div>
+  <div class="top-bar-right">
+    <span class="kbd-hint" onclick="focusSearch()" title="Buscar (⌘K)">
+      <span class="kbd">⌘</span><span class="kbd">K</span>
+    </span>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
+    <button class="icon-btn" id="tweaksBtn" onclick="window.dispatchEvent(new CustomEvent('toggle-tweaks'))" aria-label="Personalizar diseño" title="Personalizar diseño">🎨</button>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!--  PAGE 1 — CATÁLOGO                                        -->
+<!-- ========================================================= -->
+<div id="page-catalog" class="page active">
+  <div class="page-header">
+    <h1>Catálogo interno · Coste, PVD y PVP recomendado</h1>
+    <p>Coste (precio compra Gold AldraScan) · PVD (precio Iberia distribuidor) · PVP Rec. (precio recomendado cliente final, ×1.20 sobre PVD salvo PVP explícito) · Márgenes sobre coste.</p>
+  </div>
+  <div class="cards-grid" id="catalog-kpis"></div>
+
+  <div class="threshold-bar" id="threshold-bar">
+    <label>⚠ Alerta margen mínimo (sobre PVP):</label>
+    <input type="range" id="threshold-range" min="0" max="50" step="1" value="20" oninput="updateThreshold()">
+    <span class="th-val" id="threshold-val">20%</span>
+    <span class="th-count" id="threshold-count"></span>
+  </div>
+
+  <div class="section-toolbar">
+    <div class="filter-row" id="filter-row"></div>
+    <div class="io-toolbar">
+      <input type="text" id="catalog-search" class="input-search" placeholder="🔍 Buscar producto, marca…  (⌘K)" oninput="debounceSearch()">
+      <button class="btn btn-purple btn-sm" onclick="openImportModal()">⬆ Importar</button>
+      <button class="btn btn-amber btn-sm" onclick="exportCSV()">⬇ CSV</button>
+      <button class="btn btn-green btn-sm" onclick="exportExcel()">⬇ Excel</button>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header">
+      <div>
+        <div class="table-card-title">Catálogo de precios — Coste · PVD · PVP recomendado</div>
+        <div class="table-card-sub">Datos internos con márgenes sobre coste y PVP</div>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="tbl" id="tbl-unified">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th class="right" style="border-left:2px solid color-mix(in srgb,var(--red) 25%,transparent);background:var(--red-bg);color:var(--red-text)">Coste</th>
+            <th class="right" style="border-left:2px solid color-mix(in srgb,var(--purple) 25%,transparent);background:var(--purple-bg);color:var(--purple-text)">PVD</th>
+            <th class="right" style="background:var(--purple-bg);color:var(--purple-text)">Mg PVD €</th>
+            <th style="background:var(--purple-bg);color:var(--purple-text)">% Mg PVD</th>
+            <th class="right" style="border-left:2px solid color-mix(in srgb,var(--green) 25%,transparent);background:var(--green-bg);color:var(--green-text)">PVP Rec.</th>
+            <th class="right" style="background:var(--green-bg);color:var(--green-text)">Mg PVP €</th>
+            <th style="background:var(--green-bg);color:var(--green-text)">% Mg PVP</th>
+            <th class="center">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-unified"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!--  PAGE 2 — COMPARADOR                                      -->
+<!-- ========================================================= -->
+<div id="page-compare" class="page">
+  <div class="page-header">
+    <h1>Comparador de productos</h1>
+    <p>Selecciona 2 o 3 productos para comparar lado a lado con costes y márgenes internos.</p>
+  </div>
+  <div class="compare-selector">
+    <select id="cmp-1" onchange="renderCompare()"><option value="">— Producto 1 —</option></select>
+    <select id="cmp-2" onchange="renderCompare()"><option value="">— Producto 2 —</option></select>
+    <select id="cmp-3" onchange="renderCompare()"><option value="">— Producto 3 (opcional) —</option></select>
+    <button class="btn btn-secondary btn-sm" onclick="clearCompare()">Limpiar</button>
+  </div>
+  <div id="compare-result"></div>
+</div>
+
+<!-- ========================================================= -->
+<!--  PAGE 3 — PACKS / BUNDLES                                 -->
+<!-- ========================================================= -->
+<div id="page-packs" class="page">
+  <div class="page-header">
+    <h1>Simulador de Packs</h1>
+    <p>Combina productos y calcula tu margen real sobre coste. Genera oferta directa.</p>
+  </div>
+  <div class="pack-builder-layout">
+    <div>
+      <div class="card">
+        <div class="lbl">Selecciona productos para el pack (clic para añadir/quitar)</div>
+        <div class="search-bar">
+          <input type="text" id="pack-search" placeholder="Filtrar productos…" oninput="renderPackProducts()">
+        </div>
+        <div class="pack-product-list" id="pack-product-list"></div>
+      </div>
+    </div>
+    <div class="pack-summary-card">
+      <div class="card">
+        <div class="lbl">Resumen del pack</div>
+        <div class="iva-select-row">
+          <label>Descuento pack:</label>
+          <select id="pack-dto" onchange="recalcPack()">
+            <option value="0">Sin descuento</option>
+            <option value="3">3%</option>
+            <option value="5" selected>5%</option>
+            <option value="7">7%</option>
+            <option value="10">10%</option>
+            <option value="15">15%</option>
+          </select>
+          <label style="margin-left:8px">IVA:</label>
+          <select id="pack-iva" onchange="recalcPack()">
+            <option value="0">0%</option><option value="4">4%</option><option value="10">10%</option><option value="21" selected>21%</option>
+          </select>
+        </div>
+        <div class="pack-lines" id="pack-lines-wrap">
+          <div style="text-align:center;padding:24px;color:var(--text-3);font-size:12px">Añade productos al pack</div>
+        </div>
+        <div class="sum-block">
+          <div class="sum-row"><span class="sum-lbl">PVP Rec. sin descuento</span><span class="sum-val" id="pk-pvp-base">0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">Descuento</span><span class="sum-val neg" id="pk-dto-val">−0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">PVP pack (sin IVA)</span><span class="sum-val" id="pk-pvp-net" style="font-weight:700">0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">PVP pack (con IVA)</span><span class="sum-val" id="pk-pvp-iva" style="color:var(--brand);font-weight:700">0 €</span></div>
+        </div>
+        <div class="dual-block">
+          <div class="dual-item" style="background:var(--red-bg);border-color:color-mix(in srgb,var(--red) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--red-text)">Coste total</div>
+            <div class="dual-val" id="pk-coste" style="color:var(--red-text)">0 €</div>
+          </div>
+          <div class="dual-item" style="background:var(--purple-bg);border-color:color-mix(in srgb,var(--purple) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--purple-text)">PVD total</div>
+            <div class="dual-val" id="pk-pvd" style="color:var(--purple-text)">0 €</div>
+          </div>
+        </div>
+        <div class="dual-block">
+          <div class="dual-item" style="background:var(--green-bg);border-color:color-mix(in srgb,var(--green) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--green-text)">Margen sobre coste</div>
+            <div class="dual-val" id="pk-margin" style="color:var(--green-text)">0 €</div>
+            <div class="dual-sub" id="pk-margin-pct">0%</div>
+          </div>
+          <div class="dual-item" style="background:var(--brand-bg);border-color:color-mix(in srgb,var(--brand) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--brand-text)">Margen PVD→PVP</div>
+            <div class="dual-val" id="pk-margin-pvd" style="color:var(--brand-text)">0 €</div>
+            <div class="dual-sub" id="pk-margin-pvd-pct">0%</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="addPackToOferta()">📄 Añadir a oferta</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearPack()">Limpiar pack</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!--  PAGE 4 — CALCULADORA                                     -->
+<!-- ========================================================= -->
+<div id="page-calc" class="page">
+  <div class="page-header">
+    <h1>Calculadora de margen interno</h1>
+    <p>Calcula tu beneficio real sobre coste. Simula precios de venta y descuentos.</p>
+  </div>
+  <div class="calc-layout">
+    <div>
+      <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="ctab-venta" onclick="setCalcMode('venta')">💰 Simular venta</button>
+        <button class="btn btn-secondary" id="ctab-margen" onclick="setCalcMode('margen')">🎯 Precio desde margen</button>
+      </div>
+      <div id="cpanel-venta" class="card">
+        <div class="lbl">Datos de la operación</div>
+        <div class="grid2">
+          <div class="field"><label>Coste (sin IVA)</label><div class="px"><span>€</span><input type="number" id="v-coste" value="6250" min="0" oninput="calcVenta()"></div></div>
+          <div class="field"><label>Precio de venta (sin IVA)</label><div class="px"><span>€</span><input type="number" id="v-precio" value="8850" min="0" oninput="calcVenta()"></div></div>
+          <div class="field"><label>IVA</label><select id="v-iva" onchange="calcVenta()"><option value="0">0%</option><option value="4">4%</option><option value="10">10%</option><option value="21" selected>21%</option></select></div>
+          <div class="field"><label>Descuento al cliente</label><div class="px"><span>%</span><input type="number" id="v-dto" value="0" min="0" max="100" step="0.5" style="padding-left:22px" oninput="calcVenta()"></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="lbl">Tu rentabilidad</div>
+        <div class="metrics-grid">
+          <div class="metric-box hi" id="v-m1"><div class="metric-lbl">Margen sobre venta</div><div class="metric-val" id="v-margen-pct">--</div><div class="metric-sub">sobre precio de venta</div></div>
+          <div class="metric-box"><div class="metric-lbl">Beneficio por unidad</div><div class="metric-val" id="v-beneficio">--</div><div class="metric-sub">sin IVA</div></div>
+          <div class="metric-box"><div class="metric-lbl">Precio final cliente</div><div class="metric-val" id="v-final">--</div><div class="metric-sub">con IVA incluido</div></div>
+          <div class="metric-box"><div class="metric-lbl">Markup sobre coste</div><div class="metric-val" id="v-markup">--</div><div class="metric-sub">sobre tu coste</div></div>
+        </div>
+        <div class="bar-struct">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-2);margin-bottom:6px"><span>Estructura del precio</span></div>
+          <div class="bar-struct-track"><div class="bs-coste" id="bc-coste"></div><div class="bs-margin" id="bc-margin"></div></div>
+          <div class="bar-legend">
+            <span><span class="dot" style="background:var(--red)"></span>Tu coste</span>
+            <span><span class="dot" style="background:var(--green)"></span>Tu margen</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div id="v-breakdown"></div>
+        <div class="tip-box" id="v-tip"></div>
+      </div>
+      <div id="cpanel-margen" class="card" style="display:none">
+        <div class="lbl">Calcular precio de venta desde margen objetivo</div>
+        <div class="grid2">
+          <div class="field"><label>Coste (sin IVA)</label><div class="px"><span>€</span><input type="number" id="m-coste" value="6250" min="0" oninput="calcMargen()"></div></div>
+          <div class="field"><label>Margen objetivo</label><div class="px"><span>%</span><input type="number" id="m-margen" value="30" min="0" max="99" step="0.5" style="padding-left:22px" oninput="calcMargen()"></div></div>
+          <div class="field"><label>IVA</label><select id="m-iva" onchange="calcMargen()"><option value="0">0%</option><option value="4">4%</option><option value="10">10%</option><option value="21" selected>21%</option></select></div>
+          <div class="field"><label>Descuento máx. que darías al cliente</label><div class="px"><span>%</span><input type="number" id="m-dto" value="5" min="0" max="99" step="0.5" style="padding-left:22px" oninput="calcMargen()"></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="metrics-grid">
+          <div class="metric-box hi"><div class="metric-lbl">Precio de venta recomendado</div><div class="metric-val" id="m-precio">--</div><div class="metric-sub">sin IVA</div></div>
+          <div class="metric-box"><div class="metric-lbl">Precio con IVA</div><div class="metric-val" id="m-final">--</div><div class="metric-sub">lo que paga el cliente</div></div>
+          <div class="metric-box"><div class="metric-lbl">Tu beneficio</div><div class="metric-val" id="m-beneficio">--</div><div class="metric-sub">por operación</div></div>
+          <div class="metric-box"><div class="metric-lbl">Precio mín. con dto.</div><div class="metric-val" id="m-minprecio">--</div><div class="metric-sub">margen residual</div></div>
+        </div>
+        <div id="m-breakdown"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="lbl" style="margin-bottom:14px">Referencia rápida — clic para cargar</div>
+        <input type="text" id="calc-ref-search" placeholder="Filtrar…" oninput="renderCalcRef()" class="input-search" style="width:100%;min-width:auto;margin-bottom:10px">
+        <div id="calc-ref-list" class="calc-ref-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!--  PAGE 5 — CONSTRUCTOR DE OFERTAS                          -->
+<!-- ========================================================= -->
+<div id="page-oferta" class="page">
+  <div class="page-header" style="display:flex;align-items:start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <h1>Constructor de Ofertas</h1>
+      <p>Monta tu oferta con productos del catálogo. Incluye coste para control interno de margen.</p>
+    </div>
+    <div class="io-toolbar">
+      <button class="btn btn-amber btn-sm" onclick="exportOfertaCSV()">⬇ CSV</button>
+      <button class="btn btn-green btn-sm" onclick="exportOfertaExcel()">⬇ Excel</button>
+      <button class="btn btn-primary btn-sm" onclick="exportOfertaPDF()">📄 PDF</button>
+      <button class="btn btn-sm" onclick="sendOfertaEmail()" style="background:#475569;color:#fff;border:none">📧 Email</button>
+      <button class="btn btn-sm btn-wa" onclick="sendOfertaWhatsApp()">💬 WhatsApp</button>
+    </div>
+  </div>
+  <div class="oferta-layout">
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="lbl">Tipo de oferta</div>
+        <div class="iva-select-row" style="margin-bottom:16px">
+          <label>Oferta a:</label>
+          <select id="oferta-tipo" onchange="renderOferta()">
+            <option value="pvd">🏢 Distribuidor (PVD)</option>
+            <option value="pvp" selected>👥 Cliente final (PVP)</option>
+          </select>
+        </div>
+        <div class="lead-row">
+          <span class="lead-status" id="lead-status">📇 Sin leads cargados</span>
+          <button class="btn btn-secondary btn-sm" onclick="openLeadsModal()">Cargar leads</button>
+        </div>
+        <div class="field field--autocomplete">
+          <label>Nombre del cliente:</label>
+          <input type="text" id="oferta-cliente" placeholder="Empieza a escribir para buscar en leads…" oninput="leadAutocomplete(this.value)" autocomplete="off">
+          <div id="lead-suggestions" class="lead-suggestions" style="display:none"></div>
+        </div>
+        <div id="lead-info" class="lead-info-chip" style="display:none"></div>
+        <div class="lbl" style="margin-top:16px">Añadir producto</div>
+        <div class="search-bar">
+          <input type="text" id="prod-search" placeholder="Buscar producto del catálogo…" oninput="searchProducts()" onkeydown="if(event.key==='Enter')addFromSearch()">
+          <button class="btn btn-primary" onclick="addFromSearch()">+ Añadir</button>
+        </div>
+        <div id="search-results" style="display:none"></div>
+        <div class="iva-select-row">
+          <label>IVA:</label>
+          <select id="oferta-iva" onchange="recalcOferta()">
+            <option value="0">0%</option><option value="4">4%</option><option value="10">10%</option><option value="21" selected>21%</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">
+          <div>
+            <div class="table-card-title">Líneas de oferta</div>
+            <div class="table-card-sub">Edita PVD/PVP y descuento directamente</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-secondary btn-sm" onclick="clearOferta()">Limpiar</button>
+            <button class="btn btn-green btn-sm" onclick="saveOferta()">💾 Guardar</button>
+          </div>
+        </div>
+        <div class="oferta-table-wrap">
+          <table class="oferta-tbl">
+            <thead><tr>
+              <th style="min-width:200px">Descripción</th>
+              <th class="right" style="min-width:100px;background:var(--purple-bg);color:var(--purple-text)">PVD</th>
+              <th class="right" style="min-width:100px;background:var(--green-bg);color:var(--green-text)">PVP</th>
+              <th class="right" style="min-width:80px">Dto. %</th>
+              <th class="right" style="min-width:110px">Neto s/IVA</th>
+              <th class="right" style="min-width:110px">Total c/IVA</th>
+              <th class="right" style="min-width:90px">Margen €</th>
+              <th style="min-width:70px">% Mg</th>
+              <th style="width:36px"></th>
+            </tr></thead>
+            <tbody id="oferta-tbody"></tbody>
+          </table>
+        </div>
+        <div id="oferta-empty" class="empty-state">
+          <div class="empty-icon">📋</div>
+          No hay líneas. Busca un producto o añade uno manualmente.
+        </div>
+        <div class="actions-row" style="padding:12px 16px;border-top:1px solid var(--border)">
+          <button class="btn btn-secondary btn-sm" onclick="addBlankLine()">+ Línea vacía</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="lbl">Ofertas guardadas</div>
+        <div id="saved-offers-list"><div class="empty-state"><div class="empty-icon">💾</div>No hay ofertas guardadas aún.</div></div>
+      </div>
+    </div>
+    <div class="oferta-summary">
+      <div class="card">
+        <div class="lbl" id="sum-tipo-oferta">👥 Oferta a cliente final</div>
+        <div class="sum-block">
+          <div class="sum-row"><span class="sum-lbl">Coste total</span><span class="sum-val" id="sum-coste-total" style="color:var(--red-text)">0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">Precio base venta</span><span class="sum-val" id="sum-base">0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">Descuento total</span><span class="sum-val neg" id="sum-dto">−0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">Neto sin IVA</span><span class="sum-val" id="sum-neto">0 €</span></div>
+          <div class="sum-row"><span class="sum-lbl">IVA</span><span class="sum-val" id="sum-iva-val">0 €</span></div>
+          <div class="sum-row total"><span class="sum-lbl">Total cliente con IVA</span><span class="sum-val" id="sum-total" style="color:var(--brand)">0 €</span></div>
+        </div>
+        <div class="dual-block">
+          <div class="dual-item" style="background:var(--green-bg);border-color:color-mix(in srgb,var(--green) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--green-text)">Margen €</div>
+            <div class="dual-val" id="sum-margen-abs" style="color:var(--green-text)">0 €</div>
+            <div class="dual-sub">neto − coste</div>
+          </div>
+          <div class="dual-item" style="background:var(--brand-bg);border-color:color-mix(in srgb,var(--brand) 22%,transparent)">
+            <div class="dual-lbl" style="color:var(--brand-text)">% Margen</div>
+            <div class="dual-val" id="sum-margen-pct" style="color:var(--brand-text)">0%</div>
+            <div class="dual-sub">sobre precio venta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEADS MODAL -->
+<div class="modal-overlay" id="leads-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLeadsModal()">×</button>
+    <h2>📇 Cargar leads</h2>
+    <p>Arrastra <strong>AldraScan_LEADS.html</strong> o <strong>leads_actualizado.xlsx</strong>. Los leads se guardan en este navegador y permiten autocompletar el nombre del cliente al generar ofertas.</p>
+    <div class="drop-zone" id="leads-drop" onclick="document.getElementById('leads-file').click()">
+      <div class="dz-icon">📇</div>
+      <p>Arrastra archivo aquí o haz clic para seleccionar</p>
+      <p style="font-size:11px;color:var(--text-3);margin-top:6px">Acepta .html (con const LEADS) o .xlsx (leads_actualizado)</p>
+    </div>
+    <input type="file" id="leads-file" accept=".html,.htm,.xlsx,.xls" style="display:none" onchange="handleLeadsFile(this.files[0])">
+    <div id="leads-status-msg" style="font-size:12px;color:var(--text-2);margin-top:8px"></div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:space-between;flex-wrap:wrap">
+      <button class="btn btn-red btn-sm" onclick="clearLeads()">🗑 Borrar leads</button>
+      <button class="btn btn-secondary btn-sm" onclick="closeLeadsModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeImportModal()">×</button>
+    <h2>📂 Importar catálogo desde archivo</h2>
+    <p>Sube un CSV o Excel con columnas: <strong>nombre, categoría, coste, pvd, pvp, imagen</strong>. La imagen puede ser una ruta local tipo <strong>images/producto.png</strong> o una URL. Los datos actuales se reemplazarán.</p>
+    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('import-file').click()">
+      <div class="dz-icon">📄</div>
+      <p>Arrastra un archivo aquí o haz clic para seleccionar</p>
+      <p style="font-size:11px;color:var(--text-3);margin-top:6px">Formatos: .csv, .xlsx, .xls</p>
+    </div>
+    <input type="file" id="import-file" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleImportFile(this.files[0])">
+    <div id="import-status" style="font-size:12px;color:var(--text-2);margin-top:8px"></div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn btn-secondary btn-sm" onclick="closeImportModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE MODAL (vista ampliada de producto) -->
+<div class="modal-overlay" id="image-modal" onclick="if(event.target===this)closeImageModal()">
+  <div class="modal" style="max-width:640px;padding:24px;text-align:center">
+    <button class="modal-close" onclick="closeImageModal()">×</button>
+    <img id="modal-product-img" src="" alt="" style="max-width:100%;max-height:540px;border-radius:10px;background:var(--bg-row);box-shadow:0 8px 24px rgba(0,0,0,0.15);filter:brightness(1.04) contrast(1.06) saturate(1.1)">
+    <h3 id="modal-product-name" style="margin:18px 0 6px;font-size:17px;font-weight:700;letter-spacing:-0.02em"></h3>
+    <p id="modal-product-sub" style="color:var(--text-3);font-size:13px;margin:0"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CATÁLOGO INTERNO ALDRASCAN — P-Ortho 2026 + Catálogo propio
+// coste = Gold AldraScan · pvd = Iberia · pvp = ×1.20 sobre PVD (o explícito)
+// ============================================================
+let CATALOG = [
+  // ===== MEYER · CBCT / Imagen =====
+  { id:'meyer-img-16x18',      name:'Meyer ImaGine FOV 16x18',                   cat:'xray', sub:'Meyer', coste:35352, pvd:44190, pvp:53028, img:'images/meyer-imagine-16x18.png' },
+  { id:'meyer-img-16x18-ceph', name:'Meyer ImaGine 16x18 + Ceph',                cat:'xray', sub:'Meyer', coste:40952, pvd:51190, pvp:61428, img:'images/meyer-imagine-16x18.png' },
+  { id:'meyer-img-16x12',      name:'Meyer ImaGine FOV 16x12',                   cat:'xray', sub:'Meyer', coste:31512, pvd:39390, pvp:47268, img:'images/meyer-imagine-16x18.png' },
+  { id:'meyer-img-16x12-ceph', name:'Meyer ImaGine 16x12 + Ceph',                cat:'xray', sub:'Meyer', coste:37112, pvd:46390, pvp:55668, img:'images/meyer-imagine-16x18.png' },
+  { id:'meyer-upg-16x12-18',   name:'Meyer Upgrade FOV 16x12 → 16x18',           cat:'xray', sub:'Meyer', coste:5112,  pvd:6390,  pvp:7668 },
+  { id:'meyer-3d-13x10',       name:'Meyer 3D Pro FOV 13x10',                    cat:'xray', sub:'Meyer', coste:23960, pvd:29950, pvp:35940, img:'images/meyer-13x10.png' },
+  { id:'meyer-3d-13x10-ceph',  name:'Meyer 3D Pro 13x10 + Ceph',                 cat:'xray', sub:'Meyer', coste:29560, pvd:36950, pvp:44340, img:'images/meyer-13x10.png' },
+  { id:'meyer-3d-16x10',       name:'Meyer 3D Pro FOV 16x10',                    cat:'xray', sub:'Meyer', coste:27160, pvd:33950, pvp:40740, img:'images/meyer-13x10.png' },
+  { id:'meyer-3d-16x10-ceph',  name:'Meyer 3D Pro 16x10 + Ceph',                 cat:'xray', sub:'Meyer', coste:32760, pvd:40950, pvp:49140, img:'images/meyer-13x10.png' },
+  { id:'meyer-ceph-upg',       name:'Meyer Ceph Upgrade',                        cat:'xray', sub:'Meyer', coste:6600,  pvd:8250,  pvp:9900 },
+  { id:'meyer-endo-mdv',       name:'Meyer Endo Mod MDV-1010',                   cat:'xray', sub:'Meyer', coste:1200,  pvd:1500,  pvp:1800 },
+  { id:'meyer-carro',          name:'Meyer Carro con PC y Monitor táctil',       cat:'other', sub:'Meyer', coste:2800,  pvd:3500,  pvp:4200 },
+
+  // ===== NEWLIFE RADIOLOGY =====
+  { id:'newlife-opera-2d',     name:'NewLife OPERA 2D',                          cat:'xray', sub:'NewLife', coste:11120, pvd:13900, pvp:16680 },
+  { id:'newlife-opera-2d-upg', name:'NewLife OPERA 2D (upgrade a Ceph)',         cat:'xray', sub:'NewLife', coste:11720, pvd:14650, pvp:17580 },
+  { id:'newlife-opera-ceph',   name:'NewLife OPERA 2D + Ceph OneShot',           cat:'xray', sub:'NewLife', coste:18778, pvd:22900, pvp:27480 },
+
+  // ===== BMS DENTAL =====
+  { id:'bms-endoray-hf',       name:'BMS Endoray HF + Tim-X',                    cat:'xray', sub:'BMS', coste:1793, pvd:2390, pvp:2868 },
+  { id:'bms-endoport-g',       name:'BMS EndoPort G',                            cat:'xray', sub:'BMS', coste:1868, pvd:2490, pvp:2988 },
+  { id:'bms-endoport-c',       name:'BMS EndoPort C',                            cat:'xray', sub:'BMS', coste:1493, pvd:1990, pvp:2388 },
+  { id:'bms-suporte',          name:'BMS Soporte Pared/Móvil con ruedas',        cat:'other', sub:'BMS', coste:315,  pvd:420,  pvp:504 },
+
+  // ===== PANDA =====
+  { id:'panda-smart',          name:'Panda Smart',                               cat:'scanner', sub:'Panda', coste:4875, pvd:7500, pvp:9000, img:'images/panda-smart.png' },
+  { id:'panda-hat-scanbody',   name:'Panda HAT Scanbody Kit',                    cat:'other',   sub:'Panda', coste:975,  pvd:1500, pvp:1800, img:'images/panda-hat-scanbody-kit.png' },
+  { id:'panda-p3-plus',        name:'Panda P3+',                                 cat:'scanner', sub:'Panda', coste:3634, pvd:5590, pvp:6708, img:'images/panda-p3.png' },
+  { id:'panda-carro-bamboo',   name:'Panda Carro Bamboo Ultra (PC + Monitor)',   cat:'other',   sub:'Panda', coste:3192, pvd:3990, pvp:4788 },
+
+  // ===== COXO =====
+  { id:'coxo-scanner',         name:'Coxo escáner intraoral',                    cat:'scanner', sub:'Coxo', coste:2150, pvd:2990, pvp:3890, img:'images/coxo-scanner.png' },
+
+  // ===== HANDY (Sensores RX) =====
+  { id:'handy-hdr500',         name:'Handy HDR-500 Sensor (size 1.3)',           cat:'xray', sub:'Handy', coste:748,  pvd:1150, pvp:1380 },
+  { id:'handy-hdr600',         name:'Handy HDR-600 Sensor (size 2)',             cat:'xray', sub:'Handy', coste:878,  pvd:1350, pvp:1620 },
+  { id:'handy-hdr360',         name:'Handy HDR-360 Sensor (size 1.3)',           cat:'xray', sub:'Handy', coste:943,  pvd:1450, pvp:1740 },
+  { id:'handy-hdr380',         name:'Handy HDR-380 Sensor (size 1.5)',           cat:'xray', sub:'Handy', coste:1073, pvd:1650, pvp:1980 },
+  { id:'handy-psp-hds500',     name:'Handy PSP Scanner HDS-500 (placas 0,1,2,3)', cat:'xray', sub:'Handy', coste:1194, pvd:1990, pvp:2388 },
+  { id:'handy-promi-hdi712',   name:'Handy Promi HDI-712D',                      cat:'xray', sub:'Handy', coste:750,  pvd:1250, pvp:1500 },
+  { id:'handy-touchmi-hdi220', name:'Handy Touchmi HDI-220C',                    cat:'xray', sub:'Handy', coste:390,  pvd:650,  pvp:780 },
+  { id:'handy-supercam-hdi200',name:'Handy Supercam HDI-200A',                   cat:'xray', sub:'Handy', coste:210,  pvd:350,  pvp:420 },
+
+  // ===== CINGOL · Unidades dentales =====
+  { id:'cingol-x1',            name:'Cingol X1 (PU + banco + UDS-N2 + foto)',           cat:'unit', sub:'Cingol', coste:3439, pvd:5290, pvp:6348, img:'images/cingol-x1.png' },
+  { id:'cingol-x3',            name:'Cingol X3 (piel + banco + UDS-N2 + foto)',         cat:'unit', sub:'Cingol', coste:4089, pvd:6290, pvp:7548 },
+  { id:'cingol-x5',            name:'Cingol X5 (piel + touchscreen + MM eléctrico)',    cat:'unit', sub:'Cingol', coste:5779, pvd:8890, pvp:10668 },
+  { id:'cingol-touchscreen',   name:'Cingol panel touchscreen (accesorio)',             cat:'other', sub:'Cingol', coste:293, pvd:450,  pvp:540 },
+  { id:'cingol-bcir',          name:'Cingol con banco Denasta + lámpara quirúrgica',    cat:'unit', sub:'Cingol', coste:5714, pvd:8790, pvp:10548 },
+  { id:'cingol-x3-implant',    name:'Cingol X3 Implant (piel + ECG Monitor)',           cat:'unit', sub:'Cingol', coste:1229, pvd:1890, pvp:2268 },
+  { id:'cingol-camara',        name:'Cingol Cámara intraoral + Monitor',                cat:'other', sub:'Cingol', coste:943,  pvd:1450, pvp:1740 },
+  { id:'cingol-bdr-pu',        name:'Cingol Banco Doctor PU',                           cat:'other', sub:'Cingol', coste:228,  pvd:350,  pvp:420 },
+  { id:'cingol-bdr-pl',        name:'Cingol Banco Doctor piel',                         cat:'other', sub:'Cingol', coste:260,  pvd:400,  pvp:480 },
+  { id:'cingol-basis-pu',      name:'Cingol Banco Asistente PU',                        cat:'other', sub:'Cingol', coste:179,  pvd:275,  pvp:330 },
+  { id:'cingol-basis-pl',      name:'Cingol Banco Asistente piel',                      cat:'other', sub:'Cingol', coste:195,  pvd:300,  pvp:360 },
+  { id:'cingol-lamp-s200',     name:'Cingol Lámpara X1 (S200)',                         cat:'other', sub:'Cingol', coste:267,  pvd:410,  pvp:492 },
+  { id:'cingol-lamp-s300',     name:'Cingol Lámpara X3 (S300)',                         cat:'other', sub:'Cingol', coste:338,  pvd:520,  pvp:624 },
+  { id:'cingol-lamp-s400',     name:'Cingol Lámpara X5 (S400)',                         cat:'other', sub:'Cingol', coste:364,  pvd:560,  pvp:672 },
+
+  // ===== PUGES =====
+  { id:'puges-autoclave-p23',  name:'Puges Autoclave P23 (23 L)',                cat:'other', sub:'Puges', coste:1528, pvd:2350, pvp:2820 },
+
+  // ===== PAX · Iluminación quirúrgica =====
+  { id:'pax-pml30',            name:'Pax lámpara quirúrgica PML30',              cat:'other', sub:'Pax', coste:1398, pvd:2150,  pvp:2580 },
+  { id:'pax-xr1-pro',          name:'Pax XR1 Pro',                               cat:'other', sub:'Pax', coste:2243, pvd:3450,  pvp:4140 },
+  { id:'pax-xr1-pro-1080',     name:'Pax XR1 Pro + Cámara 1080P',                cat:'other', sub:'Pax', coste:4544, pvd:6990,  pvp:8388 },
+  { id:'pax-xr1-max-4k',       name:'Pax XR1 Max + Cámara 4K',                   cat:'other', sub:'Pax', coste:5129, pvd:7890,  pvp:9468 },
+  { id:'pax-xr1-1080-mon24',   name:'Pax XR1 + Cámara 1080P + Monitor 24"',      cat:'other', sub:'Pax', coste:5844, pvd:8990,  pvp:10788 },
+  { id:'pax-xr1-4k-mon27',     name:'Pax XR1 + Cámara 4K + Monitor 27"',         cat:'other', sub:'Pax', coste:7144, pvd:10990, pvp:13188 },
+
+  // ===== DEPRAG =====
+  { id:'denprag-w4',           name:'Deprag Fresadora W4',                       cat:'mill', sub:'Deprag', coste:14072, pvd:17590, pvp:19900, img:'images/deprag-w4.png' },
+  { id:'denprag-d5-afe',       name:'Deprag Fresadora D5-AFE',                   cat:'mill', sub:'Deprag', coste:14072, pvd:17590, pvp:21108, img:'images/deprag-d5-airfree.png' },
+  { id:'denprag-d5max',        name:'Deprag Fresadora D5Max',                    cat:'mill', sub:'Deprag', coste:15512, pvd:19390, pvp:23268, img:'images/deprag-d5-max.png' },
+  { id:'denprag-asp-v7',       name:'Deprag Aspiración V7',                      cat:'other', sub:'Deprag', coste:1160, pvd:1450, pvp:1740, img:'images/deprag-logo.png' },
+  { id:'denprag-asp-v9',       name:'Deprag Aspiración V9',                      cat:'other', sub:'Deprag', coste:1160, pvd:1450, pvp:1740, img:'images/deprag-logo.png' },
+  { id:'denprag-millbox-eco',  name:'Deprag Millbox-D52 ECO',                    cat:'soft', sub:'Deprag', coste:2240, pvd:2800, pvp:3360 },
+  { id:'denprag-millbox-std',  name:'Deprag Millbox-D52 STD',                    cat:'soft', sub:'Deprag', coste:3120, pvd:3900, pvp:4680 },
+  { id:'denprag-millbox-exp',  name:'Deprag Millbox-D52 EXP',                    cat:'soft', sub:'Deprag', coste:4760, pvd:5950, pvp:7140 },
+  { id:'denprag-sinter-s7',    name:'Deprag Horno Sinterización S7 MoSi2',       cat:'other', sub:'Deprag', coste:5272, pvd:6590, pvp:7908, img:'images/deprag-s7.png' },
+  { id:'denprag-impresora-pl7',name:'Deprag Impresora PL7 Pro',                  cat:'printer', sub:'Deprag', coste:3352, pvd:4190, pvp:5028 },
+
+  // ===== MEDIT =====
+  { id:'medit-i700',           name:'Medit i700',                                cat:'scanner', sub:'Medit', coste:6250,  pvd:7375,  pvp:8850, img:'images/medit-i700-updated.png' },
+  { id:'medit-i700w',          name:'Medit i700 Wireless',                       cat:'scanner', sub:'Medit', coste:7000,  pvd:8260,  pvp:9912, img:'images/medit-i700-wireless.png' },
+  { id:'medit-i900c',          name:'Medit i900 Classic',                        cat:'scanner', sub:'Medit', coste:8200,  pvd:9676,  pvp:11611, img:'images/medit-i900.png' },
+  { id:'medit-i900',           name:'Medit i900 Mobility',                       cat:'scanner', sub:'Medit', coste:9050,  pvd:10679, pvp:12815, img:'images/medit-i900-mobility-v2.png' },
+  { id:'medit-i900-ipad',      name:'Pack: Medit i900M + iPad M5 (Express app)', cat:'pack',    sub:'Medit', coste:10500, pvd:12390, pvp:14868, img:'images/Medit i900M + iPad M5.png' },
+  { id:'medit-i900-mac',       name:'Pack: Medit i900 Classic + MacBook',        cat:'pack',    sub:'Medit', coste:9300,  pvd:10974, pvp:13169, img:'images/medit-i900-macbook-air-m4.png' },
+  { id:'medit-i900-pack',      name:'Pack Medit i900 — Estación completa Mac mini', cat:'pack', sub:'Medit', coste:9700,  pvd:11446, pvp:13735, img:'images/medit-pack-i900-macmini.png' },
+
+  // ===== DOF =====
+  // ===== DOF · Freedom Air (Oferta especial 2026 — incluye 12 scanbodies gtmedical sin coste) =====
+  { id:'dof-freedom',          name:'DOF Freedom Air + PIM · Oferta 2026',       cat:'fotogram', sub:'DOF', coste:7500, pvd:9750, pvp:12900, img:'images/dof-freedom-air.png' },
+  { id:'dof-freedom-3ud',      name:'DOF Freedom Air — Tier 3 ud (−2%)',         cat:'fotogram', sub:'DOF', coste:7500, pvd:9555, pvp:11900, img:'images/dof-freedom-air.png' },
+  { id:'dof-freedom-5ud',      name:'DOF Freedom Air — Tier 5 ud (−5%)',         cat:'fotogram', sub:'DOF', coste:7500, pvd:9262, pvp:11900, img:'images/dof-freedom-air.png' },
+  { id:'dof-freedom-7ud',      name:'DOF Freedom Air — Tier 7 ud (−8%)',         cat:'fotogram', sub:'DOF', coste:7500, pvd:8970, pvp:11900, img:'images/dof-freedom-air.png' },
+  { id:'dof-freedom-10ud',     name:'DOF Freedom Air — Tier 10 ud (−10%)',       cat:'fotogram', sub:'DOF', coste:7500, pvd:8775, pvp:11900, img:'images/dof-freedom-air.png' },
+  { id:'dof-freedom-pvmax',    name:'DOF Freedom Air — PV máx. distribuidor → clínica', cat:'fotogram', sub:'DOF', coste:7500, pvd:9750, pvp:12100, img:'images/dof-freedom-air.png' },
+  { id:'dof-inst-bronze',      name:'DOF Freedom Air — Instalación Bronze/Silver (remota)', cat:'other', sub:'DOF', coste:120, pvd:160, pvp:200 },
+  { id:'dof-inst-gold',        name:'DOF Freedom Air — Instalación Gold/Platinum (remota/presencial)', cat:'other', sub:'DOF', coste:625, pvd:900, pvp:1100 },
+  { id:'dof-scanbody-12',      name:'Bonus 12 scanbodies (sin cargo)',           cat:'other', sub:'DOF', coste:0, pvd:0, pvp:0, img:'images/scanbody-12-pack.png' },
+
+  // ===== SHINING =====
+  { id:'shining-elf',          name:'Shining Elf',                               cat:'scanner',  sub:'Shining', coste:7000,  pvd:8260,  pvp:9912, img:'images/shining-elf.png' },
+  { id:'shining-elite',        name:'Shining Elite + Kit',                       cat:'fotogram', sub:'Shining', coste:13300, pvd:15694, pvp:18833, img:'images/shining-elite-kit.png' },
+  { id:'shining-elite-rn',     name:'Shining Elite + Kit (RENOVE)',              cat:'fotogram', sub:'Shining', coste:11000, pvd:12980, pvp:15576, img:'images/shining-elite-kit.png' },
+  { id:'shining-elite-w',      name:'Shining Elite W + Kit',                     cat:'fotogram', sub:'Shining', coste:15445, pvd:18225, pvp:21870, img:'images/shining-elite-wireless-kit.png' },
+  { id:'shining-elite-wrn',    name:'Shining Elite W + Kit (RENOVE)',            cat:'fotogram', sub:'Shining', coste:12500, pvd:14750, pvp:17700, img:'images/shining-elite-wireless-kit.png' },
+  { id:'accufab-f1',           name:'Shining AccuFab F1 (+ FabWash + FabCure)',  cat:'printer',  sub:'Shining', coste:6100,  pvd:7500,  pvp:9000, img:'images/accufab-f1.png' },
+  { id:'accufab-4d',           name:'Shining AccuFab 4D (L4D)',                  cat:'printer',  sub:'Shining', coste:2500,  pvd:2898,  pvp:3333, img:'images/accufab-4d.png' },
+
+  // ===== RAY =====
+  { id:'ray-alpha-3d',         name:'RAY ALPHA 3D',                              cat:'xray', sub:'RayScan', coste:24900, pvd:29382, pvp:35258, img:'images/ray-alpha-3d.png' },
+  { id:'ray-alpha-plus',       name:'RAY ALPHA PLUS',                            cat:'xray', sub:'RayScan', coste:33900, pvd:39402, pvp:47282, img:'images/rayscan-3d.png' },
+
+  // ===== NEXDENT =====
+  { id:'nexdent-lc1',          name:'Nexdent LCD1 (Impresora 3D resina)',        cat:'printer', sub:'Nexdent', coste:3600, pvd:4174, pvp:4800, img:'images/nexdent-lc1.png' },
+
+  // ===== LILIVIS =====
+  { id:'lilivis-print',        name:'Lilivis Print LP-100',                      cat:'printer', sub:'Lilivis', coste:5564,  pvd:7790,  pvp:9348, img:'images/lilivis-print.png' },
+  { id:'lilivis-uvcure',       name:'Lilivis UV Cure LC-100',                    cat:'printer', sub:'Lilivis', coste:1757,  pvd:2460,  pvp:2952, img:'images/lilivis-uv.png' },
+  { id:'lilivis-slicer',       name:'Lilivis Slicer Software',                   cat:'soft',    sub:'Lilivis', coste:1282,  pvd:1474,  pvp:1769, img:'images/lilivis-l100-cam.png' },
+  { id:'lilivis-print-inst',   name:'Lilivis Print — Instalación + Formación online (4h)', cat:'other', sub:'Lilivis', coste:680, pvd:782, pvp:938 },
+  { id:'lilivis-print-ship',   name:'Lilivis Print — Transporte y envío',        cat:'other',   sub:'Lilivis', coste:350, pvd:389, pvp:467 },
+  { id:'lilivis-mill',         name:'Lilivis Mill Dual 3-Axis',                  cat:'mill',    sub:'Lilivis', coste:18000, pvd:24900, pvp:29880, img:'images/lilivis-mill.png' },
+  { id:'lilivis-mill-inst',    name:'Lilivis Mill — Instalación + Formación presencial (1 día)', cat:'other', sub:'Lilivis', coste:1500, pvd:1668, pvp:2002 },
+  { id:'lilivis-mill-ship',    name:'Lilivis Mill — Transporte y envío',         cat:'other',   sub:'Lilivis', coste:1351, pvd:1501, pvp:1801 },
+
+  // ===== PHILDEN =====
+  { id:'philden-adc500',       name:'Philden Fresadora ADC-500',                 cat:'mill', sub:'Philden', coste:13845, pvd:15921, pvp:19105, img:'images/philden-adc-500.png' },
+  { id:'philden-s500',         name:'Philden Fresadora S-500',                   cat:'mill', sub:'Philden', coste:10424, pvd:11988, pvp:14386, img:'images/philden-s510.png' },
+  { id:'philden-s510',         name:'Philden Fresadora S-510',                   cat:'mill', sub:'Philden', coste:11302, pvd:12997, pvp:15596, img:'images/philden-s510-cad.png' },
+  { id:'philden-x500',         name:'Philden X500 + Mueble completo',            cat:'mill', sub:'Philden', coste:24959, pvd:28703, pvp:34444, img:'images/philden-s510-cad.png' },
+  { id:'philden-ship',         name:'Philden — Importación, transporte y envío', cat:'other', sub:'Philden', coste:1351, pvd:1554, pvp:1865 },
+  { id:'philden-inst',         name:'Philden — Instalación y puesta en marcha (1 día)', cat:'other', sub:'Philden', coste:680, pvd:782, pvp:938 },
+  { id:'duotron-t3200',        name:'Duotron T-3200 Ceramic',                    cat:'other', sub:'Duotron', coste:3251, pvd:3739, pvp:4487, img:'images/Duotron T 3200.png' },
+
+  // ===== Software CAM =====
+  { id:'millbox-expert-cim',   name:'Mill Box CAM Expert CIMSystem',             cat:'soft', sub:'Philden', coste:6044, pvd:6950, pvp:8340 },
+  { id:'millbox-expert-ph',    name:'Mill Box CAM Expert Philden',               cat:'soft', sub:'Philden', coste:5625, pvd:6469, pvp:7763 },
+  { id:'millbox-std-cim',      name:'Mill Box CAM Standard CIMSystem',           cat:'soft', sub:'Philden', coste:5238, pvd:6024, pvp:7229 },
+  { id:'millbox-std-ph',       name:'Mill Box CAM Standard Philden',             cat:'soft', sub:'Philden', coste:3600, pvd:4140, pvp:4968 },
+  { id:'cliccad',              name:'ClinicCAD con IA (Licencia perpetua)',      cat:'soft', sub:'ClinicCAD', coste:1200, pvd:2200, pvp:2640 },
+  { id:'lcam',                 name:'L-CAM (Licencia perpetua)',                 cat:'soft', sub:'Lilivis', coste:900,  pvd:1600, pvp:1920, img:'images/lilivis-l100-cam.png' },
+
+  // ===== Materiales CAD/CAM =====
+  { id:'mazic-duro',            name:'Mazic Duro',                                cat:'material', sub:'Vericom', coste:95, pvd:118.75, pvp:142.5, img:'images/mazic-duro.png' },
+  { id:'mazic-claro',           name:'Mazic Claro',                               cat:'material', sub:'Vericom', coste:95, pvd:118.75, pvp:142.5, img:'images/mazic-claro.png' },
+
+  // ===== Packs AldraScan =====
+  { id:'pack-pro',             name:'Pack AldraScan Pro (Chairside · Captura → Diseño → Producción → Terminado)', cat:'pack', sub:'AldraScan', coste:33855, pvd:37617, pvp:45140, img:'images/aldrascan-pro.png' },
+  { id:'pack-lab',             name:'Pack Laboratorio Digital (Express + Horno Duotron)', cat:'pack', sub:'AldraScan', coste:20000, pvd:25000, pvp:30000, img:'images/pack-laboratorio.png' },
+
+  // ===== Otros =====
+  { id:'ipad-pro-13',          name:'iPad Pro 13"',                              cat:'other', sub:'Apple', coste:1100, pvd:1400, pvp:1680, img:'images/ipad-pro-13.png' },
+  { id:'kit-mat',              name:'Kit materiales completo',                   cat:'other', sub:'AldraScan', coste:800,  pvd:1100, pvp:1320 },
+  { id:'inst-clinica',         name:'Instalación y formación clínica',           cat:'other', sub:'AldraScan', coste:400,  pvd:700,  pvp:840 },
+];
+
+const CAT_META = {
+  scanner: { label:'Escáner intraoral', icon:'🦷', color:'#2563eb', cls:'type-scanner' },
+  fotogram:{ label:'Fotogrametría',     icon:'📸', color:'#0891b2', cls:'type-fotogram' },
+  xray:    { label:'CBCT / RX',         icon:'🩻', color:'#0f766e', cls:'type-xray' },
+  printer: { label:'Impresora 3D',      icon:'🖨️', color:'#db2777', cls:'type-printer' },
+  mill:    { label:'Fresadora',         icon:'⚙️', color:'#16a34a', cls:'type-mill' },
+  unit:    { label:'Unidad dental',     icon:'🪑', color:'#9f1239', cls:'type-unit' },
+  pack:    { label:'Pack',              icon:'📦', color:'#d97706', cls:'type-pack' },
+  soft:    { label:'Software',          icon:'💻', color:'#6366f1', cls:'type-soft' },
+  material:{ label:'Material CAD/CAM',  icon:'🧱', color:'#b91c1c', cls:'type-other' },
+  other:   { label:'Otros',             icon:'🔧', color:'#94a3b8', cls:'type-other' },
+};
+
+const CAT_ORDER = ['scanner','fotogram','xray','printer','mill','unit','pack','soft','material','other'];
+
+const SUB_COLORS = {
+  AldraScan:'#0066ff', Apple:'#111827', ClinicCAD:'#4f46e5', Medit:'#1e40af', Panda:'#be185d', Coxo:'#2563eb', Shining:'#7c3aed', RayScan:'#b45309', Philden:'#0f766e',
+  Meyer:'#0891b2', NewLife:'#7c2d12', BMS:'#854d0e', Handy:'#2563eb', Cingol:'#9f1239',
+  Deprag:'#0ea5e9', Pax:'#ea580c', Vericom:'#b91c1c',
+  Puges:'#15803d', DOF:'#06b6d4', Nexdent:'#a855f7', Lilivis:'#22c55e'
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+const fmt = n => (n||0).toLocaleString('es-ES',{minimumFractionDigits:0,maximumFractionDigits:2}) + ' €';
+const pct = n => (isFinite(n) ? n.toFixed(1) : '0.0') + '%';
+let marginThreshold = 20;
+
+function marginBadge(mg) {
+  if (mg >= 30) return '<span class="badge badge-green">✓ Excelente</span>';
+  if (mg >= 20) return '<span class="badge badge-blue">Bueno</span>';
+  if (mg >= 10) return '<span class="badge badge-amber">Ajustado</span>';
+  if (mg > 0)   return '<span class="badge badge-red">⚠ Muy bajo</span>';
+  return '<span class="badge badge-red">⚠ Sin margen</span>';
+}
+function heatClass(mg) {
+  if (mg >= 30) return 'hm-excellent';
+  if (mg >= 20) return 'hm-good';
+  if (mg >= 10) return 'hm-ok';
+  return 'hm-low';
+}
+function barHtml(mg) {
+  const w = Math.min(100, Math.max(0, mg));
+  const col = mg >= 30 ? '#16a34a' : mg >= 20 ? '#2563eb' : mg >= 10 ? '#d97706' : '#dc2626';
+  return `<div class="bar-wrap"><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${col}"></div></div><span class="bar-pct" style="color:${col}">${pct(mg)}</span></div>`;
+}
+function typeBadge(cat, sub) {
+  const m = CAT_META[cat] || CAT_META.other;
+  return `<span class="type-badge ${m.cls}">${m.icon} ${m.label}</span>${subBadgeHtml(sub)}`;
+}
+function subBadgeHtml(sub) {
+  if (!sub) return '';
+  const col = SUB_COLORS[sub] || '#475569';
+  return `<span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:${col}1f;color:${col};margin-left:5px">${sub}</span>`;
+}
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ============================================================
+// TEMA (light/dark)
+// ============================================================
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+  document.getElementById('themeBtn').setAttribute('title', t === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  try { localStorage.setItem('aldrascan_theme', t); } catch(e){}
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(cur === 'light' ? 'dark' : 'light');
+}
+(function initTheme() {
+  let t = 'light';
+  try { t = localStorage.getItem('aldrascan_theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch(e){}
+  document.documentElement.setAttribute('data-theme', t);
+})();
+
+// ============================================================
+// NAVEGACIÓN
+// ============================================================
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+function focusSearch() {
+  const active = document.querySelector('.page.active');
+  if (!active) return;
+  let input;
+  if (active.id === 'page-catalog') input = document.getElementById('catalog-search');
+  else if (active.id === 'page-packs') input = document.getElementById('pack-search');
+  else if (active.id === 'page-calc') input = document.getElementById('calc-ref-search');
+  else if (active.id === 'page-oferta') input = document.getElementById('prod-search');
+  if (input) { input.focus(); input.select?.(); }
+}
+
+// ============================================================
+// CACHE & PERFORMANCE
+// ============================================================
+const catalogCache = new Map();
+function getCachedMargins(product) {
+  const key = `${product.id}-${product.coste}-${product.pvd}-${product.pvp}`;
+  if (!catalogCache.has(key)) {
+    const mgPvd = product.pvd - product.coste;
+    const mgPvp = product.pvp - product.coste;
+    const mgPvdPct = product.pvd > 0 ? (mgPvd / product.pvd) * 100 : 0;
+    const mgPvpPct = product.pvp > 0 ? (mgPvp / product.pvp) * 100 : 0;
+    catalogCache.set(key, { mgPvd, mgPvp, mgPvdPct, mgPvpPct });
+  }
+  return catalogCache.get(key);
+}
+
+// ============================================================
+// FILTROS · CATÁLOGO
+// ============================================================
+let currentFilter = 'all';
+let searchTimeout;
+
+function debounceSearch() {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => renderCatalog(), 300);
+}
+
+function buildFilterRow() {
+  const items = [{ key:'all', label:'Todos', dot:'transparent' }].concat(
+    CAT_ORDER.map(k => ({ key:k, label:CAT_META[k].label.replace('Escáner ','').replace(' dental',''), dot:CAT_META[k].color }))
+  );
+  document.getElementById('filter-row').innerHTML = items.map(it => `
+    <button class="filter-btn ${it.key==='all'?'active':''}" onclick="filterCatalog('${it.key}',this)">
+      ${it.dot!=='transparent' ? `<span class="filter-dot" style="background:${it.dot}"></span>` : ''}
+      <span>${it.label}</span>
+      <span class="filter-count" data-fcount="${it.key}">0</span>
+    </button>
+  `).join('');
+}
+
+function updateFilterCounts() {
+  document.querySelectorAll('[data-fcount]').forEach(el => {
+    const k = el.dataset.fcount;
+    el.textContent = k === 'all' ? CATALOG.length : CATALOG.filter(p => p.cat === k).length;
+  });
+}
+
+function updateThreshold() {
+  marginThreshold = parseInt(document.getElementById('threshold-range').value);
+  document.getElementById('threshold-val').textContent = marginThreshold + '%';
+  renderCatalog();
+}
+
+function filterCatalog(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('#filter-row .filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCatalog();
+}
+
+function renderCatalog() {
+  const q = (document.getElementById('catalog-search')?.value || '').toLowerCase().trim();
+  let data = currentFilter === 'all' ? CATALOG : CATALOG.filter(p => p.cat === currentFilter);
+  if (q) data = data.filter(p => p.name.toLowerCase().includes(q) || (p.sub||'').toLowerCase().includes(q) || (p.id||'').toLowerCase().includes(q));
+
+  requestAnimationFrame(() => {
+    renderUnified(data);
+    renderKPIs(data);
+    updateFilterCounts();
+  });
+}
+
+function renderUnified(data) {
+  const cats = CAT_ORDER.filter(c => data.some(p => p.cat === c));
+  let html = '', totCoste=0, totPvd=0, totPvp=0, alertCount=0;
+  const COLS = 10;
+  cats.forEach(cat => {
+    const items = data.filter(p => p.cat === cat);
+    const m = CAT_META[cat];
+    html += `<tr class="cat-type-header"><td colspan="${COLS}"><span style="color:${m.color}">${m.icon}</span> ${m.label.toUpperCase()} <span style="font-weight:400;color:var(--text-3)">(${items.length})</span></td></tr>`;
+    const subs = [...new Set(items.map(p => p.sub||''))];
+    subs.forEach(sub => {
+      const subItems = items.filter(p => (p.sub||'') === sub);
+      if (sub && subs.length > 1) {
+        const sc = SUB_COLORS[sub] || '#475569';
+        html += `<tr><td colspan="${COLS}" style="padding:5px 14px 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${sc};background:${sc}0d;border-bottom:1px solid ${sc}22">— ${escHtml(sub)}</td></tr>`;
+      }
+      subItems.forEach(p => {
+        const mgPvd = p.pvd - (p.coste||0);
+        const mgPvdPct = p.pvd > 0 ? (mgPvd / p.pvd * 100) : 0;
+        const mgPvp = p.pvp - (p.coste||0);
+        const mgPvpPct = p.pvp > 0 ? (mgPvp / p.pvp * 100) : 0;
+        const isAlert = mgPvpPct < marginThreshold && mgPvpPct >= 0;
+        if (isAlert) alertCount++;
+        totCoste += (p.coste||0); totPvd += p.pvd; totPvp += p.pvp;
+        const heatPvd = heatClass(mgPvdPct);
+        const heatPvp = heatClass(mgPvpPct);
+        const imgThumb = p.img ? `<img loading="lazy" src="${escHtml(p.img)}" class="product-thumb" alt="${escHtml(p.name)}" onclick="openImageModal('${p.id}')" title="Ver imagen">` : '';
+        html += `<tr class="${isAlert ? 'row-alert' : ''}">
+          <td><div class="product-cell">${imgThumb}<strong>${escHtml(p.name)}</strong>${isAlert ? ' <span class="margin-alert-icon">⚠</span>' : ''}</div></td>
+          <td>${typeBadge(p.cat, p.sub)}</td>
+          <td class="right" style="border-left:2px solid color-mix(in srgb,var(--red) 22%,transparent)"><strong style="color:var(--red-text)">${fmt(p.coste||0)}</strong></td>
+          <td class="right" style="border-left:2px solid color-mix(in srgb,var(--purple) 22%,transparent)"><strong style="color:var(--purple-text)">${fmt(p.pvd)}</strong></td>
+          <td class="right"><span class="pos">+${fmt(mgPvd)}</span></td>
+          <td class="${heatPvd}">${barHtml(mgPvdPct)}</td>
+          <td class="right" style="border-left:2px solid color-mix(in srgb,var(--green) 22%,transparent)"><strong style="color:var(--green-text)">${fmt(p.pvp)}</strong></td>
+          <td class="right"><span class="pos">+${fmt(mgPvp)}</span></td>
+          <td class="${heatPvp}">${barHtml(mgPvpPct)}</td>
+          <td class="center">${marginBadge(mgPvpPct)}</td>
+        </tr>`;
+      });
+    });
+  });
+  const totMgPvd = totPvd > 0 ? (totPvd-totCoste)/totPvd*100 : 0;
+  const totMgPvp = totPvp > 0 ? (totPvp-totCoste)/totPvp*100 : 0;
+  if (data.length) {
+    html += `<tr class="total-row">
+      <td colspan="2">TOTAL CATÁLOGO (${data.length})</td>
+      <td class="right">${fmt(totCoste)}</td>
+      <td class="right">${fmt(totPvd)}</td>
+      <td class="right">+${fmt(totPvd-totCoste)}</td>
+      <td>${barHtml(totMgPvd)}</td>
+      <td class="right">${fmt(totPvp)}</td>
+      <td class="right">+${fmt(totPvp-totCoste)}</td>
+      <td colspan="2">${barHtml(totMgPvp)}</td>
+    </tr>`;
+  } else {
+    html += `<tr><td colspan="${COLS}"><div class="empty-state"><div class="empty-icon">🔍</div>Sin resultados con los filtros actuales</div></td></tr>`;
+  }
+  document.getElementById('tbody-unified').innerHTML = html;
+  document.getElementById('threshold-count').textContent = alertCount > 0 ? `${alertCount} producto${alertCount>1?'s':''} por debajo del umbral` : 'Todos por encima del umbral';
+}
+
+function renderKPIs(data) {
+  data = data || (currentFilter === 'all' ? CATALOG : CATALOG.filter(p => p.cat === currentFilter));
+  const totCoste = data.reduce((a,p) => a+(p.coste||0), 0);
+  const totPvd = data.reduce((a,p) => a+p.pvd, 0);
+  const totPvp = data.reduce((a,p) => a+p.pvp, 0);
+  const mgPvd = totPvd > 0 ? (totPvd-totCoste)/totPvd*100 : 0;
+  const mgPvp = totPvp > 0 ? (totPvp-totCoste)/totPvp*100 : 0;
+  const belowThreshold = data.filter(p => { const m = p.pvp>0?(p.pvp-(p.coste||0))/p.pvp*100:0; return m < marginThreshold; }).length;
+  document.getElementById('catalog-kpis').innerHTML = `
+    <div class="kpi-card purple"><div class="kpi-label">Productos</div><div class="kpi-value">${data.length}</div><div class="kpi-sub">${Object.keys(CAT_META).filter(c => data.some(p => p.cat === c)).length} categorías</div></div>
+    <div class="kpi-card blue"><div class="kpi-label">Margen medio PVD</div><div class="kpi-value">${pct(mgPvd)}</div><div class="kpi-sub">sobre PVD (coste→PVD)</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Margen medio PVP</div><div class="kpi-value">${pct(mgPvp)}</div><div class="kpi-sub">sobre PVP Rec. (coste→PVP)</div></div>
+    <div class="kpi-card ${belowThreshold > 0 ? 'red' : 'amber'}"><div class="kpi-label">Bajo margen (&lt;${marginThreshold}%)</div><div class="kpi-value">${belowThreshold}</div><div class="kpi-sub">${belowThreshold > 0 ? 'productos a revisar' : 'todo OK'}</div></div>`;
+}
+
+// ============================================================
+// IMPORTAR
+// ============================================================
+function openImportModal() { document.getElementById('import-modal').classList.add('show'); }
+function closeImportModal() { document.getElementById('import-modal').classList.remove('show'); document.getElementById('import-status').textContent = ''; document.getElementById('import-file').value = ''; }
+
+function handleImportFile(file) {
+  if (!file) return;
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (ext === 'csv') {
+    const reader = new FileReader();
+    reader.onload = e => parseImportCSV(e.target.result);
+    reader.readAsText(file);
+  } else if (ext === 'xlsx' || ext === 'xls') {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws, {header:1});
+      parseImportRows(rows);
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    document.getElementById('import-status').textContent = '❌ Formato no soportado. Usa .csv, .xlsx o .xls';
+  }
+}
+
+function parseImportCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  const rows = lines.map(l => l.split(/[;,]/).map(c => c.replace(/^"|"$/g,'').trim()));
+  parseImportRows(rows);
+}
+
+function parseImportRows(rows) {
+  const status = document.getElementById('import-status');
+  if (rows.length < 2) { status.textContent = '❌ El archivo debe tener encabezados + datos.'; return; }
+  const header = rows[0].map(h => String(h).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''));
+  const iName = header.findIndex(h => h.includes('nombre') || h.includes('product') || h.includes('modelo'));
+  const iCat  = header.findIndex(h => h.includes('categ'));
+  const iSub  = header.findIndex(h => h.includes('marca') || h.includes('brand'));
+  const iCost = header.findIndex(h => h.includes('coste') || h.includes('cost'));
+  const iPvd  = header.findIndex(h => h.includes('pvd') || h.includes('iberia'));
+  const iPvp  = header.findIndex(h => h === 'pvp' || h.includes('pvp'));
+  const iImg  = header.findIndex(h => h === 'img' || h.includes('imagen') || h.includes('image') || h.includes('foto') || h.includes('url'));
+  if (iName < 0) { status.textContent = '❌ Falta columna "nombre" / "modelo".'; return; }
+  const numClean = v => parseFloat(String(v||'').replace(/[€\s]/g,'').replace(/\./g,'').replace(',','.')) || 0;
+  const imgClean = v => {
+    const img = String(v || '').trim();
+    if (!img) return '';
+    if (/^(https?:|data:|images\/)/i.test(img)) return img;
+    return 'images/' + img.replace(/^\/+/, '');
+  };
+  const newCatalog = [];
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    if (!r[iName]) continue;
+    const pvd = iPvd >= 0 ? numClean(r[iPvd]) : 0;
+    const pvp = iPvp >= 0 ? numClean(r[iPvp]) : Math.round(pvd*1.2);
+    const img = iImg >= 0 ? imgClean(r[iImg]) : '';
+    newCatalog.push({
+      id: 'imp-' + i,
+      name: String(r[iName]),
+      cat: iCat >= 0 ? (String(r[iCat])||'other').toLowerCase() : 'other',
+      sub: iSub >= 0 ? String(r[iSub]||'') : '',
+      coste: iCost >= 0 ? numClean(r[iCost]) : 0,
+      pvd: pvd,
+      pvp: pvp,
+      ...(img ? { img } : {}),
+    });
+  }
+  if (!newCatalog.length) { status.textContent = '❌ No se encontraron productos válidos.'; return; }
+  CATALOG = newCatalog;
+  closeImportModal();
+  renderCatalog();
+  renderCalcRef();
+  populateCompareSelects();
+  renderPackProducts();
+  showToast(`✓ ${newCatalog.length} productos importados`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const dz = document.getElementById('drop-zone');
+  if (dz) {
+    ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('dragover'); }));
+    ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('dragover'); }));
+    dz.addEventListener('drop', e => { if (e.dataTransfer.files.length) handleImportFile(e.dataTransfer.files[0]); });
+  }
+  // Cmd+K / Ctrl+K → focus search
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); focusSearch(); }
+    if (e.key === 'Escape') {
+      const m = document.getElementById('import-modal');
+      if (m.classList.contains('show')) closeImportModal();
+    }
+  });
+  // Apply persisted theme to button label
+  applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+});
+
+// ============================================================
+// EXPORTAR
+// ============================================================
+function exportCSV() {
+  const data = currentFilter === 'all' ? CATALOG : CATALOG.filter(p => p.cat === currentFilter);
+  const rows = [['Nombre','Categoría','Marca','Coste','PVD','Mg PVD €','% Mg PVD','PVP Rec.','Mg PVP €','% Mg PVP','Imagen']];
+  data.forEach(p => {
+    const mgPvd = p.pvd-(p.coste||0), mgPvdPct = p.pvd>0?(mgPvd/p.pvd*100).toFixed(1):'0';
+    const mgPvp = p.pvp-(p.coste||0), mgPvpPct = p.pvp>0?(mgPvp/p.pvp*100).toFixed(1):'0';
+    rows.push([p.name, CAT_META[p.cat]?.label||p.cat, p.sub||'', p.coste||0, p.pvd, mgPvd, mgPvdPct, p.pvp, mgPvp, mgPvpPct, p.img||'']);
+  });
+  downloadBlob(rows.map(r => r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'), 'aldrascan-catalogo-interno.csv', 'text/csv;charset=utf-8;');
+  showToast('✓ CSV exportado');
+}
+function exportExcel() {
+  const data = currentFilter === 'all' ? CATALOG : CATALOG.filter(p => p.cat === currentFilter);
+  const ws = [['Nombre','Categoría','Marca','Coste','PVD','Mg PVD €','% Mg PVD','PVP Rec.','Mg PVP €','% Mg PVP','Imagen']];
+  data.forEach(p => {
+    const mgPvd = p.pvd-(p.coste||0), mgPvdPct = p.pvd>0?+((mgPvd/p.pvd*100).toFixed(1)):0;
+    const mgPvp = p.pvp-(p.coste||0), mgPvpPct = p.pvp>0?+((mgPvp/p.pvp*100).toFixed(1)):0;
+    ws.push([p.name, CAT_META[p.cat]?.label||p.cat, p.sub||'', p.coste||0, p.pvd, mgPvd, mgPvdPct, p.pvp, mgPvp, mgPvpPct, p.img||'']);
+  });
+  const wb = XLSX.utils.book_new(); const sheet = XLSX.utils.aoa_to_sheet(ws);
+  sheet['!cols'] = [{wch:42},{wch:18},{wch:14},{wch:12},{wch:12},{wch:12},{wch:10},{wch:12},{wch:12},{wch:10},{wch:34}];
+  XLSX.utils.book_append_sheet(wb, sheet, 'Catálogo Interno'); XLSX.writeFile(wb, 'aldrascan-catalogo-interno.xlsx');
+  showToast('✓ Excel exportado');
+}
+function downloadBlob(c, f, m) {
+  const b = new Blob(['﻿'+c], {type:m}), u = URL.createObjectURL(b);
+  const a = Object.assign(document.createElement('a'), { href:u, download:f });
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(u);
+}
+
+// ============================================================
+// COMPARADOR
+// ============================================================
+function populateCompareSelects() {
+  ['cmp-1','cmp-2','cmp-3'].forEach((id, idx) => {
+    const sel = document.getElementById(id);
+    const first = idx < 2 ? '<option value="">— Producto '+(idx+1)+' —</option>' : '<option value="">— Producto 3 (opcional) —</option>';
+    sel.innerHTML = first + CATALOG.map(p => `<option value="${p.id}">${escHtml(p.name)}</option>`).join('');
+  });
+}
+function clearCompare() { ['cmp-1','cmp-2','cmp-3'].forEach(id => document.getElementById(id).value = ''); document.getElementById('compare-result').innerHTML = ''; }
+
+function renderCompare() {
+  const ids = ['cmp-1','cmp-2','cmp-3'].map(id => document.getElementById(id).value).filter(v => v);
+  const products = ids.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
+  if (products.length < 2) { document.getElementById('compare-result').innerHTML = '<div class="empty-state"><div class="empty-icon">⚖️</div>Selecciona al menos 2 productos para comparar.</div>'; return; }
+  const margins = products.map(p => p.pvp > 0 ? (p.pvp - (p.coste||0)) / p.pvp * 100 : 0);
+  const bestIdx = margins.indexOf(Math.max(...margins));
+  const cols = products.length === 2 ? 'cols-2' : 'cols-3';
+  let html = `<div class="compare-grid ${cols}">`;
+  products.forEach((p, i) => {
+    const mgPvd = p.pvd - (p.coste||0);
+    const mgPvdPct = p.pvd > 0 ? (mgPvd / p.pvd * 100) : 0;
+    const mgPvp = p.pvp - (p.coste||0);
+    const mgPvpPct = p.pvp > 0 ? (mgPvp / p.pvp * 100) : 0;
+    const isBest = i === bestIdx;
+    html += `<div class="compare-card ${isBest ? 'best' : ''}">
+      ${isBest ? '<div class="cc-best-tag">Mejor margen</div>' : ''}
+      <div class="cc-header">
+        <div class="cc-name">${escHtml(p.name)}</div>
+        <div class="cc-type">${typeBadge(p.cat, p.sub)}</div>
+      </div>
+      <div class="cc-row"><span class="cc-label">Coste</span><span class="cc-val" style="color:var(--red-text)">${fmt(p.coste||0)}</span></div>
+      <div class="cc-row"><span class="cc-label">PVD</span><span class="cc-val" style="color:var(--purple-text)">${fmt(p.pvd)}</span></div>
+      <div class="cc-row"><span class="cc-label">Margen PVD</span><span class="cc-val">+${fmt(mgPvd)} (${pct(mgPvdPct)})</span></div>
+      <div class="cc-row"><span class="cc-label">PVP recomendado</span><span class="cc-val" style="color:var(--green-text)">${fmt(p.pvp)}</span></div>
+      <div class="cc-row highlight"><span class="cc-label">Margen PVP</span><span class="cc-val">+${fmt(mgPvp)} (${pct(mgPvpPct)})</span></div>
+      <div class="cc-row"><span class="cc-label">PVP + IVA 21%</span><span class="cc-val">${fmt(p.pvp*1.21)}</span></div>
+      <div class="cc-row"><span class="cc-label">Rentabilidad</span><span class="cc-val">${marginBadge(mgPvpPct)}</span></div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('compare-result').innerHTML = html;
+}
+
+// ============================================================
+// PACKS
+// ============================================================
+let packItems = [];
+
+function renderPackProducts() {
+  const q = (document.getElementById('pack-search')?.value || '').toLowerCase().trim();
+  const filtered = q ? CATALOG.filter(p => p.name.toLowerCase().includes(q) || (p.sub||'').toLowerCase().includes(q)) : CATALOG;
+  const el = document.getElementById('pack-product-list');
+  el.innerHTML = filtered.map(p => {
+    const inPack = packItems.includes(p.id);
+    const m = CAT_META[p.cat] || CAT_META.other;
+    return `<div class="pack-product-item ${inPack ? 'in-pack' : ''}" onclick="togglePackItem('${p.id}')">
+      <div style="min-width:0;flex:1"><div class="pp-name">${inPack ? '✓ ' : ''}${escHtml(p.name)}</div><div class="pp-price">${m.icon} Coste ${fmt(p.coste||0)} · PVD ${fmt(p.pvd)} · PVP ${fmt(p.pvp)}</div></div>
+    </div>`;
+  }).join('') || '<div class="empty-state"><div class="empty-icon">🔍</div>Sin resultados</div>';
+}
+
+function togglePackItem(id) {
+  const idx = packItems.indexOf(id);
+  if (idx >= 0) packItems.splice(idx, 1);
+  else packItems.push(id);
+  renderPackProducts();
+  recalcPack();
+}
+
+function recalcPack() {
+  const dto = parseFloat(document.getElementById('pack-dto').value) || 0;
+  const iva = parseFloat(document.getElementById('pack-iva').value) || 0;
+  const products = packItems.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
+  const linesEl = document.getElementById('pack-lines-wrap');
+
+  if (!products.length) {
+    linesEl.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-3);font-size:12px">Añade productos al pack</div>';
+    ['pk-pvp-base','pk-dto-val','pk-pvp-net','pk-pvp-iva','pk-coste','pk-pvd','pk-margin','pk-margin-pvd'].forEach(id => document.getElementById(id).textContent = '0 €');
+    ['pk-margin-pct','pk-margin-pvd-pct'].forEach(id => document.getElementById(id).textContent = '0%');
+    return;
+  }
+
+  linesEl.innerHTML = products.map(p => `<div class="pack-line">
+    <span class="pl-name">${escHtml(p.name)}</span>
+    <span class="pl-price">${fmt(p.pvp)}</span>
+    <button class="pl-remove" onclick="togglePackItem('${p.id}')">×</button>
+  </div>`).join('');
+
+  const pvpBase = products.reduce((a, p) => a + p.pvp, 0);
+  const dtoAbs = pvpBase * dto / 100;
+  const pvpNet = pvpBase - dtoAbs;
+  const pvpIva = pvpNet * (1 + iva / 100);
+  const costeTotal = products.reduce((a, p) => a + (p.coste||0), 0);
+  const pvdTotal = products.reduce((a, p) => a + p.pvd, 0);
+  const marginCoste = pvpNet - costeTotal;
+  const marginCostePct = pvpNet > 0 ? (marginCoste / pvpNet * 100) : 0;
+  const marginPvd = pvpNet - pvdTotal;
+  const marginPvdPct = pvpNet > 0 ? (marginPvd / pvpNet * 100) : 0;
+
+  document.getElementById('pk-pvp-base').textContent = fmt(pvpBase);
+  document.getElementById('pk-dto-val').textContent = '−' + fmt(dtoAbs);
+  document.getElementById('pk-pvp-net').textContent = fmt(pvpNet);
+  document.getElementById('pk-pvp-iva').textContent = fmt(pvpIva);
+  document.getElementById('pk-coste').textContent = fmt(costeTotal);
+  document.getElementById('pk-pvd').textContent = fmt(pvdTotal);
+  document.getElementById('pk-margin').textContent = (marginCoste >= 0 ? '+' : '') + fmt(marginCoste);
+  document.getElementById('pk-margin-pct').textContent = pct(marginCostePct);
+  document.getElementById('pk-margin-pvd').textContent = (marginPvd >= 0 ? '+' : '') + fmt(marginPvd);
+  document.getElementById('pk-margin-pvd-pct').textContent = pct(marginPvdPct);
+}
+
+function addPackToOferta() {
+  if (!packItems.length) { showToast('Añade productos al pack primero'); return; }
+  const dto = parseFloat(document.getElementById('pack-dto').value) || 0;
+  const products = packItems.map(id => CATALOG.find(p => p.id === id)).filter(Boolean);
+  const names = products.map(p => p.name).join(' + ');
+  const pvpBase = products.reduce((a, p) => a + p.pvp, 0);
+  const pvdBase = products.reduce((a, p) => a + p.pvd, 0);
+  const costeTotal = products.reduce((a, p) => a + (p.coste||0), 0);
+  ofertaLines.push({ _id:null, desc:'📦 Pack: ' + names, coste:costeTotal, pvd:pvdBase, pvp:pvpBase, dto:dto });
+  renderOferta();
+  showPage('oferta', document.querySelectorAll('.nav-tab')[4]);
+  showToast('✓ Pack añadido a la oferta');
+}
+
+function clearPack() { packItems = []; renderPackProducts(); recalcPack(); }
+
+// ============================================================
+// CALCULADORA
+// ============================================================
+function setCalcMode(m) {
+  document.getElementById('cpanel-venta').style.display  = m==='venta'  ? '' : 'none';
+  document.getElementById('cpanel-margen').style.display = m==='margen' ? '' : 'none';
+  document.getElementById('ctab-venta').className  = m==='venta'  ? 'btn btn-primary' : 'btn btn-secondary';
+  document.getElementById('ctab-margen').className = m==='margen' ? 'btn btn-primary' : 'btn btn-secondary';
+}
+
+function calcVenta() {
+  const coste = parseFloat(document.getElementById('v-coste').value) || 0;
+  const precioBase = parseFloat(document.getElementById('v-precio').value) || 0;
+  const iva = parseFloat(document.getElementById('v-iva').value) || 0;
+  const dto = parseFloat(document.getElementById('v-dto').value) || 0;
+  const precio = precioBase * (1 - dto/100);
+  const beneficio = precio - coste;
+  const margen = precio > 0 ? (beneficio/precio)*100 : 0;
+  const markup = coste > 0 ? (beneficio/coste)*100 : 0;
+  const final_ = precio * (1 + iva/100);
+  const isNeg = margen < 0;
+  document.getElementById('v-margen-pct').textContent = pct(margen);
+  document.getElementById('v-beneficio').textContent = fmt(beneficio);
+  document.getElementById('v-final').textContent = fmt(final_);
+  document.getElementById('v-markup').textContent = pct(markup);
+  document.getElementById('v-m1').className = 'metric-box ' + (isNeg ? 'danger' : 'hi');
+  const cp = precio > 0 ? Math.max(0, coste/precio*100) : 0;
+  const mp = precio > 0 ? Math.max(0, beneficio/precio*100) : 0;
+  document.getElementById('bc-coste').style.width = cp + '%';
+  document.getElementById('bc-margin').style.width = mp + '%';
+  document.getElementById('v-breakdown').innerHTML = `
+    <div class="breakdown-row"><span>Tu coste</span><span>${fmt(coste)}</span></div>
+    ${dto>0?`<div class="breakdown-row"><span>Descuento (${dto}%)</span><span class="neg">−${fmt(precioBase*dto/100)}</span></div>`:''}
+    <div class="breakdown-row"><span>Precio venta (sin IVA)</span><span>${fmt(precio)}</span></div>
+    <div class="breakdown-row"><span>IVA (${iva}%)</span><span>${fmt(precio*iva/100)}</span></div>
+    <div class="breakdown-row"><span>Tu beneficio</span><span class="${isNeg?'neg':'pos'}">${fmt(beneficio)}</span></div>`;
+  let tip = '';
+  if (isNeg)             tip = '⚠ Vendes por debajo de coste. Pierdes dinero.';
+  else if (margen < 10)  tip = '⚡ Margen muy bajo. Sube precio o reduce descuento.';
+  else if (margen >= 25) tip = `✓ Buen margen. Puedes dar hasta ${pct(margen-10)} de descuento.`;
+  else                   tip = `✓ Margen aceptable. Dto. máx. recomendable: ${pct(Math.max(0,margen-10))}.`;
+  document.getElementById('v-tip').textContent = tip;
+}
+
+function calcMargen() {
+  const coste = parseFloat(document.getElementById('m-coste').value) || 0;
+  const margen = parseFloat(document.getElementById('m-margen').value) || 0;
+  const iva = parseFloat(document.getElementById('m-iva').value) || 0;
+  const dto = parseFloat(document.getElementById('m-dto').value) || 0;
+  const precio = margen < 100 ? coste/(1-margen/100) : 0;
+  const final_ = precio*(1+iva/100);
+  const beneficio = precio - coste;
+  const minPrecio = precio*(1-dto/100);
+  const minMargen = minPrecio > 0 ? ((minPrecio-coste)/minPrecio)*100 : 0;
+  document.getElementById('m-precio').textContent = fmt(precio);
+  document.getElementById('m-final').textContent = fmt(final_);
+  document.getElementById('m-beneficio').textContent = fmt(beneficio);
+  document.getElementById('m-minprecio').textContent = fmt(minPrecio);
+  document.getElementById('m-breakdown').innerHTML = `<div class="divider"></div>
+    <div class="breakdown-row"><span>Tu coste</span><span>${fmt(coste)}</span></div>
+    <div class="breakdown-row"><span>Precio recomendado</span><span>${fmt(precio)}</span></div>
+    <div class="breakdown-row"><span>Markup sobre coste</span><span>${pct(coste>0?(beneficio/coste)*100:0)}</span></div>
+    <div class="breakdown-row"><span>Con dto. ${dto}%</span><span>${fmt(minPrecio)} → margen ${pct(minMargen)}</span></div>`;
+}
+
+function renderCalcRef() {
+  const q = (document.getElementById('calc-ref-search')?.value || '').toLowerCase().trim();
+  const data = q ? CATALOG.filter(p => p.name.toLowerCase().includes(q) || (p.sub||'').toLowerCase().includes(q)) : CATALOG;
+  document.getElementById('calc-ref-list').innerHTML = data.map(p => {
+    const mg = p.pvp > 0 ? (p.pvp-(p.coste||0))/p.pvp*100 : 0;
+    const m = CAT_META[p.cat] || CAT_META.other;
+    return `<div class="calc-ref-item" onclick="loadInCalc(${p.coste||0},${p.pvp})">
+      <div class="calc-ref-left"><div class="calc-ref-name">${escHtml(p.name)}</div><div class="calc-ref-meta">${m.icon} Coste ${fmt(p.coste||0)} · PVP ${fmt(p.pvp)}</div></div>
+      <div class="calc-ref-mg">${pct(mg)}</div>
+    </div>`;
+  }).join('') || '<div class="empty-state"><div class="empty-icon">🔍</div>Sin resultados</div>';
+}
+
+function loadInCalc(coste, pvp) {
+  setCalcMode('venta');
+  document.getElementById('v-coste').value = coste;
+  document.getElementById('v-precio').value = pvp;
+  calcVenta();
+  showPage('calc', document.querySelectorAll('.nav-tab')[3]);
+  showToast('Producto cargado');
+}
+
+// ============================================================
+// OFERTAS
+// ============================================================
+let ofertaLines = [];
+let savedOffers = [];
+try { savedOffers = JSON.parse(localStorage.getItem('aldrascan_offers_v3') || '[]'); } catch(e){}
+
+function searchProducts() {
+  const q = document.getElementById('prod-search').value.toLowerCase().trim();
+  const res = document.getElementById('search-results');
+  if (!q) { res.style.display='none'; return; }
+  const matches = CATALOG.filter(p => p.name.toLowerCase().includes(q) || (p.sub||'').toLowerCase().includes(q)).slice(0, 12);
+  if (!matches.length) { res.style.display='none'; return; }
+  res.style.display = 'block';
+  res.innerHTML = matches.map(p => {
+    const m = CAT_META[p.cat] || CAT_META.other;
+    return `<div class="search-result-item" onclick="addProductToOferta('${p.id}')">
+      <span style="font-size:13px;font-weight:600">${escHtml(p.name)}</span>
+      <span style="font-size:11px;color:var(--text-2)">${m.icon} Coste ${fmt(p.coste||0)} · PVP ${fmt(p.pvp)}</span>
+    </div>`;
+  }).join('');
+}
+function addFromSearch() {
+  const q = document.getElementById('prod-search').value.trim();
+  const match = CATALOG.find(p => p.name.toLowerCase().includes(q.toLowerCase()));
+  if (match) addProductToOferta(match.id); else if (q) addBlankLine(q); else addBlankLine();
+}
+
+const BUNDLE_RULES = {
+  philden_mill:  { trigger: p => p.cat==='mill' && p.sub==='Philden', addons: ['philden-inst','philden-ship'], suggest: 'millbox-std-ph' },
+  lilivis_mill:  { trigger: p => p.id==='lilivis-mill', addons: ['lilivis-mill-inst','lilivis-mill-ship'], free: ['lcam'] },
+  lilivis_print: { trigger: p => p.id==='lilivis-print', addons: ['lilivis-print-inst','lilivis-print-ship'] },
+  denprag_mill:  { trigger: p => p.cat==='mill' && p.sub==='Deprag', suggest: 'denprag-millbox-std' },
+  dof_freedom:   { trigger: p => p.id && p.id.startsWith('dof-freedom') && !p.id.includes('inst'), free: ['dof-scanbody-12'], suggest: 'dof-inst-bronze' },
+  pack_pro:      { trigger: p => p.id==='pack-pro', free: ['lilivis-mill','medit-i900','lcam','ipad-pro-13','kit-mat'] },
+  pack_lab:      { trigger: p => p.id==='pack-lab', free: ['lilivis-mill','lcam','duotron-t3200','kit-mat'] },
+};
+function applyBundleRules(p) {
+  for (const key in BUNDLE_RULES) {
+    const rule = BUNDLE_RULES[key];
+    if (!rule.trigger(p)) continue;
+    (rule.addons||[]).forEach(aid => {
+      if (ofertaLines.some(l => l._id===aid)) return;
+      const a = CATALOG.find(x => x.id===aid); if (!a) return;
+      ofertaLines.push({ _id:a.id, desc:a.name, coste:(a.coste||0), pvd:a.pvd, pvp:a.pvp, dto:0, _bundle:true });
+    });
+    (rule.free||[]).forEach(fid => {
+      if (ofertaLines.some(l => l._id===fid)) return;
+      const f = CATALOG.find(x => x.id===fid); if (!f) return;
+      ofertaLines.push({ _id:f.id, desc:f.name+' (incluido sin cargo)', coste:(f.coste||0), pvd:0, pvp:0, dto:0, _free:true });
+    });
+    if (rule.suggest) {
+      const s = CATALOG.find(x => x.id===rule.suggest);
+      if (s && !ofertaLines.some(l => l._id===rule.suggest)) {
+        setTimeout(() => showToast('💡 Recomendado: '+s.name), 1200);
+      }
+    }
+  }
+}
+
+function addProductToOferta(id) {
+  const p = CATALOG.find(x => x.id === id);
+  if (!p) return;
+  ofertaLines.push({ _id:p.id, desc:p.name, coste:(p.coste||0), pvd:(p.pvd||0), pvp:(p.pvp||0), dto:0 });
+  applyBundleRules(p);
+  document.getElementById('prod-search').value = '';
+  document.getElementById('search-results').style.display = 'none';
+  renderOferta();
+}
+function addBlankLine(name='') { ofertaLines.push({ _id:null, desc:name||'Nuevo producto', coste:0, pvd:0, pvp:0, dto:0 }); renderOferta(); }
+function removeLine(i) { ofertaLines.splice(i,1); renderOferta(); }
+function updateLine(i, field, val) {
+  if (field === 'desc') ofertaLines[i].desc = val;
+  else ofertaLines[i][field] = parseFloat(val) || 0;
+  renderOferta();
+}
+
+function renderOferta() {
+  const tbody = document.getElementById('oferta-tbody');
+  const empty = document.getElementById('oferta-empty');
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+
+  if (!ofertaLines.length) { tbody.innerHTML=''; empty.style.display='block'; recalcOferta(); return; }
+  empty.style.display = 'none';
+
+  const isPvd = tipoOferta === 'pvd';
+  tbody.innerHTML = ofertaLines.map((l, i) => {
+    const precioBase = isPvd ? (l.pvd||0) : (l.pvp||0);
+    const neto = precioBase * (1 - l.dto/100);
+    const total = neto * (1 + iva/100);
+    const isFree = !!l._free;
+    const margen = isFree ? 0 : neto - (l.coste||0);
+    const mgPct = isFree ? 0 : (neto > 0 ? (margen/neto)*100 : 0);
+    const col = isFree ? 'var(--text-3)' : (mgPct >= 25 ? 'var(--green-text)' : mgPct >= 15 ? 'var(--brand)' : mgPct > 0 ? 'var(--amber-text)' : 'var(--red-text)');
+    const product = l._id ? CATALOG.find(p => p.id === l._id) : null;
+    const imgThumb = product && product.img ? `<img loading="lazy" src="${escHtml(product.img)}" class="oferta-thumb" alt="${escHtml(product.name)}" onclick="openImageModal('${product.id}')" title="Ver imagen">` : '';
+    const pvdColor = isPvd ? 'var(--purple-text)' : 'var(--text-3)';
+    const pvpColor = isPvd ? 'var(--text-3)' : 'var(--green-text)';
+    const freeBadge = isFree ? '<span style="background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;margin-left:6px">INCLUIDO</span>' : '';
+    const margenCell = isFree ? '<span style="color:var(--text-3);font-size:11px">incluido en Pack</span>' : `<span style="color:${margen>=0?'var(--green-text)':'var(--red-text)'}">${margen>=0?'+':''}${fmt(margen)}</span>`;
+    const mgPctCell = isFree ? '<span style="color:var(--text-3);font-size:11px">—</span>' : `<span style="font-size:12px;font-weight:700;color:${col}">${pct(mgPct)}</span>`;
+    return `<tr class="${isPvd?'pvd-mode':''}" ${isFree?'style="opacity:0.78"':''}>
+      <td><div class="product-cell">${imgThumb}<input class="line-input" value="${escHtml(l.desc)}" onchange="updateLine(${i},'desc',this.value)" style="min-width:140px">${freeBadge}</div></td>
+      <td class="right"><input class="line-input" type="number" value="${l.pvd||0}" onchange="updateLine(${i},'pvd',this.value)" style="width:90px;text-align:right;color:${pvdColor};font-weight:600"></td>
+      <td class="right"><input class="line-input" type="number" value="${l.pvp||0}" onchange="updateLine(${i},'pvp',this.value)" style="width:90px;text-align:right;color:${pvpColor};font-weight:600"></td>
+      <td class="right"><input class="line-input" type="number" value="${l.dto}" min="0" max="100" step="0.5" onchange="updateLine(${i},'dto',this.value)" style="width:70px;text-align:right"></td>
+      <td class="right"><strong>${fmt(neto)}</strong></td>
+      <td class="right">${fmt(total)}</td>
+      <td class="right">${margenCell}</td>
+      <td>${mgPctCell}</td>
+      <td><button class="btn-icon" onclick="removeLine(${i})">×</button></td>
+    </tr>`;
+  }).join('');
+  recalcOferta();
+}
+
+function recalcOferta() {
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  let totCoste=0, totBase=0, totNeto=0;
+  ofertaLines.forEach(l => {
+    if (!l._free) totCoste += (l.coste||0);
+    const precioBase = tipoOferta === 'pvd' ? (l.pvd||0) : (l.pvp||0);
+    totBase += precioBase;
+    totNeto += precioBase * (1 - l.dto/100);
+  });
+  const totDto = totBase - totNeto;
+  const totIva = totNeto * iva / 100;
+  const totTotal = totNeto + totIva;
+  const margenAbs = totNeto - totCoste;
+  const margenPct = totNeto > 0 ? (margenAbs/totNeto)*100 : 0;
+
+  document.getElementById('sum-coste-total').textContent = fmt(totCoste);
+  document.getElementById('sum-base').textContent = fmt(totBase);
+  document.getElementById('sum-dto').textContent = '−' + fmt(totDto);
+  document.getElementById('sum-neto').textContent = fmt(totNeto);
+  document.getElementById('sum-iva-val').textContent = fmt(totIva);
+  document.getElementById('sum-total').textContent = fmt(totTotal);
+  document.getElementById('sum-margen-abs').textContent = (margenAbs>=0?'+':'') + fmt(margenAbs);
+  document.getElementById('sum-margen-pct').textContent = pct(margenPct);
+
+  const lblTipo = document.getElementById('sum-tipo-oferta');
+  if (lblTipo) {
+    lblTipo.textContent = tipoOferta === 'pvd' ? '🏢 Oferta a distribuidor' : '👥 Oferta a cliente final';
+    lblTipo.style.color = tipoOferta === 'pvd' ? 'var(--purple-text)' : 'var(--green-text)';
+  }
+}
+
+function clearOferta() { if (ofertaLines.length && !confirm('¿Limpiar oferta actual?')) return; ofertaLines=[]; renderOferta(); }
+function saveOferta() {
+  if (!ofertaLines.length) { showToast('Añade al menos una línea'); return; }
+  const name = prompt('Nombre de la oferta:', 'Oferta '+(savedOffers.length+1));
+  if (!name) return;
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  const totNeto = ofertaLines.reduce((a,l) => a + (tipoOferta==='pvd'?(l.pvd||0):(l.pvp||0))*(1-l.dto/100), 0);
+  const totCoste = ofertaLines.reduce((a,l) => a + (l._free ? 0 : (l.coste||0)), 0);
+  const mg = totNeto > 0 ? (totNeto-totCoste)/totNeto*100 : 0;
+  savedOffers.push({
+    name, date: new Date().toLocaleDateString('es-ES'),
+    cliente: document.getElementById('oferta-cliente').value || '',
+    tipo: tipoOferta,
+    lines: JSON.parse(JSON.stringify(ofertaLines)),
+    iva, total: totNeto*(1+iva/100), margen: mg
+  });
+  try { localStorage.setItem('aldrascan_offers_v3', JSON.stringify(savedOffers)); } catch(e){}
+  renderSavedOffers(); showToast('✓ Oferta guardada: ' + name);
+}
+function loadOffer(i) {
+  const o = savedOffers[i];
+  ofertaLines = JSON.parse(JSON.stringify(o.lines));
+  document.getElementById('oferta-iva').value = o.iva;
+  if (o.tipo) document.getElementById('oferta-tipo').value = o.tipo;
+  if (o.cliente) document.getElementById('oferta-cliente').value = o.cliente;
+  renderOferta(); showToast('Oferta cargada: ' + o.name);
+}
+function deleteOffer(i) {
+  if (!confirm('¿Eliminar esta oferta?')) return;
+  savedOffers.splice(i,1);
+  try { localStorage.setItem('aldrascan_offers_v3', JSON.stringify(savedOffers)); } catch(e){}
+  renderSavedOffers();
+}
+function renderSavedOffers() {
+  const el = document.getElementById('saved-offers-list');
+  if (!savedOffers.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">💾</div>No hay ofertas guardadas aún.</div>'; return; }
+  el.innerHTML = savedOffers.map((o,i) => `<div class="saved-item" onclick="loadOffer(${i})" style="margin-bottom:8px">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:8px"><div class="saved-item-name">${escHtml(o.name)}${o.cliente?' · '+escHtml(o.cliente):''}</div><button class="btn-icon" style="font-size:11px" onclick="event.stopPropagation();deleteOffer(${i})">✕</button></div>
+    <div class="saved-item-meta">${o.date} · ${o.lines.length} líneas · Total ${fmt(o.total)} · Margen ${pct(o.margen)}</div>
+  </div>`).join('');
+}
+
+function exportOfertaCSV() {
+  if (!ofertaLines.length) { showToast('No hay líneas'); return; }
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  const rows = [['Descripción','Coste','PVD','PVP','PrecioBase','Dto%','NetoSinIVA','TotalConIVA','Margen','PctMargen']];
+  ofertaLines.forEach(l => {
+    const precioBase = tipoOferta==='pvd'?(l.pvd||0):(l.pvp||0);
+    const n = precioBase*(1-l.dto/100), mg = n-(l.coste||0), mgp = n>0?(mg/n*100).toFixed(1):'0';
+    rows.push([l.desc, l.coste||0, l.pvd||0, l.pvp||0, precioBase, l.dto, n.toFixed(0), (n*(1+iva/100)).toFixed(0), mg.toFixed(0), mgp]);
+  });
+  downloadBlob(rows.map(r => r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'), 'aldrascan-oferta-interna.csv', 'text/csv;charset=utf-8;');
+  showToast('✓ CSV exportado');
+}
+function exportOfertaExcel() {
+  if (!ofertaLines.length) { showToast('No hay líneas'); return; }
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  const ws = [['Descripción','Coste','PVD','PVP','Precio base','Dto (%)','Neto s/IVA','Total c/IVA','Margen €','% Margen']];
+  ofertaLines.forEach(l => {
+    const precioBase = tipoOferta==='pvd'?(l.pvd||0):(l.pvp||0);
+    const n = precioBase*(1-l.dto/100), mg = n-(l.coste||0), mgp = n>0?+((mg/n*100).toFixed(1)):0;
+    ws.push([l.desc, l.coste||0, l.pvd||0, l.pvp||0, precioBase, l.dto, +n.toFixed(0), +(n*(1+iva/100)).toFixed(0), +mg.toFixed(0), mgp]);
+  });
+  const wb = XLSX.utils.book_new(); const sheet = XLSX.utils.aoa_to_sheet(ws);
+  sheet['!cols'] = [{wch:42},{wch:10},{wch:10},{wch:10},{wch:12},{wch:8},{wch:14},{wch:14},{wch:12},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, sheet, 'Oferta Interna'); XLSX.writeFile(wb, 'aldrascan-oferta-interna.xlsx');
+  showToast('✓ Excel exportado');
+}
+
+// ============================================================
+// PDF PROPUESTA
+// ============================================================
+function exportOfertaPDF() {
+  if (!ofertaLines.length) { showToast('No hay líneas'); return; }
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const clienteName = document.getElementById('oferta-cliente').value || 'Cliente';
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  const totNeto = ofertaLines.reduce((a,l) => {
+    const precioBase = tipoOferta==='pvd'?(l.pvd||0):(l.pvp||0);
+    return a + precioBase*(1-l.dto/100);
+  }, 0);
+  const totIva = totNeto*iva/100, totTotal = totNeto+totIva;
+  const today = new Date();
+  const numProp = `PROP-${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}-${Math.floor(Math.random()*900)+100}`;
+  const fechaStr = today.toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
+  const validez = new Date(today.getTime()+15*24*60*60*1000);
+  const validezStr = validez.toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'});
+  const logoSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="200" height="50"><text x="0" y="52" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="48" fill="#0066FF" letter-spacing="-1">AldraScan</text><text x="2" y="72" font-family="Arial,sans-serif" font-size="14" fill="#0066FF" letter-spacing="2">Future is now</text></svg>`;
+  const logoURI = 'data:image/svg+xml;utf8,' + encodeURIComponent(logoSVG);
+  const lineasHTML = ofertaLines.map((l,i) => {
+    const precioBase = tipoOferta==='pvd'?(l.pvd||0):(l.pvp||0);
+    const n = precioBase*(1-l.dto/100), t = n*(1+iva/100);
+    const dtoBadge = l.dto>0 ? `<span style="background:#fef3c7;color:#92400e;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600">-${l.dto}%</span>` : '';
+    const product = l._id ? CATALOG.find(p => p.id === l._id) : null;
+    const imgCell = product && product.img ? `<img src="${product.img}" style="width:46px;height:46px;border-radius:5px;object-fit:cover;margin-right:10px;vertical-align:middle">` : '';
+    const descWithImg = imgCell ? `<div style="display:flex;align-items:center">${imgCell}<span>${escHtml(l.desc)}</span></div>` : escHtml(l.desc);
+    return `<tr style="border-bottom:1px solid #e5e7eb;${i%2===0?'background:#f9fafb':'background:#fff'}">
+      <td style="padding:10px 12px;font-size:13px;color:#111827">${descWithImg}</td>
+      <td style="padding:10px 12px;text-align:right;font-size:13px;color:#6b7280">${fmt(precioBase)}</td>
+      <td style="padding:10px 12px;text-align:center;font-size:12px">${l.dto>0?dtoBadge:'<span style="color:#9ca3af">—</span>'}</td>
+      <td style="padding:10px 12px;text-align:right;font-size:13px;font-weight:600;color:#111827">${fmt(n)}</td>
+      <td style="padding:10px 12px;text-align:right;font-size:13px;font-weight:700;color:#1d4ed8">${fmt(t)}</td>
+    </tr>`;
+  }).join('');
+  const html = `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Propuesta ${numProp}</title>
+<style>@page{size:A4;margin:0}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111827}
+.page{width:210mm;min-height:297mm;padding:14mm 16mm 12mm;display:flex;flex-direction:column}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:3px solid #0066FF}
+.company-block{text-align:right}.company-block .cn{font-size:18px;font-weight:900;color:#0066FF}.company-block p{font-size:11px;color:#6b7280;margin-top:3px;line-height:1.6}
+.doc-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px}
+.doc-title{font-size:26px;font-weight:900;color:#111827}.doc-title span{color:#0066FF}
+.doc-info{text-align:right}.doc-info p{font-size:12px;color:#374151;margin-bottom:4px}
+.num{font-size:13px;font-weight:700;color:#111827;background:#eff6ff;padding:4px 10px;border-radius:6px;display:inline-block}
+.vb{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #93c5fd;border-radius:10px;padding:10px 16px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.vb p{font-size:12px;color:#1e40af}.vb strong{font-size:13px;color:#1d4ed8}
+.cliente{background:#f9fafb;border-radius:8px;padding:10px 14px;margin-bottom:16px;border-left:3px solid #0066FF}
+.cliente p{font-size:12px;color:#374151;margin:0}
+table{width:100%;border-collapse:collapse;margin-bottom:20px}thead tr{background:#111827}
+thead th{padding:11px 12px;text-align:left;font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px;text-transform:uppercase}
+thead th:not(:first-child){text-align:right}thead th:nth-child(3){text-align:center}
+.tb{margin-left:auto;width:300px;margin-bottom:28px}.tr_{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #e5e7eb;font-size:13px}
+.tr_ .l{color:#6b7280}.tr_ .v{font-weight:600;color:#111827}
+.tt{display:flex;justify-content:space-between;background:#0066FF;border-radius:8px;padding:12px 16px;margin-top:8px}.tt .l{color:#bfdbfe;font-size:13px;font-weight:600}.tt .v{color:#fff;font-size:18px;font-weight:900}
+.conds{margin-bottom:20px;padding:14px 16px;background:#f9fafb;border-radius:8px;border-left:3px solid #0066FF}
+.conds h3{font-size:12px;font-weight:700;color:#111827;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}.conds p{font-size:11px;color:#4b5563;line-height:1.7}
+.footer{margin-top:auto;padding-top:16px;border-top:1px solid #e5e7eb}
+.footer .contact{display:flex;justify-content:space-between;font-size:10px;color:#6b7280;margin-bottom:10px}
+.footer .legal{font-size:9px;color:#9ca3af;line-height:1.6;text-align:center}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head>
+<body><div class="page">
+<div class="header"><div><img src="${logoURI}" alt="AldraScan" style="width:180px"><p style="font-size:10px;color:#9ca3af;margin-top:4px">La nueva era de la odontología digital</p></div>
+<div class="company-block"><div class="cn">AldraScan</div><p>CIF: B-XXXXXXXX<br>C/ Ejemplo, 123 · 28001 Madrid<br>info@aldrascan.com · aldrascan.com<br>+34 662 078 540</p></div></div>
+<div class="doc-meta"><div><div class="doc-title">Propuesta <span>Comercial</span></div><div style="font-size:12px;color:#6b7280;margin-top:4px">Equipo de Tecnología Dental Digital</div></div>
+<div class="doc-info"><p><strong>Nº</strong></p><div class="num">${numProp}</div><p style="margin-top:6px">Fecha: <strong>${fechaStr}</strong></p></div></div>
+<div class="cliente"><p><strong>Para:</strong> ${escHtml(clienteName)}</p></div>
+<div class="vb"><div style="font-size:20px">⏱</div><p>Validez <strong>15 días</strong> · Hasta <strong>${validezStr}</strong></p></div>
+<table><thead><tr><th style="width:45%">Descripción</th><th style="width:15%">Precio</th><th style="width:10%">Dto.</th><th style="width:15%">Neto s/IVA</th><th style="width:15%">Total c/IVA</th></tr></thead><tbody>${lineasHTML}</tbody></table>
+<div class="tb"><div class="tr_"><span class="l">Base imponible</span><span class="v">${fmt(totNeto)}</span></div>
+<div class="tr_"><span class="l">IVA (${iva}%)</span><span class="v">${fmt(totIva)}</span></div>
+<div class="tt"><span class="l">TOTAL</span><span class="v">${fmt(totTotal)}</span></div></div>
+<div class="conds"><h3>Condiciones</h3><p><strong>Pago:</strong> A convenir.<br><strong>Entrega:</strong> 2-4 semanas desde confirmación.<br><strong>Garantía:</strong> Oficial del fabricante.<br><strong>Validez:</strong> 15 días naturales.</p></div>
+<div class="footer"><div class="contact"><span>info@aldrascan.com</span><span>aldrascan.com</span><span>+34 662 078 540</span></div>
+<div class="legal">Precios válidos 15 días, sujetos a disponibilidad. Importes en EUR. No constituye contrato vinculante hasta aceptación formal.</div></div>
+</div></body></html>`;
+  const win = window.open('','_blank','width=900,height=700');
+  win.document.write(html); win.document.close(); win.focus();
+  setTimeout(() => win.print(), 600);
+  showToast('✓ Propuesta PDF generada');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// LEADS · autocomplete + envío Email/WhatsApp
+// ============================================================
+let LEADS = [];
+let selectedLead = null;
+try { LEADS = JSON.parse(localStorage.getItem('aldrascan_leads_v1') || '[]'); } catch(e){}
+
+function updateLeadsStatus() {
+  const el = document.getElementById('lead-status');
+  if (!el) return;
+  if (LEADS.length) {
+    el.textContent = `📇 ${LEADS.length} leads cargados`;
+    el.classList.add('has-leads');
+  } else {
+    el.textContent = '📇 Sin leads cargados';
+    el.classList.remove('has-leads');
+  }
+}
+
+function openLeadsModal() {
+  document.getElementById('leads-modal').classList.add('show');
+  document.getElementById('leads-status-msg').textContent = LEADS.length ? `${LEADS.length} leads en memoria local.` : '';
+}
+function closeLeadsModal() { document.getElementById('leads-modal').classList.remove('show'); }
+
+function handleLeadsFile(file) {
+  if (!file) return;
+  const ext = file.name.split('.').pop().toLowerCase();
+  const status = document.getElementById('leads-status-msg');
+  status.textContent = '⏳ Procesando…';
+  if (ext === 'html' || ext === 'htm') {
+    const reader = new FileReader();
+    reader.onload = e => parseLeadsHtml(e.target.result);
+    reader.readAsText(file);
+  } else if (ext === 'xlsx' || ext === 'xls') {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(ws, {raw:false, defval:''});
+        parseLeadsRows(rows);
+      } catch(err) { status.textContent = '❌ Error leyendo XLSX: ' + err.message; }
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    status.textContent = '❌ Formato no soportado. Usa .html o .xlsx';
+  }
+}
+
+function parseLeadsHtml(text) {
+  const status = document.getElementById('leads-status-msg');
+  // Soporta `const LEADS = [...];` y variantes
+  const m = text.match(/(?:const|let|var)\s+LEADS\s*=\s*(\[[\s\S]*?\])\s*;/);
+  if (!m) { status.textContent = '❌ No se encontró la variable LEADS en el HTML'; return; }
+  try {
+    const arr = JSON.parse(m[1]);
+    parseLeadsRows(arr);
+  } catch(e) { status.textContent = '❌ Error parseando LEADS: ' + e.message; }
+}
+
+function parseLeadsRows(rows) {
+  const status = document.getElementById('leads-status-msg');
+  if (!rows || !rows.length) { status.textContent = '❌ No hay leads en el archivo'; return; }
+  const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  LEADS = rows.map(r => {
+    const out = {};
+    Object.keys(r).forEach(k => {
+      const nk = norm(k);
+      const v = r[k];
+      if (nk.includes('nombre') && !out.nombre) out.nombre = String(v||'').trim();
+      else if (nk.includes('clinic') && !out.clinica) out.clinica = String(v||'').trim();
+      else if ((nk.includes('telef') || nk.includes('phone') || nk === 'tel') && !out.telefono) out.telefono = String(v||'').trim();
+      else if ((nk.includes('email') || nk.includes('mail')) && !out.email) out.email = String(v||'').trim();
+      else if (nk.includes('ciudad') && !out.ciudad) out.ciudad = String(v||'').trim();
+      else if (nk.includes('priorid') && !out.prioridad) out.prioridad = String(v||'').trim();
+      else if (nk.includes('score') && !out.score) out.score = parseInt(v) || 0;
+      else if (nk.includes('web') && !out.web) out.web = String(v||'').trim();
+      else if (nk.includes('angulo') && !out.angulo) out.angulo = String(v||'').trim();
+    });
+    return out;
+  }).filter(l => l.nombre || l.clinica);
+  try { localStorage.setItem('aldrascan_leads_v1', JSON.stringify(LEADS)); } catch(e){}
+  updateLeadsStatus();
+  status.textContent = `✓ ${LEADS.length} leads cargados`;
+  setTimeout(closeLeadsModal, 900);
+  showToast(`📇 ${LEADS.length} leads cargados`);
+}
+
+function clearLeads() {
+  if (!confirm('¿Borrar todos los leads cargados de este navegador?')) return;
+  LEADS = []; selectedLead = null;
+  try { localStorage.removeItem('aldrascan_leads_v1'); } catch(e){}
+  updateLeadsStatus();
+  document.getElementById('leads-status-msg').textContent = '✓ Leads borrados';
+  document.getElementById('lead-info').style.display = 'none';
+}
+
+function leadAutocomplete(q) {
+  const sugBox = document.getElementById('lead-suggestions');
+  if (!q || q.length < 2 || !LEADS.length) { sugBox.style.display='none'; return; }
+  const ql = q.toLowerCase();
+  const matches = LEADS
+    .map((l, i) => ({ l, i }))
+    .filter(({l}) =>
+      (l.nombre||'').toLowerCase().includes(ql) ||
+      (l.clinica||'').toLowerCase().includes(ql) ||
+      (l.email||'').toLowerCase().includes(ql) ||
+      (l.ciudad||'').toLowerCase().includes(ql)
+    )
+    .slice(0, 8);
+  if (!matches.length) { sugBox.style.display='none'; return; }
+  sugBox.style.display = 'block';
+  sugBox.innerHTML = matches.map(({l, i}) => {
+    const prio = l.prioridad || '';
+    const isHot = /hot|🔥/i.test(prio);
+    const isWarm = /warm|☀|sun/i.test(prio);
+    const isCold = /cold|❄/i.test(prio);
+    const prioCol = isHot ? '#f97316' : isWarm ? '#eab308' : isCold ? '#3b82f6' : 'transparent';
+    const prioLabel = isHot ? 'HOT' : isWarm ? 'WARM' : isCold ? 'COLD' : prio.replace(/[^\w\s]/g,'').trim();
+    return `<div class="lead-suggestion" onclick="selectLead(${i})">
+      <div style="min-width:0;flex:1">
+        <div class="lead-name">${escHtml(l.nombre||'(sin nombre)')}${l.clinica?' · '+escHtml(l.clinica):''}</div>
+        <div class="lead-meta">${[l.ciudad, l.telefono, l.email].filter(Boolean).map(escHtml).join(' · ')}</div>
+      </div>
+      ${prioLabel ? `<span class="lead-priority" style="background:${prioCol}22;color:${prioCol}">${escHtml(prioLabel)}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function selectLead(idx) {
+  selectedLead = LEADS[idx];
+  if (!selectedLead) return;
+  const display = (selectedLead.nombre||'') + (selectedLead.clinica ? ' · ' + selectedLead.clinica : '');
+  document.getElementById('oferta-cliente').value = display;
+  document.getElementById('lead-suggestions').style.display = 'none';
+  const info = document.getElementById('lead-info');
+  info.style.display = 'flex';
+  info.innerHTML = [
+    selectedLead.email ? `<span>📧 ${escHtml(selectedLead.email)}</span>` : '',
+    selectedLead.telefono ? `<span>📞 ${escHtml(selectedLead.telefono)}</span>` : '',
+    selectedLead.ciudad ? `<span>📍 ${escHtml(selectedLead.ciudad)}</span>` : '',
+    selectedLead.web ? `<span><a href="${escHtml(selectedLead.web)}" target="_blank" style="color:inherit">🌐 web</a></span>` : '',
+    `<button class="clear-lead" onclick="clearSelectedLead()" title="Quitar lead">×</button>`
+  ].filter(Boolean).join('');
+}
+
+function clearSelectedLead() {
+  selectedLead = null;
+  document.getElementById('lead-info').style.display = 'none';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#oferta-cliente') && !e.target.closest('#lead-suggestions')) {
+    const sb = document.getElementById('lead-suggestions');
+    if (sb) sb.style.display = 'none';
+  }
+});
+
+// Drag/drop también en la zona de leads
+document.addEventListener('DOMContentLoaded', () => {
+  const dz = document.getElementById('leads-drop');
+  if (dz) {
+    ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('dragover'); }));
+    ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('dragover'); }));
+    dz.addEventListener('drop', e => { if (e.dataTransfer.files.length) handleLeadsFile(e.dataTransfer.files[0]); });
+  }
+});
+
+// ============================================================
+// ENVÍO · Email + WhatsApp
+// ============================================================
+function buildOfertaSummary() {
+  const tipoOferta = document.getElementById('oferta-tipo').value;
+  const iva = parseFloat(document.getElementById('oferta-iva').value) || 0;
+  const linesArr = ofertaLines.map(l => {
+    const precioBase = tipoOferta==='pvd' ? (l.pvd||0) : (l.pvp||0);
+    const n = precioBase * (1 - l.dto/100);
+    return { desc:l.desc, neto:n, dto:l.dto };
+  });
+  const totNeto = linesArr.reduce((a,l) => a + l.neto, 0);
+  const totIva = totNeto * iva / 100;
+  const totTotal = totNeto + totIva;
+  const today = new Date();
+  const validez = new Date(today.getTime() + 15*24*60*60*1000);
+  return {
+    linesArr, totNeto, totIva, totTotal, iva,
+    fecha: today.toLocaleDateString('es-ES'),
+    validez: validez.toLocaleDateString('es-ES'),
+  };
+}
+
+function sendOfertaEmail() {
+  if (!ofertaLines.length) { showToast('No hay líneas en la oferta'); return; }
+  let email = selectedLead?.email || '';
+  if (!email) {
+    email = prompt('Email del destinatario:');
+    if (!email) return;
+  }
+  const cliente = document.getElementById('oferta-cliente').value || 'Cliente';
+  const firstName = selectedLead?.nombre ? selectedLead.nombre.split(' ')[0] : '';
+  const s = buildOfertaSummary();
+  const linesText = s.linesArr.map(l =>
+    `• ${l.desc} — ${fmt(l.neto)}${l.dto>0?` (-${l.dto}%)`:''}`
+  ).join('\n');
+  const subject = `Propuesta AldraScan — ${cliente}`;
+  const body = `Hola${firstName?' '+firstName:''},
+
+Te envío la propuesta comercial AldraScan resumida:
+
+${linesText}
+
+──────────────────
+Neto sin IVA:  ${fmt(s.totNeto)}
+IVA (${s.iva}%):${' '.repeat(Math.max(1, 9-String(s.iva).length))}${fmt(s.totIva)}
+TOTAL:         ${fmt(s.totTotal)}
+──────────────────
+
+Fecha: ${s.fecha}
+Validez: hasta ${s.validez} (15 días naturales)
+
+Te paso por separado el PDF detallado con condiciones de pago, entrega y garantía. Si te encaja, agendamos una llamada para resolver dudas.
+
+Un saludo,
+Ricardo Adriasola
+AldraScan · Odontología Digital B2B
++34 662 078 540 · info@aldrascan.com`;
+  const url = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = url;
+  showToast('📧 Abriendo cliente de correo…');
+}
+
+function sendOfertaWhatsApp() {
+  if (!ofertaLines.length) { showToast('No hay líneas en la oferta'); return; }
+  let phone = selectedLead?.telefono || '';
+  if (!phone) {
+    phone = prompt('Teléfono del destinatario (con prefijo, ej. +34662078540):');
+    if (!phone) return;
+  }
+  // Limpiar teléfono: solo dígitos. wa.me admite formato sin +
+  let cleaned = String(phone).replace(/[^\d]/g, '');
+  if (!cleaned) { showToast('Teléfono no válido'); return; }
+  // Si es número español sin prefijo (9 dígitos), añadir 34
+  if (cleaned.length === 9 && /^[679]/.test(cleaned)) cleaned = '34' + cleaned;
+  const firstName = selectedLead?.nombre ? selectedLead.nombre.split(' ')[0] : '';
+  const s = buildOfertaSummary();
+  const linesText = s.linesArr.map(l =>
+    `• ${l.desc} — ${fmt(l.neto)}${l.dto>0?` (-${l.dto}%)`:''}`
+  ).join('\n');
+  const greeting = firstName ? `Hola ${firstName}` : 'Hola';
+  const text = `${greeting}, te paso resumen de la propuesta AldraScan:
+
+${linesText}
+
+*Total con IVA: ${fmt(s.totTotal)}*
+Validez: 15 días
+
+Si te encaja, te paso el PDF detallado y agendamos una llamada. Un saludo,
+Ricardo · AldraScan
++34 662 078 540`;
+  const url = `https://wa.me/${cleaned}?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+  showToast('💬 Abriendo WhatsApp…');
+}
+
+// ============================================================
+// MODAL IMAGEN PRODUCTO
+// ============================================================
+function openImageModal(productId) {
+  const product = CATALOG.find(p => p.id === productId);
+  if (!product || !product.img) { showToast('Imagen no disponible'); return; }
+  document.getElementById('modal-product-img').src = product.img;
+  document.getElementById('modal-product-img').alt = product.name;
+  document.getElementById('modal-product-name').textContent = product.name;
+  document.getElementById('modal-product-sub').textContent = [product.sub, CAT_META[product.cat]?.label].filter(Boolean).join(' · ');
+  document.getElementById('image-modal').classList.add('show');
+}
+function closeImageModal() { document.getElementById('image-modal').classList.remove('show'); }
+
+// ESC closes image modal too
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('image-modal').classList.contains('show')) closeImageModal();
+});
+
+// ============================================================
+// INIT
+// ============================================================
+updateLeadsStatus();
+buildFilterRow();
+renderCatalog();
+renderCalcRef();
+calcVenta();
+calcMargen();
+renderSavedOffers();
+populateCompareSelects();
+renderPackProducts();
+renderOferta();
+</script>
+
+<!-- ============================================================ -->
+<!-- TWEAKS PANEL — React + Babel runtime customization           -->
+<!-- ============================================================ -->
+<script type="text/babel">
+// ─── Tweaks panel library (inlined from tweaks-panel.jsx) ───────────────────
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.92);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 'Montserrat',ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:pointer;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:pointer}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:pointer}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:pointer;padding:4px 6px;line-height:1.2}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:pointer;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:pointer;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+function TweaksPanel({ open, onClose, title = 'Tweaks', children }) {
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    window.addEventListener('resize', clampToViewport);
+    return () => window.removeEventListener('resize', clampToViewport);
+  }, [open, clampToViewport]);
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel"
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={onClose}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label }) { return <div className="twk-sect">{label}</div>; }
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" className="twk-seg">
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio"
+                  aria-checked={o.value === value}
+                  onClick={() => onChange(o.value)}>{o.label}</button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+function TweakColor({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((c, i) => {
+          const on = String(value).toLowerCase() === String(c).toLowerCase();
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={c} title={c}
+                    style={{ background: c }}
+                    onClick={() => onChange(c)}>
+              {on && (
+                <svg viewBox="0 0 14 14" aria-hidden="true">
+                  <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+                        strokeLinecap="round" strokeLinejoin="round"
+                        stroke={__twkIsLight(c) ? 'rgba(0,0,0,.78)' : '#fff'} />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+// ─── TweaksApp — wires controls to dashboard CSS variables ──────────────────
+const TWEAK_STORAGE_KEY = 'aldrascan.tweaks.v1';
+
+const TWEAK_DEFAULTS = {
+  primaryColor: '#0066ff',
+  cardPadding: 28,
+  fontSize: 13,
+  shadow: 'medium',
+  dark: false,
+};
+
+function loadTweaks() {
+  try {
+    const raw = localStorage.getItem(TWEAK_STORAGE_KEY);
+    return raw ? { ...TWEAK_DEFAULTS, ...JSON.parse(raw) } : { ...TWEAK_DEFAULTS };
+  } catch (e) { return { ...TWEAK_DEFAULTS }; }
+}
+
+function applyTweaks(t) {
+  const root = document.documentElement;
+  if (t.primaryColor) {
+    root.style.setProperty('--brand', t.primaryColor);
+    root.style.setProperty('--brand-2', t.primaryColor);
+  }
+  if (t.shadow === 'light') {
+    root.style.setProperty('--shadow', '0 1px 4px rgba(15,23,42,0.02), 0 2px 6px rgba(15,23,42,0.02)');
+  } else if (t.shadow === 'heavy') {
+    root.style.setProperty('--shadow', '0 4px 12px rgba(15,23,42,0.08), 0 8px 20px rgba(15,23,42,0.10)');
+  } else {
+    root.style.setProperty('--shadow', '0 1px 3px rgba(15,23,42,0.05), 0 4px 12px rgba(15,23,42,0.04), 0 12px 24px -8px rgba(15,23,42,0.05)');
+  }
+  if (typeof t.cardPadding === 'number') {
+    document.querySelectorAll('.kpi-card').forEach((el) => { el.style.padding = t.cardPadding + 'px'; });
+  }
+  if (typeof t.fontSize === 'number') {
+    root.style.setProperty('--tweak-body-font-size', t.fontSize + 'px');
+  }
+  root.setAttribute('data-theme', t.dark ? 'dark' : 'light');
+}
+
+function TweaksApp() {
+  const [open, setOpen] = React.useState(false);
+  const [t, setT] = React.useState(loadTweaks);
+
+  // Apply on mount + on every change.
+  React.useEffect(() => { applyTweaks(t); }, [t]);
+
+  // Listen for the top-bar button event.
+  React.useEffect(() => {
+    const onToggle = () => setOpen((v) => !v);
+    window.addEventListener('toggle-tweaks', onToggle);
+    return () => window.removeEventListener('toggle-tweaks', onToggle);
+  }, []);
+
+  // Keep dark toggle in sync with the existing themeBtn.
+  React.useEffect(() => {
+    const obs = new MutationObserver(() => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setT((prev) => prev.dark === isDark ? prev : { ...prev, dark: isDark });
+    });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => obs.disconnect();
+  }, []);
+
+  const setTweak = (key, value) => {
+    setT((prev) => {
+      const next = { ...prev, [key]: value };
+      try { localStorage.setItem(TWEAK_STORAGE_KEY, JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  };
+
+  return (
+    <TweaksPanel open={open} onClose={() => setOpen(false)} title="Tweaks">
+      <TweakSection label="Color & tema" />
+      <TweakColor
+        label="Marca"
+        value={t.primaryColor}
+        options={['#0066ff', '#2563eb', '#7c3aed', '#dc2626', '#059669']}
+        onChange={(v) => setTweak('primaryColor', v)}
+      />
+      <TweakToggle
+        label="Modo oscuro"
+        value={t.dark}
+        onChange={(v) => setTweak('dark', v)}
+      />
+
+      <TweakSection label="Layout" />
+      <TweakSlider
+        label="Padding tarjetas"
+        value={t.cardPadding}
+        min={16} max={40} step={2} unit="px"
+        onChange={(v) => setTweak('cardPadding', v)}
+      />
+      <TweakRadio
+        label="Sombras"
+        value={t.shadow}
+        options={['light', 'medium', 'heavy']}
+        onChange={(v) => setTweak('shadow', v)}
+      />
+
+      <TweakSection label="Tipografía" />
+      <TweakSlider
+        label="Tamaño cuerpo"
+        value={t.fontSize}
+        min={11} max={15} step={0.5} unit="px"
+        onChange={(v) => setTweak('fontSize', v)}
+      />
+    </TweaksPanel>
+  );
+}
+
+// Apply persisted tweaks before React mounts so they're visible on first paint.
+applyTweaks(loadTweaks());
+
+const __twkContainer = document.createElement('div');
+document.body.appendChild(__twkContainer);
+ReactDOM.createRoot(__twkContainer).render(<TweaksApp />);
+</script>
+</body>
+</html>
