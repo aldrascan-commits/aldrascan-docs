@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
-import '../utils/url_helper.dart';
-import '../data/products_data.dart';
-import '../models/product.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../data/dashboard_catalog.dart';
 import '../theme/app_theme.dart';
-import '../widgets/product_card.dart';
-import 'product_detail_screen.dart';
+import '../widgets/dashboard_product_card.dart';
+import 'dashboard_product_detail_screen.dart';
 
+/// Pantalla "Ofertas Expodental" — ahora basada en [DashboardCatalog].
+/// Muestra los productos con mayor margen interno como "ofertas estrella"
+/// (visualmente lo mismo que antes, pero alimentado por la fuente única).
 class OffersScreen extends StatelessWidget {
   const OffersScreen({super.key});
 
-  Future<void> _openWhatsApp(String url) async => openUrl(url);
-
-  List<Product> get _offersProducts => ProductData.products
-      .where((p) =>
-          p.financing != null ||
-          (p.badge != null &&
-              (p.badge!.toLowerCase().contains('oferta') ||
-               p.badge!.toLowerCase().contains('estrella') ||
-               p.badge!.toLowerCase().contains('top') ||
-               p.badge!.toLowerCase().contains('ahorra') ||
-               p.badge!.toLowerCase().contains('%') ||
-               p.badge!.toLowerCase().contains('regalo'))))
-      .toList();
+  /// Selecciona productos "estrella" por margen relativo y filtro de precio
+  /// mínimo. Devuelve hasta 24 elementos ordenados de mayor a menor margen €.
+  List<DashboardProduct> get _topOffers {
+    final candidates = DashboardCatalog.products
+        .where((p) => p.coste > 1000 && p.pvp > p.coste)
+        .toList();
+    candidates.sort((a, b) => (b.pvp - b.coste).compareTo(a.pvp - a.coste));
+    return candidates.take(24).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final offers = _offersProducts;
+    final offers = _topOffers;
 
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        title: const Text('Ofertas Expodental'),
+        title: Text(
+          'Ofertas Expodental',
+          style: GoogleFonts.inter(
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+            letterSpacing: -0.3,
+          ),
+        ),
         backgroundColor: AppTheme.surface,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
@@ -43,38 +48,36 @@ class OffersScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Banner Expodental
-                _ExpoDentalBanner(),
+                const _ExpoDentalBanner(),
                 const SizedBox(height: 16),
-
-                // Stats row
-                _StatsRow(),
+                const _StatsRow(),
                 const SizedBox(height: 20),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Ofertas especiales Expodental 2026',
-                        style: TextStyle(
+                        style: GoogleFonts.inter(
                           fontSize: 17,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w800,
                           color: AppTheme.textPrimary,
+                          letterSpacing: -0.3,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${offers.length} productos con condiciones únicas',
-                        style: const TextStyle(
-                            fontSize: 12, color: AppTheme.textSecondary),
+                        '${offers.length} productos seleccionados por margen',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          color: AppTheme.textSecondary,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 12),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: GridView.builder(
@@ -88,23 +91,23 @@ class OffersScreen extends StatelessWidget {
                       mainAxisSpacing: 12,
                     ),
                     itemCount: offers.length,
-                    itemBuilder: (ctx, i) => ProductCard(
-                      product: offers[i],
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              ProductDetailScreen(product: offers[i]),
+                    itemBuilder: (ctx, i) {
+                      final p = offers[i];
+                      return DashboardProductCard(
+                        product: p,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                DashboardProductDetailScreen(product: p),
+                          ),
                         ),
-                      ),
-                      onWhatsApp: () => _openWhatsApp(offers[i].whatsappUrl),
-                    ),
+                      );
+                    },
                   ),
                 ),
-
                 const SizedBox(height: 20),
-                // Banner financiación
-                _FinancingBanner(),
+                const _FinancingBanner(),
                 const SizedBox(height: 32),
               ],
             ),
@@ -115,8 +118,10 @@ class OffersScreen extends StatelessWidget {
   }
 }
 
-// ── Expodental Banner ─────────────────────────────────────────────────────────
+// ── Expodental Banner ────────────────────────────────────────────────
 class _ExpoDentalBanner extends StatelessWidget {
+  const _ExpoDentalBanner();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,34 +142,35 @@ class _ExpoDentalBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Text(
+                  child: Text(
                     '⚡ EXPODENTAL 2026',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       color: Colors.white,
                       fontSize: 10,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Precios especiales\nde feria',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.white,
                     fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
                     height: 1.2,
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Financiación hasta 60 meses\nInstalación y formación incluidas',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.white70,
                     fontSize: 12,
                     height: 1.4,
@@ -188,15 +194,18 @@ class _ExpoDentalBanner extends StatelessWidget {
   }
 }
 
-// ── Stats Row ─────────────────────────────────────────────────────────────────
+// ── Stats Row ────────────────────────────────────────────────────────
 class _StatsRow extends StatelessWidget {
+  const _StatsRow();
+
   @override
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
-          Expanded(child: _StatCard(value: '+200', label: 'Clínicas digitalizadas')),
+          Expanded(
+              child: _StatCard(value: '+200', label: 'Clínicas digitalizadas')),
           SizedBox(width: 8),
           Expanded(child: _StatCard(value: '24/7', label: 'Soporte técnico')),
           SizedBox(width: 8),
@@ -223,25 +232,33 @@ class _StatCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(value,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: AppTheme.primary,
-              )),
+          Text(
+            value,
+            style: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppTheme.primary,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 10, color: AppTheme.textSecondary),
-              textAlign: TextAlign.center),
+          Text(
+            label,
+            style: GoogleFonts.inter(
+              fontSize: 10,
+              color: AppTheme.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
   }
 }
 
-// ── Financing Banner ──────────────────────────────────────────────────────────
+// ── Financing Banner ─────────────────────────────────────────────────
 class _FinancingBanner extends StatelessWidget {
+  const _FinancingBanner();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -265,23 +282,25 @@ class _FinancingBanner extends StatelessWidget {
                 color: Colors.white, size: 22),
           ),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Financiación hasta 60 meses',
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
                     color: AppTheme.textPrimary,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   'Sujeta a aprobación. Cuotas desde 98€/mes',
-                  style: TextStyle(
-                      fontSize: 11, color: AppTheme.textSecondary),
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    color: AppTheme.textSecondary,
+                  ),
                 ),
               ],
             ),

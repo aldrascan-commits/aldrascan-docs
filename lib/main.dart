@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'theme/app_theme.dart';
+import 'services/oferta_service.dart';
 import 'screens/home_screen.dart';
 import 'screens/catalog_screen.dart';
 import 'screens/offers_screen.dart';
@@ -10,6 +12,10 @@ import 'screens/downloads_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/expo_offers_screen.dart';
 import 'screens/pack_aldrascan_pro_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/packs_screen.dart';
+import 'screens/calculator_screen.dart';
+import 'screens/offer_builder_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,11 +37,14 @@ class AldraScanApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AldraScan',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const MainShell(),
+    return ChangeNotifierProvider<OfertaService>(
+      create: (_) => OfertaService(),
+      child: MaterialApp(
+        title: 'AldraScan',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        home: const MainShell(),
+      ),
     );
   }
 }
@@ -53,19 +62,29 @@ class _MainShellState extends State<MainShell>
   String? _catalogCategory;
   late AnimationController _fabController;
 
+  // Índices fijos (mantener sincronizado con _PremiumBottomNav._items):
+  // 0 Inicio · 1 Catálogo · 2 Dashboard · 3 Packs · 4 Calc · 5 Oferta
+  // 6 Expo · 7 Pack Pro · 8 Ofertas · 9 Quiz · 10 Recursos · 11 Contacto
+  static const int _idxPackPro = 7;
+  static const int _idxCatalog = 1;
+
   List<Widget> get _screens => [
     HomeScreen(
       onNavigateToCatalog: (cat) {
         setState(() {
           _catalogCategory = cat;
-          _currentIndex = 1;
+          _currentIndex = _idxCatalog;
         });
       },
       onNavigateToPackPro: () {
-        setState(() => _currentIndex = 3);
+        setState(() => _currentIndex = _idxPackPro);
       },
     ),
     CatalogScreen(initialCategory: _catalogCategory),
+    const DashboardScreen(),
+    const PacksScreen(),
+    const CalculatorScreen(),
+    const OfferBuilderScreen(),
     const ExpoOffersScreen(),
     const PackAldrascanProScreen(),
     const OffersScreen(),
@@ -93,7 +112,7 @@ class _MainShellState extends State<MainShell>
     if (_currentIndex == index) return;
     HapticFeedback.selectionClick();
     _fabController.reset();
-    if (index != 1) _catalogCategory = null;
+    if (index != _idxCatalog) _catalogCategory = null;
     setState(() => _currentIndex = index);
     _fabController.forward();
   }
@@ -134,6 +153,10 @@ class _PremiumBottomNav extends StatelessWidget {
   static const _items = [
     _NavItem(icon: Icons.home_outlined,     activeIcon: Icons.home_rounded,     label: 'Inicio'),
     _NavItem(icon: Icons.grid_view_outlined, activeIcon: Icons.grid_view_rounded, label: 'Catálogo'),
+    _NavItem(icon: Icons.dashboard_outlined, activeIcon: Icons.dashboard_rounded, label: 'Dashboard'),
+    _NavItem(icon: Icons.inventory_2_outlined, activeIcon: Icons.inventory_2_rounded, label: 'Packs'),
+    _NavItem(icon: Icons.calculate_outlined,   activeIcon: Icons.calculate_rounded,   label: 'Calc'),
+    _NavItem(icon: Icons.receipt_long_outlined,activeIcon: Icons.receipt_long_rounded,label: 'Oferta'),
     _NavItem(icon: Icons.star_outline,      activeIcon: Icons.star_rounded,      label: 'Expo',    isSpecial: true),
     _NavItem(icon: Icons.workspace_premium_outlined, activeIcon: Icons.workspace_premium_rounded, label: 'Pack Pro', isSpecial: false),
     _NavItem(icon: Icons.local_offer_outlined, activeIcon: Icons.local_offer,    label: 'Ofertas'),
@@ -158,14 +181,22 @@ class _PremiumBottomNav extends StatelessWidget {
               top: 4,
               bottom: bottomPadding > 0 ? bottomPadding : 8,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(
-                _items.length,
-                (i) => _NavTabButton(
-                  item: _items[i],
-                  isSelected: currentIndex == i,
-                  onTap: () => onTap(i),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                  _items.length,
+                  (i) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: _NavTabButton(
+                      item: _items[i],
+                      isSelected: currentIndex == i,
+                      onTap: () => onTap(i),
+                    ),
+                  ),
                 ),
               ),
             ),

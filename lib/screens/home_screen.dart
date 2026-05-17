@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../utils/url_helper.dart';
-import '../data/products_data.dart';
+import '../data/dashboard_catalog.dart';
 import '../theme/app_theme.dart';
-import '../widgets/product_card.dart';
-import 'product_detail_screen.dart';
+import '../widgets/dashboard_product_card.dart';
+import 'dashboard_product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function(String category)? onNavigateToCatalog;
@@ -94,7 +94,13 @@ class HomeScreen extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-    final featured = ProductData.featured;
+    // Destacados: productos con foto, ordenados por PVP desc, primeros 6.
+    final featured = (DashboardCatalog.products
+            .where((p) => p.asset != null && p.pvp > 0)
+            .toList()
+          ..sort((a, b) => b.pvp.compareTo(a.pvp)))
+        .take(6)
+        .toList();
 
     return Scaffold(
       backgroundColor: AppTheme.background,
@@ -218,14 +224,16 @@ class HomeScreen extends StatefulWidget {
                         mainAxisSpacing: 12,
                       ),
                       itemCount: featured.length,
-                      itemBuilder: (ctx, i) => ProductCard(
+                      itemBuilder: (ctx, i) => DashboardProductCard(
                         product: featured[i],
-                        onTap: () => Navigator.push(context,
+                        onTap: () => Navigator.push(
+                          context,
                           MaterialPageRoute(
-                            builder: (_) => ProductDetailScreen(product: featured[i]),
+                            builder: (_) => DashboardProductDetailScreen(
+                              product: featured[i],
+                            ),
                           ),
                         ),
-                        onWhatsApp: () => _openWhatsApp(featured[i].whatsappUrl),
                       ),
                     ),
                   ),

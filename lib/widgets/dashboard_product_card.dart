@@ -1,86 +1,112 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../data/dashboard_catalog.dart';
 import '../theme/app_theme.dart';
+import '../utils/url_helper.dart';
 
-class ProductCard extends StatefulWidget {
-  final Product product;
+/// Tarjeta de producto basada en [DashboardProduct] (catálogo unificado).
+/// Reemplaza al antiguo [ProductCard] que dependía del modelo legacy `Product`.
+class DashboardProductCard extends StatefulWidget {
+  final DashboardProduct product;
   final VoidCallback onTap;
-  final VoidCallback onWhatsApp;
 
-  const ProductCard({
+  /// Modo de presentación de precio: 'pvp' (cliente final) o 'pvd' (distribuidor)
+  final String priceMode;
+
+  /// Texto opcional de WhatsApp personalizado. Si es null se usa uno genérico.
+  final String? whatsappMessage;
+
+  const DashboardProductCard({
     super.key,
     required this.product,
     required this.onTap,
-    required this.onWhatsApp,
+    this.priceMode = 'pvp',
+    this.whatsappMessage,
   });
 
   @override
-  State<ProductCard> createState() => _ProductCardState();
+  State<DashboardProductCard> createState() => _DashboardProductCardState();
 }
 
-class _ProductCardState extends State<ProductCard>
+class _DashboardProductCardState extends State<DashboardProductCard>
     with SingleTickerProviderStateMixin {
-  late AnimationController _scaleController;
-  late Animation<double> _scaleAnimation;
-  bool _isHovered = false;
+  late final AnimationController _scaleCtrl;
+  bool _hover = false;
 
   @override
   void initState() {
     super.initState();
-    _scaleController = AnimationController(
+    _scaleCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 140),
       lowerBound: 0.96,
       upperBound: 1.0,
     )..value = 1.0;
-    _scaleAnimation = CurvedAnimation(
-      parent: _scaleController,
-      curve: Curves.easeOutCubic,
-    );
   }
 
   @override
   void dispose() {
-    _scaleController.dispose();
+    _scaleCtrl.dispose();
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails _) => _scaleController.reverse();
-  void _onTapUp(TapUpDetails _) {
-    _scaleController.forward();
-    widget.onTap();
+  String _euro(double v) {
+    if (v <= 0) return 'Consultar';
+    final p = v.toInt();
+    final s = p.toString().replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (m) => '${m[1]}.',
+        );
+    return '$s €';
   }
-  void _onTapCancel() => _scaleController.forward();
+
+  void _openWhatsApp() {
+    final msg = widget.whatsappMessage ??
+        'Hola, me interesa el producto ${widget.product.name} (ref: ${widget.product.id}). ¿Podéis pasarme información?';
+    final url =
+        'https://wa.me/34662078540?text=${Uri.encodeComponent(msg)}';
+    openUrl(url);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final product = widget.product;
-    final isScanner = product.category == 'scanner';
+    final p = widget.product;
+    final cat = DashboardCatalog.catOf(p.cat);
+    final brandColor =
+        DashboardCatalog.brandColors[p.sub] ?? AppTheme.primary;
+    final isScanner = p.cat == 'scanner';
+    final hasPhoto = p.asset != null;
+    final price = widget.priceMode == 'pvd' ? p.pvd : p.pvp;
 
     return ScaleTransition(
-      scale: _scaleAnimation,
+      scale: _scaleCtrl,
       child: MouseRegion(
-        onEnter: (_) => setState(() => _isHovered = true),
-        onExit: (_) => setState(() => _isHovered = false),
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
         child: GestureDetector(
-          onTapDown: _onTapDown,
-          onTapUp: _onTapUp,
-          onTapCancel: _onTapCancel,
+          onTapDown: (_) => _scaleCtrl.reverse(),
+          onTapUp: (_) {
+            _scaleCtrl.forward();
+            HapticFeedback.selectionClick();
+            widget.onTap();
+          },
+          onTapCancel: () => _scaleCtrl.forward(),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               color: AppTheme.cardBg,
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: _isHovered
-                    ? AppTheme.primary.withValues(alpha: 0.4)
+                color: _hover
+                    ? brandColor.withValues(alpha: 0.55)
                     : AppTheme.divider,
                 width: 1.2,
               ),
-              boxShadow: _isHovered
+              boxShadow: _hover
                   ? [
                       BoxShadow(
-                        color: AppTheme.primary.withValues(alpha: 0.15),
+                        color: brandColor.withValues(alpha: 0.18),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
                       ),
@@ -91,28 +117,23 @@ class _ProductCardState extends State<ProductCard>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ── Imagen ──────────────────────────────────────────────────
+                // ── Imagen / placeholder ────────────────────────────────
                 Stack(
                   children: [
                     AspectRatio(
                       aspectRatio: 1.05,
-                      child: Image.asset(
-                        product.imageAsset,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: AppTheme.surfaceVariant,
-                          child: const Center(
-                            child: Icon(Icons.image_outlined,
-                                size: 40, color: AppTheme.textHint),
-                          ),
-                        ),
-                      ),
+                      child: hasPhoto
+                          ? Image.asset(
+                              p.asset!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) =>
+                                  _Placeholder(cat: cat, color: brandColor),
+                            )
+                          : _Placeholder(cat: cat, color: brandColor),
                     ),
-                    // Gradiente inferior imagen
+                    // Gradient inferior para legibilidad
                     Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
+                      bottom: 0, left: 0, right: 0,
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
@@ -127,52 +148,39 @@ class _ProductCardState extends State<ProductCard>
                         ),
                       ),
                     ),
-                    // Badge
-                    if (product.badge != null)
-                      Positioned(
-                        top: 8,
-                        left: 8,
-                        child: _BadgeChip(
-                          label: product.badge!,
-                          color: AppTheme.badgeColor(product.badge),
-                        ),
+                    // Badge categoría (top-left)
+                    Positioned(
+                      top: 8,
+                      left: 8,
+                      child: _Pill(
+                        label: '${cat.icon} ${cat.label}',
+                        color: brandColor,
                       ),
-                    // Featured star
-                    if (product.isFeatured)
+                    ),
+                    // Badge marca (top-right) si hay
+                    if (p.sub.isNotEmpty)
                       Positioned(
                         top: 8,
                         right: 8,
-                        child: Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFF8E1),
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.amber.withValues(alpha: 0.4),
-                                blurRadius: 8,
-                              ),
-                            ],
-                          ),
-                          child: const Icon(Icons.star_rounded,
-                              size: 16, color: Color(0xFFF9A825)),
+                        child: _Pill(
+                          label: p.sub,
+                          color: brandColor,
+                          inverted: true,
                         ),
                       ),
                   ],
                 ),
 
-                // ── Contenido ───────────────────────────────────────────────
+                // ── Contenido ───────────────────────────────────────────
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Nombre
                         Text(
-                          product.name,
-                          style: const TextStyle(
+                          p.name,
+                          style: GoogleFonts.inter(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: AppTheme.textPrimary,
@@ -181,25 +189,9 @@ class _ProductCardState extends State<ProductCard>
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        // Subtítulo
-                        if (product.subtitle != null) ...[
-                          const SizedBox(height: 3),
-                          Text(
-                            product.subtitle!,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              color: AppTheme.textSecondary,
-                              fontWeight: FontWeight.w400,
-                              height: 1.3,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-
                         const Spacer(),
 
-                        // Precio / CTA Solicitar Oferta
+                        // Precio o CTA
                         if (isScanner)
                           Container(
                             width: double.infinity,
@@ -212,7 +204,8 @@ class _ProductCardState extends State<ProductCard>
                               borderRadius: BorderRadius.circular(9),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFFE65100).withValues(alpha: 0.3),
+                                  color: const Color(0xFFE65100)
+                                      .withValues(alpha: 0.3),
                                   blurRadius: 8,
                                   offset: const Offset(0, 3),
                                 ),
@@ -236,57 +229,42 @@ class _ProductCardState extends State<ProductCard>
                               ],
                             ),
                           )
-                        else if (product.price != null)
-                          Text(
-                            product.formattedPrice,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppTheme.primary,
-                            ),
-                          )
                         else
-                          const Text(
-                            'Consultar precio',
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                              color: AppTheme.textSecondary,
-                            ),
-                          ),
-
-                        // Financiación (solo no-escáneres)
-                        if (!isScanner && product.financing != null) ...[
-                          const SizedBox(height: 4),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const Icon(Icons.credit_card_rounded,
-                                  size: 10, color: AppTheme.badgeGreen),
-                              const SizedBox(width: 3),
-                              Expanded(
+                              Text(
+                                _euro(price),
+                                style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppTheme.primary,
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 2),
                                 child: Text(
-                                  product.financing!,
-                                  style: const TextStyle(
-                                    fontSize: 9,
-                                    color: AppTheme.badgeGreen,
-                                    fontWeight: FontWeight.w600,
+                                  widget.priceMode.toUpperCase(),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppTheme.textHint,
+                                    letterSpacing: 0.6,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
-                        ],
 
                         const SizedBox(height: 9),
 
-                        // Botón WhatsApp mejorado
+                        // Botón WhatsApp
                         SizedBox(
                           width: double.infinity,
                           height: 36,
                           child: ElevatedButton(
-                            onPressed: widget.onWhatsApp,
+                            onPressed: _openWhatsApp,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppTheme.whatsapp,
                               foregroundColor: Colors.white,
@@ -325,31 +303,74 @@ class _ProductCardState extends State<ProductCard>
   }
 }
 
-class _BadgeChip extends StatelessWidget {
-  final String label;
+class _Placeholder extends StatelessWidget {
+  final DashboardCategory cat;
   final Color color;
-
-  const _BadgeChip({required this.label, required this.color});
+  const _Placeholder({required this.cat, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            color.withValues(alpha: 0.08),
+            color.withValues(alpha: 0.02),
+          ],
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(cat.icon, style: const TextStyle(fontSize: 40)),
+            const SizedBox(height: 4),
+            Text(
+              cat.label,
+              style: GoogleFonts.inter(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Pill extends StatelessWidget {
+  final String label;
+  final Color color;
+  final bool inverted;
+  const _Pill({
+    required this.label,
+    required this.color,
+    this.inverted = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+      decoration: BoxDecoration(
+        color: inverted ? Colors.white.withValues(alpha: 0.95) : color,
         borderRadius: BorderRadius.circular(7),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.45),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: Colors.black.withValues(alpha: 0.12),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white,
+        style: GoogleFonts.inter(
+          color: inverted ? color : Colors.white,
           fontSize: 9,
           fontWeight: FontWeight.w800,
           letterSpacing: 0.3,

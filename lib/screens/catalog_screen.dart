@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import '../utils/url_helper.dart';
-import '../data/products_data.dart';
-import '../models/category.dart';
-import '../models/product.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../data/dashboard_catalog.dart';
 import '../theme/app_theme.dart';
-import '../widgets/product_card.dart';
-import 'product_detail_screen.dart';
+import '../widgets/dashboard_product_card.dart';
+import 'dashboard_product_detail_screen.dart';
 
+/// Catálogo unificado basado 100% en [DashboardCatalog] (117 SKUs reales).
+/// Conserva la UX clásica: chips de categoría arriba + grid de cards.
+/// Acepta [initialCategory] con IDs legacy (scanner, fresadora, cbct, etc.)
+/// gracias a un mapeo interno.
 class CatalogScreen extends StatefulWidget {
   final String? initialCategory;
   const CatalogScreen({super.key, this.initialCategory});
@@ -17,20 +20,34 @@ class CatalogScreen extends StatefulWidget {
 
 class _CatalogScreenState extends State<CatalogScreen>
     with SingleTickerProviderStateMixin {
+  // 'all' => mostrar todo
   String _selectedCategory = 'all';
-  String _searchQuery = '';
+  String _query = '';
   final TextEditingController _searchCtrl = TextEditingController();
   final FocusNode _searchFocus = FocusNode();
   bool _searchFocused = false;
-  late AnimationController _listAnimCtrl;
+  late final AnimationController _listAnim;
+
+  /// Mapeo de IDs legacy → IDs reales del DashboardCatalog.
+  /// Permite que home_screen siga llamando con 'fresadora', 'cbct', etc.
+  static const Map<String, String> _legacyIdMap = {
+    'fresadora': 'mill',
+    'cbct': 'xray',
+    'cadcam': 'material',
+    'sillon': 'unit',
+    'impresora': 'printer',
+    // ids que ya coinciden: 'scanner', 'pack', 'soft', 'fotogram', 'other'
+  };
+
+  String _normalizeCatId(String id) => _legacyIdMap[id] ?? id;
 
   @override
   void initState() {
     super.initState();
     if (widget.initialCategory != null) {
-      _selectedCategory = widget.initialCategory!;
+      _selectedCategory = _normalizeCatId(widget.initialCategory!);
     }
-    _listAnimCtrl = AnimationController(
+    _listAnim = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 350),
     )..forward();
@@ -43,57 +60,73 @@ class _CatalogScreenState extends State<CatalogScreen>
   void dispose() {
     _searchCtrl.dispose();
     _searchFocus.dispose();
-    _listAnimCtrl.dispose();
+    _listAnim.dispose();
     super.dispose();
   }
 
-  List<Product> get _filteredProducts {
-    if (_searchQuery.isNotEmpty) return ProductData.search(_searchQuery);
-    return ProductData.byCategory(_selectedCategory);
+  List<DashboardProduct> get _filtered {
+    final q = _query.trim().toLowerCase();
+    return DashboardCatalog.products.where((p) {
+      if (_selectedCategory != 'all' && p.cat != _selectedCategory) {
+        return false;
+      }
+      if (q.isEmpty) return true;
+      return p.name.toLowerCase().contains(q) ||
+          p.sub.toLowerCase().contains(q) ||
+          p.id.toLowerCase().contains(q);
+    }).toList();
   }
 
   void _selectCategory(String id) {
+    HapticFeedback.selectionClick();
     setState(() => _selectedCategory = id);
-    _listAnimCtrl.reset();
-    _listAnimCtrl.forward();
+    _listAnim
+      ..reset()
+      ..forward();
   }
-
-  Future<void> _openWhatsApp(String url) async => openUrl(url);
 
   @override
   Widget build(BuildContext context) {
-    final categories = ProductCategory.categories;
-    final products = _filteredProducts;
+    final products = _filtered;
+    final totalSkus = DashboardCatalog.products.length;
+    final brands = DashboardCatalog.brands.length;
 
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
         backgroundColor: AppTheme.surface,
         elevation: 0,
-        title: const Text(
-          'Catálogo',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        titleSpacing: 16,
+        title: Row(
+          children: [
+            Text(
+              'Catálogo',
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                color: AppTheme.textPrimary,
+                letterSpacing: -0.4,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: AppTheme.primary.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                '${ProductData.products.length} productos',
-                style: const TextStyle(
-                  fontSize: 11,
+                '$totalSkus SKUs',
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
                   color: AppTheme.primary,
-                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3,
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(height: 1, color: AppTheme.divider),
@@ -101,176 +134,158 @@ class _CatalogScreenState extends State<CatalogScreen>
       ),
       body: Column(
         children: [
-          // ── Buscador premium ────────────────────────────────────────────
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              color: AppTheme.surface,
-              boxShadow: _searchFocused
-                  ? [BoxShadow(
-                      color: AppTheme.primary.withValues(alpha: 0.08),
-                      blurRadius: 12, offset: const Offset(0, 4))]
-                  : [],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          // ── Search ─────────────────────────────────────────────────
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              decoration: BoxDecoration(
+                color: AppTheme.surface,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: _searchFocused
+                      ? AppTheme.primary
+                      : AppTheme.divider,
+                  width: _searchFocused ? 1.6 : 1,
+                ),
+                boxShadow: _searchFocused
+                    ? [
+                        BoxShadow(
+                          color: AppTheme.primary.withValues(alpha: 0.10),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : null,
+              ),
               child: TextField(
                 controller: _searchCtrl,
                 focusNode: _searchFocus,
-                onChanged: (v) {
-                  setState(() => _searchQuery = v);
-                  _listAnimCtrl.reset();
-                  _listAnimCtrl.forward();
-                },
+                onChanged: (v) => setState(() => _query = v),
+                style: GoogleFonts.inter(fontSize: 14),
                 decoration: InputDecoration(
-                  hintText: '🔍  Buscar escáner, fresadora, CBCT...',
-                  hintStyle: const TextStyle(color: AppTheme.textHint, fontSize: 13),
-                  prefixIcon: const Icon(Icons.search_rounded,
-                      color: AppTheme.textHint, size: 20),
-                  suffixIcon: _searchQuery.isNotEmpty
+                  hintText: 'Buscar producto, marca, ref…',
+                  hintStyle: GoogleFonts.inter(
+                    fontSize: 13,
+                    color: AppTheme.textHint,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: _searchFocused
+                        ? AppTheme.primary
+                        : AppTheme.textHint,
+                    size: 20,
+                  ),
+                  suffixIcon: _query.isNotEmpty
                       ? IconButton(
-                          icon: const Icon(Icons.cancel_rounded,
-                              size: 18, color: AppTheme.textHint),
+                          icon: const Icon(Icons.close_rounded, size: 18),
                           onPressed: () {
-                            setState(() {
-                              _searchQuery = '';
-                              _searchCtrl.clear();
-                            });
-                            _listAnimCtrl.reset();
-                            _listAnimCtrl.forward();
+                            _searchCtrl.clear();
+                            setState(() => _query = '');
                           },
                         )
                       : null,
+                  filled: false,
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 4, vertical: 14),
                 ),
               ),
             ),
           ),
 
-          // ── Filtros de categoría ────────────────────────────────────────
-          if (_searchQuery.isEmpty) ...[
-            Container(
-              color: AppTheme.surface,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 40,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
-                      separatorBuilder: (_, __) => const SizedBox(width: 8),
-                      itemBuilder: (ctx, i) {
-                        final cat = categories[i];
-                        final isSelected = _selectedCategory == cat.id;
-                        return GestureDetector(
-                          onTap: () => _selectCategory(cat.id),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 220),
-                            curve: Curves.easeOutCubic,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? AppTheme.primary
-                                  : AppTheme.surfaceVariant,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: isSelected
-                                    ? AppTheme.primary
-                                    : AppTheme.divider,
-                              ),
-                              boxShadow: isSelected
-                                  ? [BoxShadow(
-                                      color: AppTheme.primary.withValues(alpha: 0.25),
-                                      blurRadius: 8, offset: const Offset(0, 3))]
-                                  : [],
-                            ),
-                            child: Text(
-                              '${cat.icon} ${cat.name}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: isSelected
-                                    ? FontWeight.w700
-                                    : FontWeight.w500,
-                                color: isSelected
-                                    ? Colors.white
-                                    : AppTheme.textSecondary,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(height: 1, color: AppTheme.divider),
-                ],
-              ),
-            ),
-          ],
-
-          // ── Header resultados ───────────────────────────────────────────
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 10, 16, 4),
-            child: Row(
+          // ── Chips de categoría ─────────────────────────────────────
+          SizedBox(
+            height: 38,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 200),
-                  child: Text(
-                    key: ValueKey(products.length),
-                    '${products.length} producto${products.length != 1 ? 's' : ''}',
-                    style: const TextStyle(
-                      fontSize: 12, color: AppTheme.textSecondary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                _CategoryChip(
+                  icon: '🔍',
+                  label: 'Todos',
+                  selected: _selectedCategory == 'all',
+                  onTap: () => _selectCategory('all'),
                 ),
-                if (_searchQuery.isNotEmpty) ...[
-                  const SizedBox(width: 6),
-                  Text('para "$_searchQuery"',
-                    style: const TextStyle(
-                      fontSize: 12, color: AppTheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                for (final c in DashboardCatalog.categories)
+                  _CategoryChip(
+                    icon: c.icon,
+                    label: c.label,
+                    color: c.color,
+                    selected: _selectedCategory == c.id,
+                    onTap: () => _selectCategory(c.id),
                   ),
-                ],
               ],
             ),
           ),
 
-          // ── Grid de productos ───────────────────────────────────────────
+          // ── Stats bar ──────────────────────────────────────────────
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+            child: Row(
+              children: [
+                Icon(Icons.inventory_2_outlined,
+                    size: 13, color: AppTheme.textSecondary),
+                const SizedBox(width: 4),
+                Text(
+                  '${products.length} ${products.length == 1 ? "resultado" : "resultados"}',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  width: 3,
+                  height: 3,
+                  decoration: const BoxDecoration(
+                    color: AppTheme.textHint,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '$brands marcas · $totalSkus SKUs totales',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    color: AppTheme.textHint,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // ── Grid ───────────────────────────────────────────────────
           Expanded(
             child: products.isEmpty
-                ? _EmptyState(query: _searchQuery)
-                : AnimatedBuilder(
-                    animation: _listAnimCtrl,
-                    builder: (_, child) => FadeTransition(
-                      opacity: _listAnimCtrl,
-                      child: child,
-                    ),
+                ? _EmptyState(query: _query)
+                : FadeTransition(
+                    opacity: _listAnim,
                     child: GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 4, 16, 28),
-                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.68,
+                        childAspectRatio: 0.66,
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
                       ),
                       itemCount: products.length,
-                      itemBuilder: (ctx, i) => ProductCard(
-                        product: products[i],
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                ProductDetailScreen(product: products[i]),
+                      itemBuilder: (ctx, i) {
+                        final p = products[i];
+                        return DashboardProductCard(
+                          product: p,
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  DashboardProductDetailScreen(product: p),
+                            ),
                           ),
-                        ),
-                        onWhatsApp: () =>
-                            _openWhatsApp(products[i].whatsappUrl),
-                      ),
+                        );
+                      },
                     ),
                   ),
           ),
@@ -280,6 +295,71 @@ class _CatalogScreenState extends State<CatalogScreen>
   }
 }
 
+// ── Chip de categoría ────────────────────────────────────────────────
+class _CategoryChip extends StatelessWidget {
+  final String icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  final Color? color;
+
+  const _CategoryChip({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = color ?? AppTheme.primary;
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: selected ? c : AppTheme.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: selected ? c : AppTheme.divider,
+              width: 1,
+            ),
+            boxShadow: selected
+                ? [
+                    BoxShadow(
+                      color: c.withValues(alpha: 0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(icon, style: const TextStyle(fontSize: 14)),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: selected ? Colors.white : AppTheme.textPrimary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Empty state ──────────────────────────────────────────────────────
 class _EmptyState extends StatelessWidget {
   final String query;
   const _EmptyState({required this.query});
@@ -287,39 +367,30 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                color: AppTheme.surfaceVariant,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Icon(Icons.search_off_rounded,
-                  size: 36, color: AppTheme.textHint),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('🔎', style: TextStyle(fontSize: 56)),
+          const SizedBox(height: 12),
+          Text(
+            query.isNotEmpty
+                ? 'Sin resultados para "$query"'
+                : 'Sin productos en esta categoría',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: AppTheme.textSecondary,
             ),
-            const SizedBox(height: 16),
-            Text(
-              query.isNotEmpty
-                  ? 'Sin resultados para\n"$query"'
-                  : 'Sin productos en esta categoría',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 15, fontWeight: FontWeight.w600,
-                color: AppTheme.textPrimary, height: 1.4,
-              ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Prueba con otra marca o categoría',
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              color: AppTheme.textHint,
             ),
-            const SizedBox(height: 8),
-            const Text(
-              'Prueba con otro término o categoría',
-              style: TextStyle(fontSize: 13, color: AppTheme.textSecondary),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
